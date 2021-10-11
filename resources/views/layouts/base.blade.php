@@ -98,6 +98,9 @@
                                             <a title="Quản lý thời gian sale" href="{{ route('admin.sale') }}">Quản lý thời gian khuyến mãi</a>
                                         </li>
                                         <li class="menu-item">
+                                            <a title="Quản lý mã giảm giá" href="{{ route('admin.coupons') }}">Quản lý mã khuyến mãi</a>
+                                        </li>
+                                        <li class="menu-item">
                                             <a title="Logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">Logout</a>
                                         </li>
                                         <form id="form-logout" method="POST" action="{{ route('logout') }}">
@@ -144,7 +147,7 @@
                             @livewire('wish-list-count-component')
 
                             @livewire('cart-count-component')
-                            
+
                             <div class="wrap-icon-section show-up-after-1024">
                                 <a href="#" class="mobile-navigation">
                                     <span></span>
@@ -469,7 +472,7 @@
     <script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('assets/js/functions.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+
     <script src="https://cdn.tiny.cloud/1/eovfy0x0me91588prj1gvc4ss88ubsabp35or63sgedhbabe/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js" integrity="sha512-PDFb+YK2iaqtG4XelS5upP1/tFSmLUVJ/BVL8ToREQjsuXC5tyqEfAQV7Ca7s8b7RLHptOmTJak9jxlA2H9xQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

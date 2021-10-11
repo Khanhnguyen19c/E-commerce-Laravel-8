@@ -10,10 +10,13 @@ use App\Http\Livewire\User\UserDashboardComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
+use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
+use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
+use App\Http\Livewire\Admin\AdminEditCouponComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
@@ -89,4 +92,9 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
 
     //Sale
     route::get('/admin/sale',AdminSaleComponent::class)->name('admin.sale');
+
+    //Coupons
+    route::get('/admin/coupons',AdminCouponsComponent::class)->name('admin.coupons');
+    route::get('admin/coupon/add',AdminAddCouponComponent::class)->name('admin.addcoupon');
+    route::get('admin/coupon/edit/{coupon_id}',AdminEditCouponComponent::class)->name('admin.editcoupon');
 });
