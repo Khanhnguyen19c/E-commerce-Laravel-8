@@ -81,7 +81,7 @@
                                 @foreach ($lproducts as $lproduct)
                                 <div class="product product-style-2 equal-elem ">
                                     <div class="product-thumnail">
-                                        <a href="{{ route('product.details',['slug'=>$lproduct->slug])}}" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                                        <a href="{{ route('product.details',['slug'=>$lproduct->slug])}}" title="{{ $lproduct->name }}">
                                             <figure><img src="{{ asset('assets/images/products') }}/{{$lproduct->image}}" width="800" height="800" alt="{{ $lproduct->name }}"></figure>
                                         </a>
                                         <div class="group-flash">

@@ -21,11 +21,17 @@ use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
 use App\Http\Livewire\Admin\AdminHomeSliderComponent;
+use App\Http\Livewire\Admin\AdminOrderComponent;
+use App\Http\Livewire\Admin\AdminOrderDetailsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\NotificationDemo;
+use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\User\UserOrdersComponent;
+use App\Http\Livewire\User\UserOrdersDetailsComponent;
+use App\Http\Livewire\User\UserReviewComponent;
 use App\Http\Livewire\WishlistComponent;
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +64,8 @@ route::get('/search',SearchComponent::class)->name('product.seach');
 
 route::get('/wishlist',WishlistComponent::class)->name('product.wishlist');
 
+route::get('thank-you',ThankyouComponent::class)->name('thankyou');
+
     Route::get('auth/google', [SocialController::class, 'redirectToGoogle']);
     Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
     Route::get('auth/facebook', [SocialController::class, 'redirectToFacebook']);
@@ -66,6 +74,12 @@ route::get('/wishlist',WishlistComponent::class)->name('product.wishlist');
     Route::middleware(['auth:sanctum','verified'])->group(function(){
     route::get('user/dashboard',UserDashboardComponent::class)->name('user.dashboard');
 
+    //user Orders
+    route::get('/user/orders',UserOrdersComponent::class)->name('user.orders');
+    route::get('/user/orders/{order_id}',UserOrdersDetailsComponent::class)->name('user.orderdetails');
+
+    //user reviews
+    route::get('/user/review/{order_item_id}',UserReviewComponent::class)->name('user.review');
     });
 
  //for admin
@@ -97,4 +111,8 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     route::get('/admin/coupons',AdminCouponsComponent::class)->name('admin.coupons');
     route::get('admin/coupon/add',AdminAddCouponComponent::class)->name('admin.addcoupon');
     route::get('admin/coupon/edit/{coupon_id}',AdminEditCouponComponent::class)->name('admin.editcoupon');
+
+    //Oders
+    route::get('admin/orders',AdminOrderComponent::class)->name('admin.orders');
+    route::get('admin/orders/{order_id}',AdminOrderDetailsComponent::class)->name('admin.orderdetails');
 });

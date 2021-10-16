@@ -54,7 +54,7 @@
 						<ul class="product-list grid-products equal-container">
                         @php
                         $witems = Cart::instance('wishlist')->content()->pluck('id');
-                        @endphp   
+                        @endphp
                         @foreach ($products as $product)
 							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
 								<div class="product product-style-3 equal-elem ">
@@ -66,14 +66,26 @@
 									</div>
 									<div class="product-info">
                                     <a href="{{ route('product.details',['slug'=>$product->slug])}}"><span>{{ $product->name }}</span></a>
-										<div class="wrap-price"><span class="product-price"> {{ number_format($product->regular_price,0,',',',') }}<span class="price_unit">đ</span> </span></div>
-										<a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->regular_price }})">Thêm giỏ hàng</a>
+                                    @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                         <div class="wrap-price">
+                                         <span class="product-price"> {{ number_format($product->sale_price,0,',',',') }} đ</span>
+                                            <span class="product-price" style="text-decoration: line-through;"> {{ number_format($product->regular_price,0,',',',') }} đ</span></>
+                                        </div>
+                                        <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->sale_price }})">Thêm giỏ hàng</a>
+                                        @else
+                                        <div class="wrap-price">
+                                        <span class="product-price"> {{ number_format($product->regular_price,0,',',',') }} đ</span>
+                                        </div>
+                                        <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->regular_price }})">Thêm giỏ hàng</a>
+                                        @endif
+
+
                                     <div class="product-wish">
                                     @if ($witems->contains($product->id))
                                     <a href="#" wire:click.prevent="removeFromWishlist({{$product->id}})"><i class="fa fa-heart fill-heart"></i></a>
                                     @else
                                     <a href="#" wire:click.prevent="addToWishlist({{$product->id}},'{{ $product->name }}',{{ $product->regular_price }})"><i class="fa fa-heart"></i></a>
-                                    @endif  
+                                    @endif
                                 </div>
                                     </div>
 								</div>
@@ -110,15 +122,7 @@
 						<div class="widget-content">
 							<ul class="list-style vertical-list list-limited" data-show="6">
 								<li class="list-item"><a class="filter-link active" href="#">Fashion Clothings</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Laptop Batteries</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Printer & Ink</a></li>
-								<li class="list-item"><a class="filter-link " href="#">CPUs & Prosecsors</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Sound & Speaker</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Shop Smartphone & Tablets</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">Printer & Ink</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">CPUs & Prosecsors</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">Sound & Speaker</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">Shop Smartphone & Tablets</a></li>
+
 								<li class="list-item"><a data-label='Show less<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Show more<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
 							</ul>
 						</div>

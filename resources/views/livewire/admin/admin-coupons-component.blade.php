@@ -39,7 +39,8 @@
                                     <th>Mã Coupon</th>
                                     <th>Kiểu giảm giá</th>
                                     <th>Giá khuyến mãi</th>
-                                    <th>Giá trị giỏ hàng</th>
+                                    <th>Điều kiện giỏ hàng từ</th>
+                                    <th>Ngày hết hạn</th>
                                     <th>Quản lý</th>
                                 </tr>
                             </thead>
@@ -56,6 +57,7 @@
                                         <td>{{ number_format($coupon->value,0,',','.')}} %</td>
                                     @endif
                                     <td>{{ number_format($coupon->cart_value,0,',','.')}}đ</td>
+                                    <td>{{ $coupon->expiry_date }}</td>
                                     <td>
                                         <a href="{{ route('admin.editcoupon',['coupon_id'=>$coupon->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a>
                                         <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá mã này không?') || event.stopImmediatePropagation()" wire:click.prevent="DeleteCoupon({{ $coupon->id}})" style="margin-left: 10px; color:red"><i class="fa fa-times fa-2x"></i> </a>

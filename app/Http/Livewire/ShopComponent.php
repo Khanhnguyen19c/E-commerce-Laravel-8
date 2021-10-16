@@ -7,6 +7,8 @@ use Livewire\WithPagination;
 use App\Models\Products;
 use Cart;
 use App\Models\Category;
+use App\Models\Sale;
+
 class ShopComponent extends Component
 {
     public $sorting;
@@ -60,7 +62,7 @@ class ShopComponent extends Component
             $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pagesize);
         }
         $categories = Category::all();
-
-        return view('livewire.shop-component',['products' => $products,'categories'=> $categories])->layout("layouts.base");
+        $sale = Sale::find(1);
+        return view('livewire.shop-component',['products' => $products,'categories'=> $categories,'sale' => $sale])->layout("layouts.base");
     }
 }

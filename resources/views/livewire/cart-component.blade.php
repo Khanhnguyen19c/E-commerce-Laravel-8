@@ -1,5 +1,14 @@
 <main id="main" class="main-site">
-
+<style>
+    .total{
+        color: white !important;
+        font-weight: bold;
+        font-size: 22px;
+        border-radius: 5px;
+        padding: 5px 10px;
+        text-decoration: underline;
+    }
+</style>
     <div class="container">
 
         <div class="wrap-breadcrumb">
@@ -9,6 +18,8 @@
             </ul>
         </div>
         <div class=" main-content-area">
+            @if (Cart::instance('cart')->count() > 0)
+            
             <div class="wrap-iten-in-cart">
                 @if (Session::has('success_message'))
                 <div class="alert alert-success">
@@ -66,17 +77,15 @@
                     <p class="summary-info"><span class="title">Tổng cộng: </span><b class="index">{{ Cart::instance('cart')->subtotal(0, ',',',')}}đ </b></p>
                     @if (Session::has('coupon'))
                     <p class="summary-info"><span class="title">Mã Giảm : {{ Session::get('coupon')['code'] }} <a href="#" wire:click.prevent="removeCoupon"><i class="fa fa-times text-danger"></i></a></span><b class="index">-{{ number_format($discount,0,',',',') }}đ</b></p>
-                    <p class="summary-info"><span class="title">Tổng cộng tiền giảm: </span><b class="index">{{ number_format($subtotalAfterDiscount,0,',',',') }}đ</b></p>
+                    <p class="summary-info"><span class="title">Tiền đã giảm còn: </span><b class="index">{{ number_format($subtotalAfterDiscount,0,',',',') }}đ</b></p>
                     <p class="summary-info"><span class="title">Thuế: ({{ config('cart.tax') }}%)</span><b class="index">+{{ number_format($taxAfterDiscount,0,',',',') }}đ</b></p>
-                    <p class="summary-info total-info "><span class="title">Thành Tiền: </span><b class="index">{{ number_format($totalAfterDiscount,0,',',',') }}đ</b></p>
+                    <p class="summary-info total-info "><span class="title">Thành Tiền: </span><b class="index btn btn-danger total">{{ number_format($totalAfterDiscount,0,',',',') }}đ</b></p>
                     @else
                     <p class="summary-info"><span class="title">Thuế: </span><b class="index">{{ Cart::instance('cart')->tax(0, ',','.')}}đ</b></p>
                     <p class="summary-info"><span class="title">Phí Ship</span><b class="index">Free Shipping</b></p>
-                    <p class="summary-info total-info "><span class="title">Thành Tiền: </span><b class="index">{{ Cart::instance('cart')->total(0, ',','.') }}đ</b></p>
+                    <p class="summary-info total-info "><span class="title">Thành Tiền: </span><b class="index btn btn-danger total">{{ Cart::instance('cart')->total(0, ',','.') }}đ</b></p>
                     @endif
-
                 </div>
-
                 <div class="checkout-info">
                     @if (!Session::has('coupon'))
                     <label class="checkbox-field">
@@ -98,7 +107,7 @@
                     </div>
                     @endif
                     @endif
-                    <a class="btn btn-checkout" href="checkout.html">Thanh toán</a>
+                    <a class="btn btn-checkout" href="#" wire:click.prevent="checkout">Thanh Toán</a>
                     <a class="link-to-shop" href="shop.html">Tiếp tục mua hàng<i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="update-clear">
@@ -106,7 +115,14 @@
                     <a class="btn btn-update" href="#">Cập nhật Giỏ hàng</a>
                 </div>
             </div>
+            @else
+            <div class="text-center" style="padding: 30px 0;">
+                <h1>Giỏ hàng của bạn đang trống!</h1>
+                <p>Thêm sản phẩm vào ngay bây giờ</p>
+                <a href="{{ route('shop') }}" class="btn btn-success">Mua Sắm Ngay</a>
+            </div>
 
+            @endif
             <div class=" main-content-area">
                 <div class="wrap-iten-in-cart">
                     <h3 class="title-box" style="border-bottom: 1px solid; padding-bottom:15px;">{{ Cart::instance('saveForLater')->count() }} Sản phẩm đã được lưu</h3>

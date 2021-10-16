@@ -34,9 +34,9 @@ class DetailsComponent extends Component
         Cart::instance('wishlist')->add($product_id,$product_name,1,$product_price)->associate('App\Models\Products');
         $this->emitTo('wish-list-count-component','refreshComponent');
         }
-    
-        //remove wishlist
-        public function removeFromWishlist($product_id){
+
+    //remove wishlist
+    public function removeFromWishlist($product_id){
             foreach(Cart::instance('wishlist')->content() as $witem){
                 if($witem->id == $product_id){
                     Cart::instance('wishlist')->remove($witem->rowId);
@@ -44,7 +44,8 @@ class DetailsComponent extends Component
                     return;
                 }
             }
-        }
+    }
+
     public function render()
     {
         $product = Products::where('slug',$this->slug)->first();

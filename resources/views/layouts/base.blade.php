@@ -5,21 +5,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Trang Chủ</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flexslider.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css" integrity="sha512-cOGz9gyEibwgs1MVDCcfmQv6mPyUkfvrV9TsRbTuOA12SQnLzBROihf6/jK57u0YxzlxosBFunSt4V75K6azMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" integrity="sha512-KRrxEp/6rgIme11XXeYvYRYY/x6XPGwk0RsIC6PyMRc072vj2tcjBzFmn939xzjeDhj0aDO7TDMd7Rbz3OEuBQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @livewireStyles
 </head>
@@ -60,7 +61,7 @@
                                     </ul>
                                 </li>
                                 <li class="menu-item menu-item-has-children parent">
-                                    <a title="Dollar (USD)" href="#">VietNam (Đ)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                    <a title="Dollar (USD)" href="#">VietNam (VNĐ)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="submenu curency">
                                         <li class="menu-item">
                                             <a title="Pound (GBP)" href="#">Pound (GBP)</a>
@@ -81,6 +82,9 @@
                                     <ul class="submenu curency">
                                         <li class="menu-item">
                                             <a title="Dashboard" href="{{ route('admin.dashboard') }}">Trang chủ</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a title="Quản lý đơn hàng" href="{{ route('admin.orders') }}">Quản lý đơn hàng</a>
                                         </li>
                                         <li class="menu-item">
                                             <a title="Danh mục sản phẩm" href="{{ route('admin.categories') }}">Quản lý danh mục</a>
@@ -116,6 +120,9 @@
                                             <a title="Dashboard" href="{{ route('user.dashboard') }}">Trang cá nhân</a>
                                         </li>
                                         <li class="menu-item">
+                                            <a title="Đơn hàng của tôi" href="{{ route('user.orders') }}">Đơn Hàng của tôi</a>
+                                        </li>
+                                        <li class="menu-item">
                                             <a title="Logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">Logout</a>
                                         </li>
                                         <form id="form-logout" method="POST" action="{{ route('logout') }}">
@@ -125,8 +132,8 @@
                                 </li>
                                 @endif
                                 @else
-                                <li class="menu-item"><a title="Register or Login" href="{{route('login')}}">Login</a></li>
-                                <li class="menu-item"><a title="Register or Login" href="{{route('register')}}">Register</a></li>
+                                <li class="menu-item"><a title="Register or Login" href="{{route('login')}}">Đăng Nhập</a></li>
+                                <li class="menu-item"><a title="Register or Login" href="{{route('register')}}">Đăng Ký</a></li>
                                 @endif
                                 @endif
                             </ul>
@@ -164,11 +171,11 @@
                     <div class="header-nav-section">
                         <div class="container">
                             <ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info">
-                                <li class="menu-item"><a href="#" class="link-term">Weekly Featured</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Hot Sale items</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Top new items</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Top Selling</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Top rated items</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="#" class="link-term">Nổi bật hàng tuần</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="#" class="link-term">Các sản phẩm giảm giá</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="#" class="link-term">Các sản phẩm mới nhất</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="#" class="link-term">Bán chạy nhât</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="#" class="link-term">Được đánh giá cao nhất</a><span class="nav-label hot-label">hot</span></li>
                             </ul>
                         </div>
                     </div>
@@ -186,10 +193,10 @@
                                     <a href="{{ route('shop') }}" class="link-term mercado-item-title">Shop</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="/cart" class="link-term mercado-item-title">Cart</a>
+                                    <a href="{{ route('product.cart') }}" class="link-term mercado-item-title">Cart</a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="/checkout" class="link-term mercado-item-title">Checkout</a>
+                                    <a href="{{ route('checkout') }}" class="link-term mercado-item-title">Checkout</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="contact-us.html" class="link-term mercado-item-title">Contact Us</a>
@@ -478,9 +485,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js" integrity="sha512-PDFb+YK2iaqtG4XelS5upP1/tFSmLUVJ/BVL8ToREQjsuXC5tyqEfAQV7Ca7s8b7RLHptOmTJak9jxlA2H9xQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js" integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     {!! Toastr::message() !!}
-
     @livewireScripts
+    <div id="paypal-button"></div>
+    <!-- paypal -->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <!-- thanh toán online -->
+
+
     @stack('scripts')
 </body>
 

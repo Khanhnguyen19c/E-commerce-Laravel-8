@@ -59,10 +59,17 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Giá trị giỏ hàng</label>
+                                <label class="col-md-4 control-label">Điều kiện giỏ hàng</label>
                                 <div class="col-md-4">
                                     <input type="number" placeholder="giá trị của giỏ hàng" class="form-control input-md" wire:model="cart_value">
                                     @error('cart_value') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Ngày hết hạn</label>
+                                <div class="col-md-4" wire:ignore>
+                                    <input type="text" placeholder="ngày hết hạn sử dụng" id="expiry_date" class="form-control input-md" wire:model="expiry_date">
+                                    @error('expiry_date') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
                             <div class="form-group">
@@ -79,3 +86,16 @@
     </div>
 </div>
 
+@push('scripts')
+    <script>
+        $(function(){
+            $('#expiry_date').datetimepicker({
+                format: 'Y-MM-DD'
+            })
+            .on('dp.change',function(ev){
+                var data = $('#expiry_date').val();
+                @this.set('expiry_date',data);
+            })
+        })
+    </script>
+@endpush

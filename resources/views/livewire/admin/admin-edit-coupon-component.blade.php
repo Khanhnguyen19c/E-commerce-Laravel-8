@@ -65,6 +65,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-md-4 control-label">Ngày hết hạn</label>
+                                <div class="col-md-4" wire:ignore>
+                                    <input type="text" placeholder="ngày hết hạn sử dụng" id="expiry_date" class="form-control input-md" wire:model="expiry_date">
+                                    @error('expiry_date') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">Thêm Mới</button>
@@ -78,3 +85,16 @@
     </div>
 </div>
 
+@push('scripts')
+    <script>
+        $(function(){
+            $('#expiry_date').datetimepicker({
+                format: 'Y-MM-DD'
+            })
+            .on('dp.change',function(ev){
+                var data = $('#expiry_date').val();
+                @this.set('expiry_date',data);
+            })
+        })
+    </script>
+@endpush
