@@ -3,14 +3,14 @@
         <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="{{ route('home') }}" class="link">home</a></li>
-                <li class="item-link"><span>Digital & Electronics</span></li>
+                <li class="item-link"><span>Kỹ thuật số & Điện tử</span></li>
             </ul>
         </div>
         <div class="row">
             @if(Cart::instance('wishlist')->content()->count() > 0 )
             <ul class="product-list grid-products equal-container">
                 @foreach (Cart::instance('wishlist')->content() as $item)
-                
+
                 <li class="col-lg-3 col-md-6 col-sm-6 col-xs-6 ">
                     <div class="product product-style-3 equal-elem ">
                         <div class="product-thumnail">

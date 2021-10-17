@@ -13,13 +13,13 @@
 
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="{{ route('home') }}" class="link">home</a></li>
-                <li class="item-link"><a href="{{ route('login') }}" class="link"><span>login</span></a></li>
+            <li class="item-link"><a href="{{ route('home')}}" class="link">Trang Chủ</a></li>
+                <li class="item-link"><a href="{{ route('login') }}" class="link"><span>Đăng nhập</span></a></li>
             </ul>
         </div>
         <div class=" main-content-area">
             @if (Cart::instance('cart')->count() > 0)
-            
+
             <div class="wrap-iten-in-cart">
                 @if (Session::has('success_message'))
                 <div class="alert alert-success">

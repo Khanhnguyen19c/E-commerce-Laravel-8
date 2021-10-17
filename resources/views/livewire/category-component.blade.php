@@ -4,7 +4,7 @@
 
 			<div class="wrap-breadcrumb">
 				<ul>
-					<li class="item-link"><a href="{{ route('home') }}" class="link">home</a></li>
+					<li class="item-link"><a href="{{ route('home') }}" class="link">Trang Chủ</a></li>
 					<li class="item-link"><span>Danh mục sản phẩm</span></li>
                     <li class="item-link"><span>{{ $category_name }}</span></li>
 				</ul>

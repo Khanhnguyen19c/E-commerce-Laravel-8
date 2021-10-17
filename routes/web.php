@@ -9,11 +9,13 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
+use App\Http\Livewire\AboutComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
+use App\Http\Livewire\Admin\AdminContactComponent;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponComponent;
@@ -25,10 +27,13 @@ use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailsComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
+use App\Http\Livewire\Admin\AdminSettingComponent;
 use App\Http\Livewire\CategoryComponent;
+use App\Http\Livewire\ContactComponent;
 use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\NotificationDemo;
 use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\User\UserChangePasswordComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
 use App\Http\Livewire\User\UserOrdersDetailsComponent;
 use App\Http\Livewire\User\UserReviewComponent;
@@ -66,6 +71,10 @@ route::get('/wishlist',WishlistComponent::class)->name('product.wishlist');
 
 route::get('thank-you',ThankyouComponent::class)->name('thankyou');
 
+route::get('contact-us',ContactComponent::class)->name('contact');
+
+route::get('about-us',AboutComponent::class)->name('about');
+
     Route::get('auth/google', [SocialController::class, 'redirectToGoogle']);
     Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
     Route::get('auth/facebook', [SocialController::class, 'redirectToFacebook']);
@@ -81,6 +90,9 @@ route::get('thank-you',ThankyouComponent::class)->name('thankyou');
     //user reviews
     route::get('/user/review/{order_item_id}',UserReviewComponent::class)->name('user.review');
     });
+
+    //user change password
+    route::get('/user/change-password',UserChangePasswordComponent::class)->name('user.changepassword');
 
  //for admin
 Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
@@ -115,4 +127,10 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     //Oders
     route::get('admin/orders',AdminOrderComponent::class)->name('admin.orders');
     route::get('admin/orders/{order_id}',AdminOrderDetailsComponent::class)->name('admin.orderdetails');
+
+    //contact
+    route::get('admin/contact-us',AdminContactComponent::class)->name('admin.contact');
+
+    //Setting
+    route::get('admin/settings',AdminSettingComponent::class)->name('admin.settings');
 });

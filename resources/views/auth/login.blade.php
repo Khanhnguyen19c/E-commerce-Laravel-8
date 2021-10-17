@@ -7,8 +7,8 @@
 
     <div class="wrap-breadcrumb">
         <ul>
-            <li class="item-link"><a href="#" class="link">home</a></li>
-            <li class="item-link"><span>login</span></li>
+            <li class="item-link"><a href="{{ route('home')}}" class="link">Trang Chủ</a></li>
+            <li class="item-link"><span>Đăng Nhập</span></li>
         </ul>
     </div>
     <div class="row">

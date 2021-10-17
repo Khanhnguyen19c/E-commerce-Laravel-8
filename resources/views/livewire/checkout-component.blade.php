@@ -4,7 +4,7 @@
 
         <div class="wrap-breadcrumb">
             <ul>
-                <li class="item-link"><a href="#" class="link">home</a></li>
+            <li class="item-link"><a href="{{ route('home')}}" class="link">Trang Chủ</a></li>
                 <li class="item-link"><span>Thanh Toán</span></li>
             </ul>
         </div>
@@ -209,7 +209,7 @@
                             </label>
                             <span class="text-danger">*Vui lòng thanh toán trước PayPal khi check vào Ô này</span>
                             <label class="payment-method">
-                           
+
                                 <input name="payment-method" value="paypal" type="radio" wire:model="paymentmode">
                                 <span>Paypal</span>
                                 <span class="payment-desc">Bạn có thể thanh toán bằng tín dụng của mình</span>
