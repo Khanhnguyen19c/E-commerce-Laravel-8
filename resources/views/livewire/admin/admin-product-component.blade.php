@@ -19,11 +19,14 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" style=" text-align: center;font-size: 18px;color: white;background-color: #7373ff;">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                         Danh Sách Sản Phẩm
                         </div>
                         <div class="col-md-4">
                             <a href="{{ route('admin.addproduct')}}" class="btn btn-success pull-right">Thêm sản phẩm</a>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Tìm Kiếm..." wire:model="searchProduct" />
                         </div>
                     </div>
 

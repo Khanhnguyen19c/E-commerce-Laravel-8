@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\OrderMail;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -10,6 +11,7 @@ use App\Models\Shipping;
 use App\Models\Transaction;
 use App\Models\Ward;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use PhpParser\Node\Stmt\Echo_;
 use Cart;
@@ -124,6 +126,9 @@ class CheckoutComponent extends Component
             $orderItem->order_id = $order->id;
             $orderItem->price = $item->price;
             $orderItem->quantity = $item->qty;
+            if($item->options){
+                $orderItem->options = serialize($item->options);
+            }
             $orderItem->save();
         };
         if($this->ship_to_different){
@@ -196,6 +201,7 @@ class CheckoutComponent extends Component
                 $this->thankyou = 0;
             }
         }
+        $this->sendOrderConfirmation($order);
 
    }
    public function resetCart(){
@@ -211,6 +217,10 @@ class CheckoutComponent extends Component
     $transaction->mode = $this->paymentmode;
     $transaction->status = $status;
     $transaction->save();
+   }
+
+   public function sendOrderConfirmation($order){
+       Mail::to($order->email)->send(new OrderMail($order));
    }
     public function mount()
     {

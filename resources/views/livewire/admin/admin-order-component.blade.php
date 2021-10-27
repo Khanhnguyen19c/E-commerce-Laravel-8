@@ -19,7 +19,7 @@
                         @if (Session::has('order_message'))
                             <div class="alert alert-success" role="alert">{{Session::get('order_message')}}</div>
                         @endif
-                    <table class="table table-striped">
+                        <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -43,9 +43,12 @@
                                         <td>{{$order->line}}</td>
                                         <td>{{number_format($order->total,0,',',',')}}đ</td>
                                         @if ($order->status =="ordered")
-                                        <td>Chưa xử lý</td>
+                                        <td><p class="btn btn-warning btn-sm">Chưa xử lý</p> </td>
+                                        @elseif($order->status =="delivered")
+                                        <td><p class="btn btn-success btn-sm">Đã giao hàng</p> </td>
                                         @else
-                                        <td>Đã thanh toán</td>
+                                        <td><p class="btn btn-danger btn-sm">Đã huỷ đơn</p> </td>
+
                                         @endif
                                         <td>{{$order->created_at}}</td>
                                         <td><a href="{{ route('admin.orderdetails',['order_id'=>$order]) }}" class="btn btn-info btn-sm">Xem chi Tiết</a></td>
@@ -55,8 +58,13 @@
                                                     <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu">
+                                                    @if ($order->status =="ordered" or $order->status =="canceled")
                                                     <li><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'delivered')">Đã giao hàng</a></li>
-                                                    <li><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Đã huỷ đơn</a></li>
+                                                    <li><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Huỷ đơn</a></li>
+                                                    @else
+                                                    <li><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Huỷ đơn</a></li>
+                                                    @endif
+
                                                 </ul>
                                             </div>
                                         </td>

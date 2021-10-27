@@ -99,7 +99,7 @@
                                 <label class="col-md-4 control-label">Hình Ảnh</label>
                                 <div class="col-md-4">
                                     <input type="file"class="input-file" wire:model="newImage">
-                                  
+
                                     @if ($newImage)
                                             <img src="{{$newImage->temporaryUrl() }}" width="120">
                                     @else
@@ -108,9 +108,29 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-md-4 control-label">Hình Ảnh Phụ</label>
+                                <div class="col-md-4">
+                                    <input type="file"class="input-file" wire:model="newImages" multiple>
+                                    @if ($newImages)
+                                        @foreach ($newImages as $newImage)
+                                            @if ($newImage)
+                                            <img src="{{$newImage->temporaryUrl() }}" width="120">
+                                            @endif
+                                        @endforeach
+
+                                    @else
+                                            @foreach ($images as $image)
+                                                @if ($image)
+                                                <img src="{{asset('assets/images/products') }}/{{$image}}" width="120">
+                                                @endif
+                                            @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-4 control-label">Thuộc Danh Mục</label>
                                 <div class="col-md-4">
-                                   <select class="form-control" wire:model="category_id">
+                                   <select class="form-control" wire:model="category_id" wire:change="changeSubcategory">
                                        <option value="">Chọn Danh Mục:</option>
                                        @foreach ($categories as $categories)
                                        <option value="{{ $categories->id }}">{{ $categories->name }}</option>
@@ -118,8 +138,48 @@
                                    </select>
                                    @error('category_id') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
-                     
                             </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Danh Mục Phụ</label>
+                                <div class="col-md-4">
+                                   <select class="form-control" wire:model="scategory_id">
+                                       <option value="0">Chọn Danh Mục</option>
+                                       @foreach ($scategories as $scategory)
+                                       <option value="{{ $scategory->id }}">{{ $scategory->name }}</option>
+                                       @endforeach
+                                   </select>
+                                   @error('scategory_id') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Thuộc tính sản phẩm</label>
+                                <div class="col-md-4">
+                                   <select class="form-control" wire:model="attr">
+                                       <option value="0">Chọn Thuộc Tính</option>
+                                       @foreach ($attributes as $attribute)
+                                       <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                                       @endforeach
+                                   </select>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-info" wire:click.prevent="add">Add</button>
+                                </div>
+                            </div>
+                            @foreach ($inputs as $key=>$value )
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">{{$attributes->where('id',$attribute_arr[$key])->first()->name}}</label>
+                                <div class="col-md-4">
+                                    <input type="text" placeholder="{{$attributes->where('id',$attribute_arr[$key])->first()->name}}" class="form-control input-md" wire:model="attribute_value.{{$value}}">
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-danger btn-sm" wire:click.prevent="remove({{$key}})">Loại bỏ</button>
+                                </div>
+                            </div>
+                            @endforeach
+
+                            
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Mô Tả Ngắn</label>
                                 <div class="col-md-8">
@@ -127,7 +187,7 @@
                                     @error('short_desc') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="form-group" wire:ignore>
                                 <label class="col-md-4 control-label">Mô Tả Sản Phẩm</label>
                                 <div class="col-md-8">

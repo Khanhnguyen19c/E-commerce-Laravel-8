@@ -155,6 +155,9 @@ class CartComponent extends Component
         }
         $this->setAmountForCheckout();
         $sale = Sale::find(1);
+        if(Auth::check()){
+            Cart::instance('cart')->store(Auth::user()->email);
+        }
         return view('livewire.cart-component', ['sale' => $sale])->layout("layouts.base");
     }
 }

@@ -37,7 +37,11 @@
                         <div class="product-name">
                             <a class="link-to-product" href="{{ route('product.details',['slug'=>$item->model->slug] )}}">{{ $item->model->name }}</a>
                         </div>
-
+                        @foreach($item->options as $key=>$value)
+                        <div style="vertical-align: middle; width:180px;">
+                            <p><b>{{$key}}: </b> {{$value}}</p>
+                        </div>
+                        @endforeach
                         @if ($item->model->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
                         <div class="price-field produtc-price">
                             <p class="price">{{ number_format($item->model->sale_price,0,',',',') }} đ</p>
@@ -142,15 +146,15 @@
                             <div class="product-name">
                                 <a class="link-to-product" href="{{ route('product.details',['slug'=>$item->model->slug] )}}">{{ $item->model->name }}</a>
                             </div>
-                            @if ($item->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
-                            <div class="price-field produtc-price">
-                                <p class="price">{{ number_format($item->model->sale_price,0,',',',') }} đ</p>
-                            </div>
-                            @else
-                            <div class="price-field produtc-price">
-                                <p class="price">{{ number_format($item->model->regular_price,0,',',',') }} đ</p>
-                            </div>
-                            @endif
+                            @if ($item->model->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                        <div class="price-field produtc-price">
+                            <p class="price">{{ number_format($item->model->sale_price,0,',',',') }} đ</p>
+                        </div>
+                        @else
+                        <div class="price-field produtc-price">
+                            <p class="price">{{ number_format($item->model->regular_price,0,',',',') }} đ</p>
+                        </div>
+                        @endif
                             <div class="quantity">
                                 <p class="text-center btn btn-primary"><a style="color:white;" href="#" wire:click.prevent="moveToCart('{{ $item->rowId }}')">Chuyển về giỏ hàng</a></p>
                             </div>

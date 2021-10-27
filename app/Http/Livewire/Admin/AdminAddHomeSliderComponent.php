@@ -15,30 +15,32 @@ class AdminAddHomeSliderComponent extends Component
     public $link;
     public $image;
     public $status;
+    public $type;
 
     public function mount(){
         $this->status = 0;
     }
-    
+
     public function updated($fields){
         $this->validateOnly($fields,[
             'title' => 'required',
-            'subtitle' => 'required|unique:categories',
+            'subtitle' => 'required',
             'price'=>'required|numeric',
             'link' => 'required',
             'image'=>'required|mimes:jpeg,png',
             'status' => 'required',
+            'type' =>'required'
         ]);
     }
     public function addSlider(){
         $this->validate([
             'title' => 'required',
-            'subtitle' => 'required|unique:categories',
+            'subtitle' => 'required',
             'price'=>'required|numeric',
             'link' => 'required',
             'image'=>'required|mimes:jpeg,png',
             'status' => 'required',
-
+            'type' =>'required'
         ]);
         $slider = new HomeSlider();
         $slider->title = $this->title;
@@ -49,8 +51,9 @@ class AdminAddHomeSliderComponent extends Component
         $this->image->storeAs('sliders',$imageName);
         $slider->image = $imageName;
         $slider->status = $this->status;
+        $slider->type = $this->type;
         $slider->save();
-        session()->flash('message','Thêm slider thành công!');
+        session()->flash('message','Thêm Hình ảnh thành công!');
     }
     public function render()
     {

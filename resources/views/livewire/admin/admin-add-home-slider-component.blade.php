@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Phụ đề</label>
                                 <div class="col-md-4">
-                                    <input type="text" placeholder="Slug sản phẩm" class="form-control input-md" wire:model="subtitle">
+                                    <input type="text" placeholder="phụ đề" class="form-control input-md" wire:model="subtitle">
                                     @error('subtitle') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
@@ -71,6 +71,7 @@
                                     @endif
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Tình Trạng</label>
                                 <div class="col-md-4">
@@ -79,6 +80,17 @@
                                        <option value="1">Hoạt động</option>
                                    </select>
                                    @error('status') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Type</label>
+                                <div class="col-md-4">
+                                   <select class="form-control" wire:model="type">
+                                       <option value="" selected>Chọn Kiểu</option>
+                                       <option value="0">Banner</option>
+                                       <option value="1">Slider</option>
+                                   </select>
+                                   @error('type') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
                             <div class="form-group">

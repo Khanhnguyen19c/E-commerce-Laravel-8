@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Products;
 use Cart;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 class SearchComponent extends Component
 {
@@ -46,7 +47,10 @@ class SearchComponent extends Component
             $products =  Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('name','like','%'.$this->search .'%')->where('category_id','like','%'.$this->product_cat_id.'%')->paginate($this->pagesize);
         }
         $categories = Category::all();
-
+        if(Auth::check()){
+            Cart::instance('cart')->store(Auth::user()->email);
+            Cart::instance('wishlist')->store(Auth::user()->email);
+        }
         return view('livewire.search-component',['products' => $products,'categories'=> $categories])->layout("layouts.base");
     }
 }

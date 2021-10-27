@@ -10,13 +10,16 @@ use App\Http\Livewire\User\UserDashboardComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Livewire\AboutComponent;
+use App\Http\Livewire\Admin\AdminAddAttributeComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
 use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
+use App\Http\Livewire\Admin\AdminAttributeComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
 use App\Http\Livewire\Admin\AdminContactComponent;
 use App\Http\Livewire\Admin\AdminCouponsComponent;
+use App\Http\Livewire\Admin\AdminEditAttributeComponent;
 use App\Http\Livewire\Admin\AdminEditCategoryComponent;
 use App\Http\Livewire\Admin\AdminEditCouponComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
@@ -33,9 +36,14 @@ use App\Http\Livewire\ContactComponent;
 use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\NotificationDemo;
 use App\Http\Livewire\ThankyouComponent;
+use App\Http\Livewire\TopProductOnSalesComponent;
+use App\Http\Livewire\TopProductOnWeekComponent;
+use App\Http\Livewire\TopSellingProductsComponent;
 use App\Http\Livewire\User\UserChangePasswordComponent;
+use App\Http\Livewire\User\UsereditProfileComponent;
 use App\Http\Livewire\User\UserOrdersComponent;
 use App\Http\Livewire\User\UserOrdersDetailsComponent;
+use App\Http\Livewire\User\UserProfileComponent;
 use App\Http\Livewire\User\UserReviewComponent;
 use App\Http\Livewire\WishlistComponent;
 /*
@@ -61,7 +69,7 @@ Route::get('/cart', CartComponent::class)->name('product.cart');
 
 Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 
-Route::get('/product-category/{category_slug}',CategoryComponent::class)->name('product.category');
+Route::get('/product-category/{category_slug}/{scategory_slug?}',CategoryComponent::class)->name('product.category');
 
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 
@@ -75,12 +83,16 @@ route::get('contact-us',ContactComponent::class)->name('contact');
 
 route::get('about-us',AboutComponent::class)->name('about');
 
+route::get('top-products-weekend',TopProductOnWeekComponent::class)->name('products.topOnweek');
+route::get('top-products-sales',TopProductOnSalesComponent::class)->name('products.topOnsales');
+route::get('top-products-selling',TopSellingProductsComponent::class)->name('products.topSelling');
+
     Route::get('auth/google', [SocialController::class, 'redirectToGoogle']);
     Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
     Route::get('auth/facebook', [SocialController::class, 'redirectToFacebook']);
     Route::get('auth/facebook/callback', [SocialController::class, 'handleFacebookCallback']);
 // for user or customer
-    Route::middleware(['auth:sanctum','verified'])->group(function(){
+Route::middleware(['auth:sanctum','verified'])->group(function(){
     route::get('user/dashboard',UserDashboardComponent::class)->name('user.dashboard');
 
     //user Orders
@@ -89,19 +101,25 @@ route::get('about-us',AboutComponent::class)->name('about');
 
     //user reviews
     route::get('/user/review/{order_item_id}',UserReviewComponent::class)->name('user.review');
-    });
 
     //user change password
     route::get('/user/change-password',UserChangePasswordComponent::class)->name('user.changepassword');
 
- //for admin
+    //user profile
+    route::get('/user/profile',UserProfileComponent::class)->name('user.profile');
+
+    //user update profile
+    route::get('/user/profile/edit',UsereditProfileComponent::class)->name('user.editprofile');
+
+});
+//for admin
 Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     route::get('admin/dashboard',AdminDashboardComponent::class)->name('admin.dashboard');
 
     //category
     route::get('/admin/categories',AdminCategoryComponent::class)->name('admin.categories');
     route::get('/admin/categories/add',AdminAddCategoryComponent::class)->name('admin.addcategories');
-    route::get('/admin/categories/edit/{category_slug}',AdminEditCategoryComponent::class)->name('admin.editcategories');
+    route::get('/admin/categories/edit/{category_slug}/{scategory_slug?}',AdminEditCategoryComponent::class)->name('admin.editcategories');
 
     //product
     route::get('/admin/products',AdminProductComponent::class)->name('admin.products');
@@ -133,4 +151,9 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
 
     //Setting
     route::get('admin/settings',AdminSettingComponent::class)->name('admin.settings');
+
+    //product attribute
+    route::get('admin/attributes',AdminAttributeComponent::class)->name('admin.attributes');
+    route::get('admin/attributes/add',AdminAddAttributeComponent::class)->name('admin.add_attribute');
+    route::get('admin/attributes/edit/{attribute_id}',AdminEditAttributeComponent::class)->name('admin.edit_attribute');
 });

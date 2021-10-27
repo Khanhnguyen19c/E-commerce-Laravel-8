@@ -22,16 +22,13 @@
 
         <!--BANNER-->
         <div class="wrap-banner style-twin-default">
+        @foreach ($banners as $banner)
             <div class="banner-item">
                 <a href="#" class="link-banner banner-effect-1">
-                    <figure><img src="{{ asset('assets/images/home-1-banner-1.jpg') }}" alt="" width="580" height="190"></figure>
+                    <figure><img src="{{ asset('assets/images/sliders') }}/{{$banner->image}}" alt="{{$banner->title}}" width="580" height="190"></figure>
                 </a>
             </div>
-            <div class="banner-item">
-                <a href="#" class="link-banner banner-effect-1">
-                    <figure><img src="{{ asset('assets/images/home-1-banner-2.jpg') }}" alt="" width="580" height="190"></figure>
-                </a>
-            </div>
+        @endforeach
         </div>
 
         <!--On Sale-->
@@ -56,7 +53,8 @@
                     </div>
                     <div class="product-info">
                         <a href="#" class="product-name"><span>{{$sale_product->name }}</span></a>
-                        <div class="wrap-price"><span class="product-price">{{number_format($sale_product->regular_price,0,',',',') }} Đ</span></div>
+                        <div class="wrap-price"><span class="product-price">{{number_format($sale_product->sale_price,0,',',',') }} Đ</span></div>
+                        <span class="product-price product_regular_price"> {{ number_format($sale_product->regular_price,0,',',',') }}đ</span>
                     </div>
                 </div>
 
@@ -70,7 +68,7 @@
             <h3 class="title-box">SẢN PHẨM MỚI NHẤT</h3>
             <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
-                    <figure><img src="{{ asset('assets/images/digital-electronic-banner.jpg') }}" width="1170" height="240" alt=""></figure>
+                    <figure><img src="{{ asset('assets/images/sliders') }}/{{$new_product_banner->image}}" alt="{{$new_product_banner->title}}" width="1170" height="240" ></figure>
                 </a>
             </div>
             <div class="wrap-products">
@@ -109,7 +107,7 @@
             <h3 class="title-box">Danh Mục Sản Phẩm</h3>
             <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
-                    <figure><img src="{{ asset('assets/images/fashion-accesories-banner.jpg') }}" width="1170" height="240" alt=""></figure>
+                    <figure><img src="{{ asset('assets/images/sliders') }}/{{$product_banner->image}}" width="1170" height="240" alt="{{$product_banner->name}}"></figure>
                 </a>
             </div>
             <div class="wrap-products">

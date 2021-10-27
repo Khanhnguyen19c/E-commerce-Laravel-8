@@ -17,6 +17,7 @@ class AdminEditHomeSliderComponent extends Component
     public $status;
     public $slider_id;
     public $newImage;
+    public $type;
 
     public function mount($slider_id){
         $slider = HomeSlider::find($slider_id);
@@ -27,6 +28,7 @@ class AdminEditHomeSliderComponent extends Component
         $this->image = $slider->image;
         $this->status = $slider->status;
         $this->slider_id = $slider_id;
+        $this->type = $slider->type;
     }
     public function updated($fields){
         $this->validateOnly($fields,[
@@ -35,6 +37,7 @@ class AdminEditHomeSliderComponent extends Component
             'price'=>'required|numeric',
             'link' => 'required',
             'status' => 'required',
+            'type' =>'required'
         ]);
     }
     public function updateSlider(){
@@ -44,7 +47,7 @@ class AdminEditHomeSliderComponent extends Component
             'price'=>'required|numeric',
             'link' => 'required',
             'status' => 'required',
-
+            'type' =>'required'
         ]);
         $slider = HomeSlider::find($this->slider_id);
         $slider->title = $this->title;
@@ -52,14 +55,16 @@ class AdminEditHomeSliderComponent extends Component
         $slider->price = $this->price;
         if($this->newImage)
         {
+            unlink('assets/images/sliders'.'/'.$slider->image);
             $imageName = Carbon::now()->timestamp. '.' . $this->newImage->extension();
             $this->newImage->storeAs('sliders',$imageName);
             $slider->image = $imageName;
         }
         $slider->status = $this->status;
         $slider->title = $this->title;
+        $slider->type = $this->type;
         $slider->save();
-        session()->flash('message','Cập nhật slider thành công!');
+        session()->flash('message','Cập nhật Hình ảnh thành công!');
     }
     public function render()
     {

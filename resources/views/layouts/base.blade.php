@@ -93,6 +93,9 @@
                                             <a title="Quản lý Sản phẩm" href="{{ route('admin.products') }}">Quản lý sản phẩm</a>
                                         </li>
                                         <li class="menu-item">
+                                            <a title="Quản lý thuộc tính sản phẩm" href="{{ route('admin.attributes') }}">Quản lý thuộc tính sản phẩm</a>
+                                        </li>
+                                        <li class="menu-item">
                                             <a title="Slider trang chủ" href="{{ route('admin.homeslider') }}">Quản lý slider</a>
                                         </li>
                                         <li class="menu-item">
@@ -110,6 +113,7 @@
                                         <li class="menu-item">
                                             <a title="Quản lý thông tin website" href="{{ route('admin.settings') }}">Quản lý thông tin Website</a>
                                         </li>
+
                                         <li class="menu-item">
                                             <a title="Logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">Logout</a>
                                         </li>
@@ -123,7 +127,10 @@
                                     <a title=">My Account" href="#">My Account ({{ Auth::user()->name }})<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="submenu curency">
                                         <li class="menu-item">
-                                            <a title="Dashboard" href="{{ route('user.dashboard') }}">Trang cá nhân</a>
+                                            <a title="Dashboard" href="{{ route('user.dashboard') }}">Trang chủ</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a title="Thông tin cá nhân" href="{{ route('user.profile') }}">Thông tin cá nhân</a>
                                         </li>
                                         <li class="menu-item">
                                             <a title="Đơn hàng của tôi" href="{{ route('user.orders') }}">Đơn hàng của tôi</a>
@@ -180,11 +187,10 @@
                     <div class="header-nav-section">
                         <div class="container">
                             <ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info">
-                                <li class="menu-item"><a href="#" class="link-term">Nổi bật hàng tuần</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Các sản phẩm giảm giá</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Các sản phẩm mới nhất</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Bán chạy nhât</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="#" class="link-term">Được đánh giá cao nhất</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="{{ route('products.topOnweek')}}" class="link-term">Nổi bật hàng tuần</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="{{ route('products.topOnsales')}}" class="link-term">Các sản phẩm giảm giá</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="{{ route('products.topSelling')}}" class="link-term">Bán chạy nhât</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="{{ route('products.topSelling')}}" class="link-term">Được đánh giá cao nhất</a><span class="nav-label hot-label">hot</span></li>
                             </ul>
                         </div>
                     </div>
@@ -221,19 +227,18 @@
     {{ $slot }}
 
     @livewire('footer-component')
-    
     <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="{{ asset('assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
     <script src="{{ asset('assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.flexslider.js') }}"></script>
-    <!-- <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script> -->
+    <script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('assets/js/functions.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
     <script src="https://cdn.tiny.cloud/1/eovfy0x0me91588prj1gvc4ss88ubsabp35or63sgedhbabe/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js" integrity="sha512-PDFb+YK2iaqtG4XelS5upP1/tFSmLUVJ/BVL8ToREQjsuXC5tyqEfAQV7Ca7s8b7RLHptOmTJak9jxlA2H9xQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -13,6 +13,30 @@
         FONT-SIZE: 18px;
         font-weight: bold;
     }
+
+    .sclist li {
+    list-style-type: none;
+    counter-increment: item;
+    margin-bottom: 5px;
+    line-height: 33px;
+    border-bottom: 1px solid #ccc ;
+}
+
+.sclist li:before {
+  content: counter(item);
+  margin-right: 5px;
+  font-size: 80%;
+  background-color: #f9dd94;
+  color: #7eb4e2;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+.slink{
+    font-size: 16px;
+    margin-left: 12px;
+}
+
 </style>
 <div class="container" style="padding:30px 0px">
             <div class="col-md-12">
@@ -38,6 +62,7 @@
                                     <th>ID</th>
                                     <th>Tên danh mục</th>
                                     <th>Slug</th>
+                                    <th>Danh Mục Con</th>
                                     <th>Quản lý</th>
                                 </tr>
                             </thead>
@@ -48,8 +73,17 @@
                                     <td>{{ $category->name}}</td>
                                     <td>{{ $category->slug}}</td>
                                     <td>
+                                        <ol class="sclist">
+                                            @foreach ($category->subCategory as $scategory)
+                                                <li>{{$scategory->name}} <a class="slink" href="{{ route('admin.editcategories',['category_slug'=>$category->slug,'scategory_slug'=>$scategory->slug]) }}"> <i class="fa fa-edit fa-1x"></i></a>
+                                                <a class="slink" href="#" onclick="confirm('Bạn có chắc chắn muốn xoá danh mục này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteSubcategory({{ $scategory->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-1x"></i> </a>
+                                            </li>
+                                            @endforeach
+                                        </ol>
+                                    </td>
+                                    <td>
                                         <a href="{{ route('admin.editcategories',['category_slug'=>$category->slug]) }}" ><i class="fa fa-edit fa-2x"></i> </a>
-                                        <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá danh mục này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteCategory({{ $category->id}})" style="margin-left: 10px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                        <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá danh mục này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteCategory({{ $category->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-2x"></i> </a>
                                     </td>
                                 </tr>
 

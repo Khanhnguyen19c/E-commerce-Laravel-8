@@ -9,7 +9,7 @@
             </ul>
         </div>
         <div class=" main-content-area">
-            <form wire:submit.prevent="placeOrder">
+            <form wire:submit.prevent="placeOrder" onsubmit="$('#processing').show();">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="wrap-address-billing">
@@ -54,9 +54,9 @@
                                     @enderror
                                 </p>
 
-                                <p class="row-in-form" wire:ignore>
+                                <p class="row-in-form">
                                     <label for="city">Tỉnh thành phố<span>*</span></label>
-                                    <select class="form-control sel_city" wire:model="selectedCity" onchange="setTextField(this)">
+                                    <select class="form-control sel_city" wire:model="selectedCity">
                                         <option value="" selected>-Chọn thành phố-</option>
                                         @foreach($city as $city)
                                         <option value="{{ $city->id }}">{{ $city->name_city }}</option>
@@ -97,10 +97,7 @@
                                 </p>
                                 @endif
                                 <p class="row-in-form fill-wife">
-                                    <label class="checkbox-field">
-                                        <input name="create-account" value="forever" type="checkbox">
-                                        <span>Tạo tài khoản mới?</span>
-                                    </label>
+
                                     <label class="checkbox-field">
                                         <input name="different-add" id="different-add" type="checkbox" wire:model="ship_to_different">
                                         <span>Gửi đến một địa chỉ khác?</span>
@@ -222,6 +219,12 @@
                         </div>
                         @if(Session::has('checkout'))
                         <p class="summary-info grand-total"><span>Tổng cộng:</span> <span class="grand-total-price">{{ number_format(session::get('checkout')['total'],0,',',',')}}đ</span></p>
+                        @endif
+                        @if ($errors->isEmpty())
+                        <div wire:ignore id="processing" style="font-size: 22px; margin-bottom: 20px; padding-left: 37px; color: green;display:none">
+                            <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                            <span>Vui Lòng Chờ...</span>
+                        </div>
                         @endif
                         <button type="submit" class="btn btn-medium">Đặt hàng ngay bây giờ</button>
                     </div>

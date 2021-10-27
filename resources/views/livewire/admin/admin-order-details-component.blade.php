@@ -41,12 +41,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" style=" text-align: center;font-size: 18px;color: white;background-color: #7373ff;">
                        <div class="row">
-                           <div class="col-md-6">
+                           <div class="col-md-12">
                            Danh sách cá mặt hàng đã đặt
                            </div>
-                           <div class="col-md-6">
-                               <a href="{{ route('admin.orders')}}" class="btn btn-success">Danh sách đơn hàng</a>
-                           </div>
+                          
                        </div>
                     </div>
                     <div class="panel-body">
@@ -64,12 +62,19 @@
                         <div class="product-name">
                             <a class="link-to-product" href="{{ route('product.details',['slug'=>$item->product->slug] )}}">{{ $item->product->name }}</a>
                         </div>
+                        @if ($item->options)
+                                        <div class="product-name">
+                                           @foreach (unserialize($item->options) as $key =>$value )
+                                                <p><b>{{$key}}: {{$value}}</b></p>
+                                           @endforeach
+                                        </div>
+                                        @endif
                         <div class="price-field produtc-price">
                             <p class="price">{{ number_format($item->price,0,',',',') }} đ</p>
                         </div>
                         <div class="quantity">
                             <div class="quantity">
-                                <h5>{{ $item->quantity }}</h5>
+                                <h5>SL: {{ $item->quantity }}</h5>
                             </div>
                         </div>
                         <div class="price-field sub-total">

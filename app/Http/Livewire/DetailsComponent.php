@@ -10,12 +10,15 @@ class DetailsComponent extends Component
 {
     public $slug;
     public $qty;
+
+    public $satt = [];
+
     public function mount($slug){
         $this->slug = $slug;
         $this->qty = 1;
     }
     public function store($product_id,$product_name,$product_price){
-        Cart::instance('cart')->add($product_id,$product_name,$this->qty,$product_price)->associate('App\Models\Products');
+        Cart::instance('cart')->add($product_id,$product_name,$this->qty,$product_price,$this->satt)->associate('App\Models\Products');
         Session()->flash('success_message','Sản Phẩm Đã Được Thêm Vào Giỏ Hàng');
         return redirect()->route('product.cart');
     }

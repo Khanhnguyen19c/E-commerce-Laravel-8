@@ -1,27 +1,22 @@
 <main id="main" class="main-site left-sidebar">
-
 		<div class="container">
-
 			<div class="wrap-breadcrumb">
 				<ul>
-					<li class="item-link"><a href="{{ route('home') }}" class="link">Trang Chủ</a></li>
-					<li class="item-link"><span>Danh mục sản phẩm</span></li>
-                    <li class="item-link"><span>{{ $category_name }}</span></li>
+					<li class="item-link"><a href="{{ route('home') }}" class="link">home</a></li>
+					<li class="item-link"><span>Kỹ thuật số & Điện tử</span></li>
 				</ul>
 			</div>
 			<div class="row">
-
 				<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 
 					<div class="banner-shop">
 						<a href="#" class="banner-link">
-							<figure><img src=" {{ asset('assets/images/shop-banner.jpg') }}" alt=""></figure>
+                        <figure><img src=" {{ asset('assets/images/shop-banner.jpg') }}" alt=""></figure>
 						</a>
 					</div>
-
 					<div class="wrap-shop-control">
 
-						<h1 class="shop-title">{{ $category_name }}</h1>
+						<h1 class="shop-title">Kỹ thuật số & Điện tử</h1>
 
 						<div class="wrap-right">
 
@@ -56,9 +51,11 @@
 					</div><!--end wrap shop control-->
 
 					<div class="row">
-
 						<ul class="product-list grid-products equal-container">
-                            @foreach ($products as $product)
+                        @php
+                        $witems = Cart::instance('wishlist')->content()->pluck('id');
+                        @endphp
+                        @foreach ($products as $product)
 							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
 								<div class="product product-style-3 equal-elem ">
 									<div class="product-thumnail">
@@ -69,9 +66,28 @@
 									</div>
 									<div class="product-info">
                                     <a href="{{ route('product.details',['slug'=>$product->slug])}}"><span>{{ $product->name }}</span></a>
-										<div class="wrap-price"><span class="product-price"> {{ number_format($product->regular_price,0,',',',') }} Đ</span></div>
-										<a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->regular_price }})">Thêm giỏ hàng</a>
-									</div>
+                                    @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                         <div class="wrap-price">
+                                         <span class="product-price"> {{ number_format($product->sale_price,0,',',',') }}đ</span>
+                                            <span class="product-price product_regular_price"> {{ number_format($product->regular_price,0,',',',') }}đ</span></>
+                                        </div>
+                                        <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->sale_price }})">Thêm giỏ hàng</a>
+                                        @else
+                                        <div class="wrap-price">
+                                        <span class="product-price"> {{ number_format($product->regular_price,0,',',',') }} đ</span>
+                                        </div>
+                                        <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->regular_price }})">Thêm giỏ hàng</a>
+                                        @endif
+
+
+                                    <div class="product-wish">
+                                    @if ($witems->contains($product->id))
+                                    <a href="#" wire:click.prevent="removeFromWishlist({{$product->id}})"><i class="fa fa-heart fill-heart"></i></a>
+                                    @else
+                                    <a href="#" wire:click.prevent="addToWishlist({{$product->id}},'{{ $product->name }}',{{ $product->regular_price }})"><i class="fa fa-heart"></i></a>
+                                    @endif
+                                </div>
+                                    </div>
 								</div>
 							</li>
                             @endforeach
@@ -86,16 +102,23 @@
 					</div>
 				</div><!--end main products area-->
 
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
+				<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
 					<div class="widget mercado-widget categories-widget">
 						<h2 class="widget-title">Danh Mục sản phẩm</h2>
 						<div class="widget-content">
 							<ul class="list-category">
 								@foreach ($categories as $category)
-
-								<li class="category-item">
+								<li class="category-item {{Count($category->subCategory) > 0 ? 'has-child-cate':''}}">
 									<a href="{{ route('product.category',['category_slug'=>$category->slug]) }}" class="cate-link">{{ $category->name }}</a>
-								</li>
+								@if (count($category->subCategory)>0)
+                                <span class="toggle-control">+</span>
+                                <ul class="sub-cate">
+                                    @foreach ($category->subCategory as $scategory)
+                                    <a href="{{ route('product.category',['category_slug'=>$category->slug,'scategory_slug'=>$scategory->slug]) }}" class="cate-link"><i class="fa fa-caret-right"></i> {{$scategory->name}}</a>
+                                    @endforeach
+                                </ul>
+                                @endif
+                                </li>
                                 @endforeach
 							</ul>
 						</div>
@@ -106,30 +129,18 @@
 						<div class="widget-content">
 							<ul class="list-style vertical-list list-limited" data-show="6">
 								<li class="list-item"><a class="filter-link active" href="#">Fashion Clothings</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Laptop Batteries</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Printer & Ink</a></li>
-								<li class="list-item"><a class="filter-link " href="#">CPUs & Prosecsors</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Sound & Speaker</a></li>
-								<li class="list-item"><a class="filter-link " href="#">Shop Smartphone & Tablets</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">Printer & Ink</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">CPUs & Prosecsors</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">Sound & Speaker</a></li>
-								<li class="list-item default-hiden"><a class="filter-link " href="#">Shop Smartphone & Tablets</a></li>
+
 								<li class="list-item"><a data-label='Show less<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Show more<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
 							</ul>
 						</div>
 					</div><!-- brand widget-->
 
 					<div class="widget mercado-widget filter-widget price-filter">
-						<h2 class="widget-title">Price</h2>
-						<div class="widget-content">
-							<div id="slider-range"></div>
-							<p>
-								<label for="amount">Price:</label>
-								<input type="text" id="amount" readonly>
-								<button class="filter-submit">Filter</button>
-							</p>
-						</div>
+						<h2 class="widget-title">Lọc giá: <span class="text-info">{{ number_format($min_price,0,',',',') }} - {{  number_format($max_price,0,',',',')}}<span class="price_unit" >đ</span></span></h2>
+						<div class="widget-content" style="padding: 10px 5px 40px 5px;">
+							<div id="slider" wire:ignore>
+                            </div>
+                        </div>
 					</div><!-- Price-->
 
 					<div class="widget mercado-widget filter-widget">
@@ -165,62 +176,25 @@
 						<h2 class="widget-title">SẢN PHẨM PHỔ BIẾN</h2>
 						<div class="widget-content">
 							<ul class="products">
-								<li class="product-item">
-									<div class="product product-widget-style">
-										<div class="thumbnnail">
-											<a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-												<figure><img src=" {{ asset('assets/images/products/digital_01.jpg') }}" alt=""></figure>
-											</a>
-										</div>
-										<div class="product-info">
-											<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-											<div class="wrap-price"><span class="product-price">$168.00</span></div>
-										</div>
-									</div>
-								</li>
-
-								<li class="product-item">
-									<div class="product product-widget-style">
-										<div class="thumbnnail">
-											<a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-												<figure><img src=" {{ asset('assets/images/products/digital_17.jpg') }}" alt=""></figure>
-											</a>
-										</div>
-										<div class="product-info">
-											<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-											<div class="wrap-price"><span class="product-price">$168.00</span></div>
-										</div>
-									</div>
-								</li>
-
-								<li class="product-item">
-									<div class="product product-widget-style">
-										<div class="thumbnnail">
-											<a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-												<figure><img src=" {{ asset('assets/images/products/digital_18.jpg') }}" alt=""></figure>
-											</a>
-										</div>
-										<div class="product-info">
-											<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-											<div class="wrap-price"><span class="product-price">$168.00</span></div>
-										</div>
-									</div>
-								</li>
-
-								<li class="product-item">
-									<div class="product product-widget-style">
-										<div class="thumbnnail">
-											<a href="detail.html" title="Radiant-360 R6 Wireless Omnidirectional Speaker [White]">
-												<figure><img src=" {{ asset('assets/images/products/digital_20.jpg') }}" alt=""></figure>
-											</a>
-										</div>
-										<div class="product-info">
-											<a href="#" class="product-name"><span>Radiant-360 R6 Wireless Omnidirectional Speaker...</span></a>
-											<div class="wrap-price"><span class="product-price">$168.00</span></div>
-										</div>
-									</div>
-								</li>
-
+                            @foreach ($popular_products as $popular)
+                            <li class="product-item">
+                                <div class="product product-widget-style">
+                                    <div class="thumbnnail">
+                                        <a href="{{ route('product.details',['slug'=>$popular->slug])}}" title="{{ $popular->name }}">
+                                            <figure><img src="{{ asset( 'assets/images/products/') }}//{{ $popular->image }}" alt="{{ $popular->name }}"></figure>
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <a href="#" class="product-name"><span>{{ $popular->name }}</span></a>
+                                        @if ($popular->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now())
+                                        <div class="wrap-price"><span class="product-price">{{ number_format($popular->sale_price,0,',',',') }}<span class="price_unit">đ</span></span></div>
+                                        @else
+                                        <div class="wrap-price"><span class="product-price">{{ number_format($popular->regular_price,0,',',',') }}<span class="price_unit">đ</span></span></div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </li>
+                            @endforeach
 							</ul>
 						</div>
 					</div><!-- brand widget-->
@@ -231,3 +205,25 @@
 
 		</div><!--end container-->
 	</main>
+@push('scripts')
+    <script>
+        var slider = document.getElementById('slider');
+        noUiSlider.create(slider,{
+            start : [100000,5000000],
+            connect:true,
+            range :{
+                'min' : 100000,
+                'max' : 20000000
+            },
+            pips:{
+                mode:'steps',
+                stepped:true,
+                density:4
+            }
+        });
+        slider.noUiSlider.on('update',function(value){
+            @this.set('min_price',value[0]);
+            @this.set('max_price',value[1]);
+        });
+    </script>
+@endpush

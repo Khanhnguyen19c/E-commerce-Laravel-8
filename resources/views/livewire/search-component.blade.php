@@ -230,6 +230,7 @@
 		</div><!--end container-->
 	</main>
     @push('scripts')
+	<!-- noUiSlider show price -->
     <script>
         var slider = document.getElementById('slider');
         noUiSlider.create(slider,{

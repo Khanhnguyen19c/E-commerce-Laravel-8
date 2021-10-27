@@ -14,6 +14,7 @@
         font-weight: bold;
     }
 </style>
+
 <div class="container" style="padding:30px 0px">
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -42,6 +43,7 @@
                                     <th>Giá</th>
                                     <th>Đường dẫn</th>
                                     <th>Trạng thái</th>
+                                    <th>Type</th>
                                     <th>Ngày thêm</th>
                                     <th>Quản lý</th>
                                 </tr>
@@ -54,8 +56,14 @@
                                     <td>{{ $slider->title}}</td>
                                     <td>{{ $slider->subtitle}}</td>
                                     <td>{{ number_format($slider->price,0,',',',')}} Đ</td>
-                                    <td>{{ $slider->status == 1 ? 'Hoạt động':'Không hoạt động'}}</td>
                                     <td>{{ $slider->link}}</td>
+                                    <td><label class="switch">
+                                        <input type="checkbox" {{ $slider->status == 1 ? 'checked':'' }} disabled="true">
+                                        <span class="slider round"></span>
+                                        </label></td>
+                                        <td>
+                                            <input type="text" class="form-control " disabled value="{{ $slider->type == 0 ? 'Banner':'Slider' }}" />
+                                        </td>
                                     <td>{{ $slider->created_at}}</td>
                                     <td>
                                     <a href="{{ route('admin.edithomeslider',['slider_id'=> $slider->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a>
