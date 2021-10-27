@@ -1,1 +1,1 @@
-web: vendor/bin/lavavel8-ecommerce public/
+web: vendor/bin/khanhnguyen19c public/
