@@ -105,11 +105,11 @@
                                     <div class="item-content">
                                         <div class="wrap-vertical-nav">
                                             <ul>
-                                                <li class="menu-item"><a href="#" class="link-term">My Account</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Brands</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Gift Certificates</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Affiliates</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Wish list</a></li>
+                                                <li class="menu-item"><a href="{{ route('user.dashboard')}}" class="link-term">My Account</a></li>
+                                                <li class="menu-item"><a href="{{ route('shop')}}" class="link-term">Shop</a></li>
+                                                <li class="menu-item"><a href="{{ route('product.cart')}}" class="link-term">Cart</a></li>
+                                                <li class="menu-item"><a href="{{ route('checkout')}}" class="link-term">Checkout</a></li>
+                                                <li class="menu-item"><a href="{{ route('product.wishlist')}}" class="link-term">Wish list</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -119,11 +119,9 @@
                                     <div class="item-content">
                                         <div class="wrap-vertical-nav">
                                             <ul>
-                                                <li class="menu-item"><a href="#" class="link-term">Contact Us</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Returns</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Site Map</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Specials</a></li>
-                                                <li class="menu-item"><a href="#" class="link-term">Order History</a></li>
+                                                <li class="menu-item"><a href="{{ route('about')}}" class="link-term">About</a></li>
+                                                <li class="menu-item"><a href="{{ route('contact')}}" class="link-term">Contact Us</a></li>
+                                                <li class="menu-item"><a href="{{ route('user.orders')}}" class="link-term">Order History</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -236,7 +234,7 @@
 
             </div>
 
-            <div class="coppy-right-box">
+            <!-- <div class="coppy-right-box">
                 <div class="container">
                     <div class="coppy-right-item item-left">
                         <p class="coppy-right-text">Copyright © 2020 Surfside Media. All rights reserved</p>
@@ -253,7 +251,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </footer>
 </div>
