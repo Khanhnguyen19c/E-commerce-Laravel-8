@@ -74,4 +74,17 @@
                 </div>
             </div>
    </div>
+   <form action="{{route('admin.import-product')}}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="form-wrapper">
+				<div class="upload-btn-wrapper">
+					<input type="file" class="form-control" accept=".xlsx" name="file_h" onchange="showImage(this)" />
+					<button class="btn_upload">Tải File Lên</button>
+				</div>
+       <input type="submit" value="Import Excel" name="Import Excel" class="btn btn-warning">
+        </form>
+       <form action="{{route('admin.export-product')}}" method="POST" style="float: left;margin-right: 32px;">
+          @csrf
+       <input type="submit" value="Export Excel" name="Export Excel" class="btn btn-success">
+      </form>
 </div>

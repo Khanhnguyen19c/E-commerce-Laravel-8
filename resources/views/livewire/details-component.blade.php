@@ -186,15 +186,15 @@
                             <a href="#review" class="tab-control-item">Đánh giá</a>
                         </div>
                         <div class="tab-contents">
-                            <div class="tab-content-item active" id="description">
+                            <div class="tab-content-item active" id="description" style="margin-bottom: 30px;">
                                 {!! $product->desc !!}
                                 <div class="desc_btn">
-                                    <p class="button_show" id="show">Hiển thị thêm...</p>
-                                    <p class="button_hidden none" id="hidden">Ẩn bớt...</p>
+                                    <p class="button_show" id="show">Hiển thị thêm...<i class="fa fa-angle-down" aria-hidden="true"></i></p>
+                                    <p class="button_hidden none" id="hidden">Ẩn bớt...<i class="fa fa-angle-up" aria-hidden="true"></i></p>
                                 </div>
                             </div>
 
-                            <div class="tab-content-item " id="add_infomation">
+                            <!-- <div class="tab-content-item " id="add_infomation">
 
                                 <table class="shop_attributes">
                                     <tbody>
@@ -214,7 +214,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> -->
                             <div class="tab-content-item " id="review">
 
                                 <div class="wrap-review-form">
@@ -225,7 +225,11 @@
                                             @foreach ($product->orderItems->where('rstatus',1) as $orderItem)
                                             <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-20">
                                                 <div id="comment-20" class="comment_container">
+                                                    @if ($orderItem->order->user->profile->image != null)
                                                     <img alt="{{ $orderItem->order->user->name }}" src="{{ asset('assets/images/profile') }}/{{$orderItem->order->user->profile->image}}" height="80" width="80">
+                                                    @else
+                                                    <img alt="{{ $orderItem->order->user->name }}" src="{{ asset('assets/images/profile/profile_dummyDefault.png') }}" height="80" width="80">
+                                                    @endif
                                                     <div class="comment-text">
                                                         <div class="star-rating">
                                                             <span class="width-{{ $orderItem->review->rating * 20}}-peccent">Sao <strong class="rating">{{ $orderItem->review->rating }}</strong> out of 5</span>

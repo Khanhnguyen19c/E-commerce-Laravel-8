@@ -64,7 +64,6 @@
                                                     @else
                                                     <li><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Huỷ đơn</a></li>
                                                     @endif
-
                                                 </ul>
                                             </div>
                                         </td>
@@ -79,3 +78,17 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+        <script>
+            $(document).ready(function(){
+                window.addEventListener('order_message', event =>{
+                    toastr.options = {
+                        "positionClass":"toast-bottom-right",
+                        "progressBar": true,
+                    }
+                   toastr.success(event.detail.message,'Success');
+                })
+            });
+        </script>
+@endpush

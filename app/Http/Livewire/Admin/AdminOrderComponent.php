@@ -39,6 +39,7 @@ class AdminOrderComponent extends Component
         }
         $order->status = $status;
         $order->save();
+        $this->dispatchBrowserEvent('order_message',['message' => 'Đã cập nhật trạng thái đơn hàng!']);
         session()->flash('order_message','Cập nhật trạng thái đơn hàng thành công!');
     }
     public function render()

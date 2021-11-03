@@ -2,7 +2,7 @@
 		<div class="container">
 			<div class="wrap-breadcrumb">
 				<ul>
-					<li class="item-link"><a href="{{ route('home') }}" class="link">home</a></li>
+					<li class="item-link"><a href="{{ route('home') }}" class="link">Trang Chủ</a></li>
 					<li class="item-link"><span>Kỹ thuật số & Điện tử</span></li>
 				</ul>
 			</div>
@@ -10,7 +10,7 @@
 				<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 
 					<div class="banner-shop">
-						<a href="{{$new_product_banner->link}}" class="banner-link">
+                    <a href="{{$new_product_banner->link}}" class="banner-link">
                         <figure><img src="{{ asset('assets/images/sliders') }}/{{$new_product_banner->image}}" alt="{{$new_product_banner->title}}" width="1170" height="240" ></figure>
 						</a>
 					</div>
@@ -21,7 +21,7 @@
 						<div class="wrap-right">
 
 							<div class="sort-item orderby ">
-								<select name="orderby" class="use-chosen" wire:model="sorting">
+								<select name="orderby" class="use-chosen form-control" wire:model="sorting">
 									<option value="default" selected="selected">Mặc định</option>
 									<option value="date">Sắp xếp theo độ mới</option>
 									<option value="price">Sắp xếp theo giá: thấp đến cao</option>
@@ -30,7 +30,7 @@
 							</div>
 
 							<div class="sort-item product-per-page">
-								<select name="post-per-page" class="use-chosen" wire:model="pagesize">
+								<select name="post-per-page" class="use-chosen form-control" wire:model="pagesize">
 									<option value="12" selected="selected">12 sản phẩm</option>
 									<option value="16">16 sản phẩm</option>
 									<option value="18">18 sản phẩm</option>
@@ -60,7 +60,7 @@
 								<div class="product product-style-3 equal-elem ">
 									<div class="product-thumnail">
 
-										<a href="{{ route('product.details',['slug'=>$product->slug])}}" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+										<a href="{{ route('product.details',['slug'=>$product->slug])}}" title="{{ $product->name }}">
 											<figure><img src=" {{ asset('assets/images/products') }}/{{ $product->image }}" alt="{{ $product->name }}"></figure>
 										</a>
 									</div>
@@ -114,7 +114,7 @@
                                 <span class="toggle-control">+</span>
                                 <ul class="sub-cate">
                                     @foreach ($category->subCategory as $scategory)
-                                    <a href="{{ route('product.category',['category_slug'=>$category->slug,'scategory_slug'=>$scategory->slug]) }}" class="cate-link"><i class="fa fa-caret-right"></i> {{$scategory->name}}</a>
+                                    <li><a href="{{ route('product.category',['category_slug'=>$category->slug,'scategory_slug'=>$scategory->slug]) }}" class="cate-link"><i class="fa fa-caret-right"></i> {{$scategory->name}}</a></li>
                                     @endforeach
                                 </ul>
                                 @endif
@@ -123,15 +123,22 @@
 							</ul>
 						</div>
 					</div><!-- Categories widget-->
-
 					<div class="widget mercado-widget filter-widget brand-widget">
-						<h2 class="widget-title">Brand</h2>
+						<h2 class="widget-title">Thương Hiệu</h2>
 						<div class="widget-content">
 							<ul class="list-style vertical-list list-limited" data-show="6">
-								<li class="list-item"><a class="filter-link active" href="#">Fashion Clothings</a></li>
+								<!-- <li class="list-item"><a class="filter-link active" href="#">Fashion Clothings</a></li>
+							-->
+                             @foreach ($brands as $key=>$brand)
+                                @if($key >= 3)
+                                <li class="list-item default-hiden"><a class="filter-link " href="{{ route('product.brand',['brand_slug'=>$brand->slug]) }}">{{$brand->name}}</a></li>
+                                <li class="list-item"><a data-label='Ẩn bớt<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Hiển thị thêm<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
+                                @else
+                                <li class="list-item"><a class="filter-link " href="{{ route('product.brand',['brand_slug'=>$brand->slug]) }}">{{$brand->name}}</a></li>
+                                @endif
+                                @endforeach
 
-								<li class="list-item"><a data-label='Show less<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Show more<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
-							</ul>
+                            </ul>
 						</div>
 					</div><!-- brand widget-->
 

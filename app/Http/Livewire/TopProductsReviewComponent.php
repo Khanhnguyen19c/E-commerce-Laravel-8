@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Brand;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Products;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\HomeSlider;
 use App\Models\OrderItem;
+use App\Models\Review;
 use App\Models\Sale;
 class TopProductsReviewComponent extends Component
 {
@@ -51,7 +53,7 @@ class TopProductsReviewComponent extends Component
     public function render()
     {
             if($this->sorting =='date'){
-                $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
+                $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->with('orderItems')->with('review')->where('rating','>',0)->orderBy('created_at','DESC')->paginate($this->pagesize);
             }
             else if($this->sorting =='price'){
                 $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('regular_price','ASC')->paginate($this->pagesize);
@@ -60,7 +62,8 @@ class TopProductsReviewComponent extends Component
                 $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('regular_price','DESC')->paginate($this->pagesize);
             }
             else{
-                $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('')->paginate($this->pagesize);
+
+                $products = OrderItem::join('products','products.id','=','order_items.product_id')->join('reviews','reviews.order_item_id','order_items.id')->where('reviews.rating','>',0)->whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pagesize);
             }
 
         $categories = Category::all();
@@ -71,7 +74,8 @@ class TopProductsReviewComponent extends Component
             Cart::instance('cart')->store(Auth::user()->email);
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
+        $brands = Brand::all();
         $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.top-products-review-component',['new_product_banner'=>$new_product_banner,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout("layouts.base");
+        return view('livewire.top-products-review-component',['brands'=>$brands,'new_product_banner'=>$new_product_banner,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout("layouts.base");
     }
 }

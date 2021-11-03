@@ -135,10 +135,22 @@
 
                         <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                             <div class="wrap-footer-item">
-                                <h3 class="item-header">We Using Safe Payments:</h3>
+                                <h3 class="item-header">Đối Tác Tài Trợ:</h3>
                                 <div class="item-content">
                                     <div class="wrap-list-item wrap-gallery">
-                                        <img src="{{ asset('assets/images/payment.png' ) }}" style="max-width: 260px;">
+                                        @foreach ($payments as $payment)
+                                        @php
+                                            $imgs = explode(",",$payment->images);
+                                        @endphp
+                                      @foreach ($imgs as $key=> $img)
+                                      @if ($key>0)
+                                      <img src="{{ asset('assets/images/payments' ) }}/{{$img}}" alt="{{$payment->name}}" style="max-width: 100px;margin:5px 5px;" >
+                                      @endif
+
+                                      @endforeach
+
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +158,7 @@
 
                         <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                             <div class="wrap-footer-item">
-                                <h3 class="item-header">Social network</h3>
+                                <h3 class="item-header">Mạng xã hội</h3>
                                 <div class="item-content">
                                     <div class="wrap-list-item social-network">
                                         <ul>

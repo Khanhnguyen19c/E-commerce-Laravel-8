@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Brand;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Products;
 use Cart;
 use App\Models\Category;
+use App\Models\HomeSlider;
 use App\Models\Subcategory;
 use App\Models\Sale;
 class CategoryComponent extends Component
@@ -86,7 +88,8 @@ class CategoryComponent extends Component
         $sale = Sale::find(1);
         $categories = Category::all();
         $popular_products = Products::inRandomOrder()->limit(4)->get();
-
-        return view('livewire.category-component',['products' => $products,'categories'=> $categories,'category_name'=>$category_name,'sale'=>$sale,'popular_products'=>$popular_products])->layout("layouts.base");
+        $brands = Brand::all();
+        $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
+        return view('livewire.category-component',['brands'=>$brands,'new_product_banner'=>$new_product_banner,'products' => $products,'categories'=> $categories,'category_name'=>$category_name,'sale'=>$sale,'popular_products'=>$popular_products])->layout("layouts.base");
     }
 }

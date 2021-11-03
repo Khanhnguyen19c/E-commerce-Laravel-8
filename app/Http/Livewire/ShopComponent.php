@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Brand;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Products;
@@ -63,6 +64,7 @@ class ShopComponent extends Component
         else{
             $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pagesize);
         }
+        $brands = Brand::all();
         $categories = Category::all();
         $sale = Sale::find(1);
         $popular_products = Products::inRandomOrder()->limit(4)->get();
@@ -72,6 +74,6 @@ class ShopComponent extends Component
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
         $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.shop-component',['new_product_banner'=>$new_product_banner,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout("layouts.base");
+        return view('livewire.shop-component',['brands'=>$brands,'new_product_banner'=>$new_product_banner,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout("layouts.base");
     }
 }

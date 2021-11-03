@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Livewire\Admin;
-
+use App\Imports\EmployeeImport;
+use App\Exports\EmployeeExport;
 use App\Models\Products;
 use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Excel;
+use Illuminate\Http\Request;
 class AdminProductComponent extends Component
 {
     use WithPagination;
@@ -26,6 +29,15 @@ class AdminProductComponent extends Component
         }
         $product->delete();
         session()->flash('message','Xoá sản phẩm thành công');
+    }
+
+    public function export_csv(){
+        return Excel::download(new EmployeeExport, 'Product.xlsx');
+    }
+    public function import_csv(Request $request){
+        $path = $request->file('file')->getRealPath();
+        Excel::import(new EmployeeImport, $path);
+        return back();
     }
     public function render()
     {

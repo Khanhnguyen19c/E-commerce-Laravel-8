@@ -1,6 +1,18 @@
 <main id="main">
     <div class="container">
-
+    <style>
+        .wrap-main-slide .slide-carousel .slide-info.slide-1{
+            background-color: #e8dfdf57;
+            border-radius: 5px;
+            padding-right: 2px;
+            padding: 0px 15px;
+        }
+        .equal-elem{
+            border: 1px solid #8080807d;
+            margin-right: 15px;
+            box-shadow: 0px 1px 5px;
+}
+    </style>
         <!--MAIN SLIDE-->
         <div class="wrap-main-slide">
             <div class="slide-carousel owl-carousel style-nav-1" data-items="1" data-loop="1" data-nav="true" data-dots="false">
@@ -22,13 +34,13 @@
 
         <!--BANNER-->
         <div class="wrap-banner style-twin-default">
-        @foreach ($banners as $banner)
+            @foreach ($banners as $banner)
             <div class="banner-item">
                 <a href="#" class="link-banner banner-effect-1">
                     <figure><img src="{{ asset('assets/images/sliders') }}/{{$banner->image}}" alt="{{$banner->title}}" width="580" height="190"></figure>
                 </a>
             </div>
-        @endforeach
+            @endforeach
         </div>
 
         <!--On Sale-->
@@ -53,8 +65,9 @@
                     </div>
                     <div class="product-info">
                         <a href="#" class="product-name"><span>{{$sale_product->name }}</span></a>
-                        <div class="wrap-price"><span class="product-price">{{number_format($sale_product->sale_price,0,',',',') }} Đ</span></div>
-                        <span class="product-price product_regular_price"> {{ number_format($sale_product->regular_price,0,',',',') }}đ</span>
+                        <div class="wrap-price"><span class="product-price">{{number_format($sale_product->sale_price,0,',',',') }}đ</span>
+                            <span class="product-price product_regular_price"> {{ number_format($sale_product->regular_price,0,',',',') }}đ</span>
+                        </div>
                     </div>
                 </div>
 
@@ -68,7 +81,7 @@
             <h3 class="title-box">SẢN PHẨM MỚI NHẤT</h3>
             <div class="wrap-top-banner">
                 <a href="#" class="link-banner banner-effect-2">
-                    <figure><img src="{{ asset('assets/images/sliders') }}/{{$new_product_banner->image}}" alt="{{$new_product_banner->title}}" width="1170" height="240" ></figure>
+                    <figure><img src="{{ asset('assets/images/sliders') }}/{{$new_product_banner->image}}" alt="{{$new_product_banner->title}}" width="1170" height="240"></figure>
                 </a>
             </div>
             <div class="wrap-products">
@@ -91,7 +104,16 @@
                                     </div>
                                     <div class="product-info">
                                         <a href="#" class="product-name"><span>{{ $lproduct->name }}</span></a>
-                                        <div class="wrap-price"><span class="product-price">{{number_format($lproduct->regular_price,0,',',',') }}<span class="price_unit">đ</span></span></div>
+                                        @if ($lproduct->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now() )
+                                        <div class="wrap-price">
+                                            <span class="product-price"> {{ number_format($lproduct->sale_price,0,',',',') }}đ</span>
+                                            <span class="product-price product_regular_price"> {{ number_format($lproduct->regular_price,0,',',',') }}đ</span></>
+                                        </div>
+                                        @else
+                                        <div class="wrap-price">
+                                            <span class="product-price"> {{ number_format($lproduct->regular_price,0,',',',') }} đ</span>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 @endforeach
@@ -122,7 +144,7 @@
                         <div class="tab-content-item {{$key==0 ? 'active':'' }}" id="cateogry_{{ $category->id }}">
                             <div class="wrap-products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
                                 @php
-                                    $c_products = DB::table('products')->where('category_id',$category->id)->get()->take($no_of_products);
+                                $c_products = DB::table('products')->where('category_id',$category->id)->get()->take($no_of_products);
                                 @endphp
                                 @foreach ($c_products as $c_product)
                                 <div class="product product-style-2 equal-elem ">
@@ -139,7 +161,16 @@
                                     </div>
                                     <div class="product-info">
                                         <a href="{{ route('product.details',['slug'=>$c_product->slug]) }}" class="product-name"><span>{{$c_product->name}}</span></a>
-                                        <div class="wrap-price"><span class="product-price">{{number_format($c_product->regular_price,0,',',',')}}<span class="price_unit">đ</span></span></div>
+                                        @if ($c_product->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now() )
+                                        <div class="wrap-price">
+                                            <span class="product-price"> {{ number_format($c_product->sale_price,0,',',',') }}đ</span>
+                                            <span class="product-price product_regular_price"> {{ number_format($c_product->regular_price,0,',',',') }}đ</span></>
+                                        </div>
+                                        @else
+                                        <div class="wrap-price">
+                                            <span class="product-price"> {{ number_format($c_product->regular_price,0,',',',') }} đ</span>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 @endforeach

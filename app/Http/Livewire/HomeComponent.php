@@ -18,7 +18,7 @@ class HomeComponent extends Component
         $lproducts = Products::orderBy('created_at','DESC')->get()->take(8);
         $category = HomeCategory::find(1);
         $cats = explode(',',$category->sel_categories);
-        $categories = Category::whereIn('id',$cats)->get();
+        $categories = Category::whereIn('id',$cats)->with('subCategory')->get();
         $no_of_products = $category->no_of_products;
         $sale_products = Products::where('sale_price','>',0)->inRandomOrder()->get()->take(8);
         foreach ($categories as $key=>$category){

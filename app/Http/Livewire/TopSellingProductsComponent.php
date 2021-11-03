@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Brand;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Products;
@@ -75,7 +76,8 @@ class TopSellingProductsComponent extends Component
             Cart::instance('cart')->store(Auth::user()->email);
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
+        $brands = Brand::all();
         $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.top-selling-products-component',['new_product_banner'=>$new_product_banner,'orderItems'=>$orderItems,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout('layouts.base');
+        return view('livewire.top-selling-products-component',['brands'=>$brands,'new_product_banner'=>$new_product_banner,'orderItems'=>$orderItems,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout('layouts.base');
     }
 }

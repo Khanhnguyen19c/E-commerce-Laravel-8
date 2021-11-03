@@ -76,7 +76,7 @@
                                 </li>
                                 @if (Route::has('login'))
                                 @auth
-                                @if(Auth::user()->utype === 'ADM')
+                                @if(Auth::user()->utype === 'ADM' or Auth::user()->utype === 'SADM')
                                 <li class="menu-item menu-item-has-children parent">
                                     <a title=">My Account" href="#">My Account ({{ Auth::user()->name }})<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="submenu curency">
@@ -88,6 +88,9 @@
                                         </li>
                                         <li class="menu-item">
                                             <a title="Danh mục sản phẩm" href="{{ route('admin.categories') }}">Quản lý danh mục</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a title="Thương hiệu sản phẩm" href="{{ route('admin.brands') }}">Quản lý thương hiệu</a>
                                         </li>
                                         <li class="menu-item">
                                             <a title="Quản lý Sản phẩm" href="{{ route('admin.products') }}">Quản lý sản phẩm</a>
@@ -113,7 +116,14 @@
                                         <li class="menu-item">
                                             <a title="Quản lý thông tin website" href="{{ route('admin.settings') }}">Quản lý thông tin Website</a>
                                         </li>
-
+                                        <li class="menu-item">
+                                            <a title="Quản lý đối tác" href="{{ route('admin.payments') }}">Quản lý icon đối tác</a>
+                                        </li>
+                                        @if(Auth::user()->utype === 'SADM')
+                                        <li class="menu-item">
+                                            <a title="Quản lý Admin" href="{{ route('admin.list') }}">Quản lý list Admin</a>
+                                        </li>
+                                        @endif
                                         <li class="menu-item">
                                             <a title="Logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('form-logout').submit();">Logout</a>
                                         </li>
@@ -190,7 +200,7 @@
                                 <li class="menu-item"><a href="{{ route('products.topOnweek')}}" class="link-term">Nổi bật hàng tuần</a><span class="nav-label hot-label">hot</span></li>
                                 <li class="menu-item"><a href="{{ route('products.topOnsales')}}" class="link-term">Các sản phẩm giảm giá</a><span class="nav-label hot-label">hot</span></li>
                                 <li class="menu-item"><a href="{{ route('products.topSelling')}}" class="link-term">Bán chạy nhât</a><span class="nav-label hot-label">hot</span></li>
-                                <li class="menu-item"><a href="{{ route('products.topSelling')}}" class="link-term">Được đánh giá cao nhất</a><span class="nav-label hot-label">hot</span></li>
+                                <li class="menu-item"><a href="{{ route('products.topReview')}}" class="link-term">Được đánh giá cao nhất</a><span class="nav-label hot-label">hot</span></li>
                             </ul>
                         </div>
                     </div>
@@ -206,6 +216,9 @@
                                 </li>
                                 <li class="menu-item">
                                     <a href="{{ route('shop') }}" class="link-term mercado-item-title">Shop</a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="{{ route('categorypost') }}" class="link-term mercado-item-title">Tin Tức</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="{{ route('product.cart') }}" class="link-term mercado-item-title">Giỏ hàng</a>

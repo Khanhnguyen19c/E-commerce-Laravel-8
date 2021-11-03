@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\AttributeValue;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ProductAttribute;
 use App\Models\Products;
@@ -30,7 +31,7 @@ class AdminEditProductComponent extends Component
     public $category_id;
     public $newImage;
     public $product_id;
-
+    public $brand_id;
     public $images;
     public $newImages;
     public $scategory_id;
@@ -54,12 +55,14 @@ class AdminEditProductComponent extends Component
         $this->SKU = $product->SKU;
         $this->quantity = $product->quantity;
         $this->image = $product->image;
+        $this->brand_id =$product->brand_id;
         $this->images = explode(",", $product->images);
         $this->category_id = $product->category_id;
         $this->product_id = $product->id;
         $this->scategory_id = $product->subcategory_id;
         $this->inputs = $product->attributevalues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
         $this->attribute_arr =$product->attributevalues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
+
 
         foreach($this->attribute_arr as $a_rr){
             $allAtributeValue = AttributeValue::where('product_id',$product->id)->where('product_attribute_id',$a_rr)->get()->pluck('value');
@@ -100,6 +103,7 @@ class AdminEditProductComponent extends Component
             'featured' => 'required',
             'quantity' => 'required|numeric',
             'category_id' => 'required',
+            'brand_id' =>'required',
         ]);
         if ($this->newImage) {
             $this->validateOnly($fields, [
@@ -122,6 +126,7 @@ class AdminEditProductComponent extends Component
             'featured' => 'required',
             'quantity' => 'required|numeric',
             'category_id' => 'required',
+            'brand_id' =>'required',
         ]);
         if ($this->newImage) {
             $this->validate([
@@ -139,6 +144,7 @@ class AdminEditProductComponent extends Component
         $product->featured = $this->featured;
         $product->category_id = $this->category_id;
         $product->SKU = $this->SKU;
+        $product->brand_id = $this->brand_id;
         $product->quantity = $this->quantity;
         if ($this->newImage) {
             unlink('assets/images/products' . '/' . $product->image);
@@ -168,6 +174,7 @@ class AdminEditProductComponent extends Component
         }
         $product->save();
         AttributeValue::where('product_id',$product->id)->delete();
+        if($this->attribute_value){
         foreach($this->attribute_value as $key=>$attrbute_value)
         {
             $avalues = explode(",",$attrbute_value);
@@ -179,16 +186,19 @@ class AdminEditProductComponent extends Component
                 $attr_value->save();
             }
         }
+        }
         session()->flash('message', 'Cập nhật sản phẩm thành công!');
+        return redirect()->route('admin.products');
     }
     public function changeSubcategory(){
         $this->scategory_id = 0;
     }
     public function render()
     {
+        $brands = Brand::all();
         $scategories = Subcategory::where('category_id',$this->category_id)->get();
         $categories = Category::all();
         $attributes = ProductAttribute::all();
-        return view('livewire.admin.admin-edit-product-component', ['categories' => $categories,'scategories'=>$scategories,'attributes'=>$attributes])->layout('layouts.base');
+        return view('livewire.admin.admin-edit-product-component', ['brands'=>$brands,'categories' => $categories,'scategories'=>$scategories,'attributes'=>$attributes])->layout('layouts.base');
     }
 }

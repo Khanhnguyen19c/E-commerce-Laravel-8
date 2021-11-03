@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\User;
 
 use App\Models\OrderItem;
+use App\Models\Profile;
 use App\Models\Review;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class UserReviewComponent extends Component
@@ -34,7 +36,13 @@ class UserReviewComponent extends Component
         $orderItem = OrderItem::find($this->order_item_id);
         $orderItem->rstatus = true;
         $orderItem->save();
-        session()->flash('message','Bạn đã đánh giá thành công cảm ơn bạn đã dành thời gian!');
+        $userProfile = Profile::where('user_id',Auth::user()->id)->first();
+        if(!$userProfile){
+            $profile = new Profile();
+            $profile->user_id = Auth::user()->id;
+            $profile->save();
+        }
+        session()->flash('message','Bạn đã đánh giá thành công rồi.Cảm ơn bạn đã dành thời gian đánh giá sản phẩm!');
     }
     public function render()
     {

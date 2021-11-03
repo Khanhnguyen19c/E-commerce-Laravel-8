@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\AttributeValue;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ProductAttribute;
 use App\Models\Products;
@@ -30,7 +31,7 @@ class AdminAddProductComponent extends Component
     public $category_id;
     public $images;
     public $scategory_id;
-
+    public $brand_id;
     public $attr;
     public $inputs =[];
     public $attribute_arr =[];
@@ -67,8 +68,10 @@ class AdminAddProductComponent extends Component
             'stock_status'=>'required',
             'featured'=>'required',
             'quantity'=>'required|numeric',
-            'image'=>'required|mimes:jpeg,png',
+            'image'=>'required|mimes:jpeg,png|max:1024',
+            'images'=>'max:1000',
             'category_id'=>'required',
+            'brand_id' =>'required'
         ]);
     }
     public function addProduct(){
@@ -83,8 +86,10 @@ class AdminAddProductComponent extends Component
             'stock_status'=>'required',
             'featured'=>'required',
             'quantity'=>'required|numeric',
-            'image'=>'required|mimes:jpeg,png',
+            'image'=>'required|mimes:jpeg,png|max:1024',
             'category_id'=>'required',
+            'images'=>'max:1000',
+            'brand_id' =>'required'
         ]);
         $product = New Products();
         $product->name = $this->name;
@@ -98,10 +103,10 @@ class AdminAddProductComponent extends Component
         $product->category_id = $this->category_id;
         $product->SKU = $this->SKU;
         $product->quantity = $this->quantity;
+        $product->brand_id = $this->brand_id;
         $imageName = Carbon::now()->timestamp. '.' . $this->image->extension();
         $this->image->storeAs('products',$imageName);
         $product->image = $imageName;
-
         if($this->images){
             $imagesname= '';
             foreach($this->images as $key=>$image){
@@ -115,19 +120,21 @@ class AdminAddProductComponent extends Component
             $product->subcategory_id = $this->scategory_id;
         }
         $product->save();
-
-        foreach($this->attribute_value as $key=>$attribute_val){
-            $values = explode(",",$attribute_val);
-            foreach($values as $value){
-                $attr_value = new AttributeValue();
-                $attr_value->product_attribute_id = $key;
-                $attr_value->value= $value;
-                $attr_value->product_id = $product->id;
-                $attr_value->save();
+        if($this->attribute_value){
+            foreach($this->attribute_value as $key=>$attribute_val){
+                $values = explode(",",$attribute_val);
+                foreach($values as $value){
+                    $attr_value = new AttributeValue();
+                    $attr_value->product_attribute_id = $key;
+                    $attr_value->value= $value;
+                    $attr_value->product_id = $product->id;
+                    $attr_value->save();
+                }
             }
         }
-        session()->flash('message','Thêm sản phẩm thành công!');
 
+        session()->flash('message','Thêm sản phẩm thành công!');
+      return redirect()->route('admin.addproduct');
 
     }
     public function changeSubcategory(){
@@ -135,10 +142,11 @@ class AdminAddProductComponent extends Component
     }
     public function render()
     {
+        $brands = Brand::all();
         $categories = Category::all();
         $scategories = Subcategory::where('category_id',$this->category_id)->get();
 
         $attributes = ProductAttribute::all();
-        return view('livewire.admin.admin-add-product-component',['categories'=>$categories,'scategories'=>$scategories,'attributes'=>$attributes])->layout('layouts.base');
+        return view('livewire.admin.admin-add-product-component',['brands'=>$brands,'categories'=>$categories,'scategories'=>$scategories,'attributes'=>$attributes])->layout('layouts.base');
     }
 }

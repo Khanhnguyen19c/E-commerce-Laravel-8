@@ -16,12 +16,12 @@ class AuthAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->utype === 'ADM')
+        if(Auth::user()->utype === 'ADM' or Auth::user()->utype === 'SADM')
         {
             return $next($request);
         }else{
             session()->flush();
-            return redirect()->intended('home'); //not ADM no login
+            return redirect()->intended('404'); //not ADM no login
         }
         return $next($request);
     }

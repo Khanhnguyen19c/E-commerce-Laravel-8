@@ -152,7 +152,18 @@
                                 </div>
                             </div>
 
-
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Thương hiệu sản phẩm</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" wire:model="brand_id" >
+                                        <option value="">Chọn Thương Hiệu</option>
+                                        @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand_id') <p class="text-danger">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Thuộc tính sản phẩm</label>
                                 <div class="col-md-4">
@@ -179,7 +190,7 @@
                             </div>
                             @endforeach
 
-                            
+
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Mô Tả Ngắn</label>
                                 <div class="col-md-8">

@@ -42,7 +42,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label">không có sản phẩm</label>
+                                <label class="col-md-4 control-label">Số lượng sản phẩm hiển thị</label>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control input-md" wire:model="numberofproducts">
                                 </div>
@@ -64,8 +64,8 @@
 <script>
     $(document).ready(function() {
         $('.sel_categories').select2();
-        $('.sel_categories').on('change',function(e){
-            var data =$('.sel_categories').select2("val");
+        $('.sel_categories').on('change',function(event){
+            var data = $('.sel_categories').select2("val");
             @this.set('selected_categories',data);
         });
     });

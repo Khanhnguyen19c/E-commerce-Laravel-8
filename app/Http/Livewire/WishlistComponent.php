@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Sale;
 use Livewire\Component;
 use Cart;
 class WishlistComponent extends Component
@@ -16,8 +17,8 @@ class WishlistComponent extends Component
             }
         }
     }
-    
-    // move product to cart 
+
+    // move product to cart
     public function moveProductFromWishlistToCart($rowId){
         $item = Cart::instance('wishlist')->get($rowId);
         Cart::instance('wishlist')->remove($rowId);
@@ -27,6 +28,7 @@ class WishlistComponent extends Component
     }
     public function render()
     {
-        return view('livewire.wishlist-component')->layout('layouts.base');
+        $sale = Sale::find(1);
+        return view('livewire.wishlist-component',['sale'=>$sale])->layout('layouts.base');
     }
 }
