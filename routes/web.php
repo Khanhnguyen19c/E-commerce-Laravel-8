@@ -76,6 +76,15 @@ use App\Http\Livewire\WishlistComponent;
 //     return view('welcome');
 // });
 
+//change langue
+Route::get('lang/{loacale}', function ($locale) {
+    if(! in_array($locale, ['vn','en'] )) {
+        abort(404);
+    }
+    session()->put('locale',$locale);
+    return Redirect()->back();
+});
+
 Route::get('/home', HomeComponent::class)->name('home');
 Route::get('/', HomeComponent::class);
 

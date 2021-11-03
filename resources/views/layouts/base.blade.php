@@ -61,19 +61,20 @@
                                     </ul>
                                 </li>
                                 <li class="menu-item menu-item-has-children parent">
-                                    <a title="Dollar (USD)" href="#">VietNam (VNĐ)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                    <a title="Dollar (USD)" href="{{url('lang/vn')}}">VietNam (VNĐ)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="submenu curency">
                                         <li class="menu-item">
                                             <a title="Pound (GBP)" href="#">Pound (GBP)</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a title="Euro (EUR)" href="#">Euro (EUR)</a>
+                                            <a title="Euro (EUR)" href="{{url('lang/en')}}">Euro (EUR)</a>
                                         </li>
                                         <li class="menu-item">
                                             <a title="Dollar (USD)" href="#">Dollar (USD)</a>
                                         </li>
                                     </ul>
                                 </li>
+
                                 @if (Route::has('login'))
                                 @auth
                                 @if(Auth::user()->utype === 'ADM' or Auth::user()->utype === 'SADM')
