@@ -8,9 +8,9 @@
             padding: 0px 15px;
         }
         .equal-elem{
-            border: 1px solid #8080807d;
+            border: 1px solid #8080800f;
             margin-right: 15px;
-            box-shadow: 0px 1px 5px;
+            box-shadow: 0px 1px 3px;
 }
     </style>
         <!--MAIN SLIDE-->
