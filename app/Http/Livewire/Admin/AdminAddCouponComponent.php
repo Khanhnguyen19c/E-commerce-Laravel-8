@@ -22,7 +22,13 @@ class AdminAddCouponComponent extends Component
             'expiry_date' => 'required'
         ]);
     }
-
+    protected $messages = [
+        'code.required' => 'Thông tin này không được bỏ trống.',
+        'type.required' => 'Thông tin này không được bỏ trống.',
+        'value.required' => 'Thông tin này không được bỏ trống.',
+        'value.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'expiry_date.required'=> 'Thông tin này không được bỏ trống.'
+    ];
     public function storeCoupon(){
         $this->validate([
             'code' => 'required|unique:coupons',
@@ -42,6 +48,6 @@ class AdminAddCouponComponent extends Component
     }
     public function render()
     {
-        return view('livewire.admin.admin-add-coupon-component')->layout('layouts.base');
+        return view('livewire.admin.admin-add-coupon-component');
     }
 }

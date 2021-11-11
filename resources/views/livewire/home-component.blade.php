@@ -1,18 +1,19 @@
 <main id="main">
     <div class="container">
-    <style>
-        .wrap-main-slide .slide-carousel .slide-info.slide-1{
-            background-color: #e8dfdf57;
-            border-radius: 5px;
-            padding-right: 2px;
-            padding: 0px 15px;
-        }
-        .equal-elem{
+        <style>
+            .wrap-main-slide .slide-carousel .slide-info.slide-1 {
+                background-color: #e8dfdf57;
+                border-radius: 5px;
+                padding-right: 2px;
+                padding: 0px 15px;
+            }
+
+            /* .equal-elem{
             border: 1px solid #8080800f;
             margin-right: 15px;
             box-shadow: 0px 1px 3px;
-}
-    </style>
+} */
+        </style>
         <!--MAIN SLIDE-->
         <div class="wrap-main-slide">
             <div class="slide-carousel owl-carousel style-nav-1" data-items="1" data-loop="1" data-nav="true" data-dots="false">
@@ -156,8 +157,8 @@
                                             <span class="flash-item new-label">New</span>
                                         </div>
                                         <div class="wrap-btn">
-                                            <a href="#" class="function-link">Xen Nhanh</a>
-                                        </div>
+                                            <button type="button" data-toggle="modal" data-target="#modal-quick" class="function-link" wire:modal="quick_product">Xen Nhanh</button>
+                                         </div>
                                     </div>
                                     <div class="product-info">
                                         <a href="{{ route('product.details',['slug'=>$c_product->slug]) }}" class="product-name"><span>{{$c_product->name}}</span></a>
@@ -184,3 +185,22 @@
         </div>
     </div>
 </main>
+<div class="modal" id="modal-quick" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -122,6 +122,10 @@ route::get('products/brand/{brand_slug}',BrandComponent::class)->name('product.b
     Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback']);
     Route::get('auth/facebook', [SocialController::class, 'redirectToFacebook']);
     Route::get('auth/facebook/callback', [SocialController::class, 'handleFacebookCallback']);
+
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware'], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 // for user or customer
 Route::middleware(['auth:sanctum','verified'])->group(function(){
     route::get('user/dashboard',UserDashboardComponent::class)->name('user.dashboard');

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Trang Chủ</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext" rel="stylesheet">
@@ -251,8 +252,9 @@
     <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('assets/js/functions.js') }}"></script>
+    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script> -->
     <script src="https://cdn.tiny.cloud/1/eovfy0x0me91588prj1gvc4ss88ubsabp35or63sgedhbabe/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js" integrity="sha512-PDFb+YK2iaqtG4XelS5upP1/tFSmLUVJ/BVL8ToREQjsuXC5tyqEfAQV7Ca7s8b7RLHptOmTJak9jxlA2H9xQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -266,8 +268,18 @@
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <!-- thanh toán online -->
 
-
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=457322882198955&autoLogAppEvents=1" nonce="RLs1TlFK"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
     @stack('scripts')
+    <script>
+    window.addEventListener('hide-form', event => {
+        $('#form').modal('hide');
+        // toastr.success(event.detail.message, 'Success!');
+    });
+    window.addEventListener('show-form', event => {
+        $('#form').modal('show');
+    });
+    </script>
 </body>
-
 </html>

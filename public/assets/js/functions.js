@@ -42,6 +42,8 @@
     			$('.product-gallery').flexslider({
 					animation: "slide",
 					controlNav: "thumbnails",
+                    prevText: "Previous",
+                    nextText: "Next",
 
 				});
 
@@ -55,6 +57,7 @@
 				config.responsive = { 0	:{items:"2"}, 370	:{items:"3"}, 480	:{items:"4"}, 768	:{items:"4"}, 992	:{items:"3"}, 1200:{items:"4"} };
 				$(".flex-control-thumbs").owlCarousel(config);
     		}
+
     	},
 
 	    mercado_chosen: function(){

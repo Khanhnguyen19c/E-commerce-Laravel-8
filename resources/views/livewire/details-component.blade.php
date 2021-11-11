@@ -100,6 +100,7 @@
                         </div>
                     </div>
                     <div class="detail-info">
+                        <h2 class="product-name">{{ $product->name }}</h2>
                         <div class="product-rating">
                             @php
                             $avgrating =0;
@@ -116,13 +117,14 @@
                                 @endfor
                                 <a href="#" class="count-review">({{ $product->orderItems->where('rstatus',1)->count() }} đánh giá)</a>
                         </div>
-
-                        <h2 class="product-name">{{ $product->name }}</h2>
                         <div class="short-desc">
                             {!! $product->short_desc !!}
                         </div>
-                        <div class="wrap-social">
-                            <a class="link-socail" href="#"><img src="{{ asset('assets/images/social-list.png') }}" alt=""></a>
+                        <div class="wrap-social" wire:ignore>
+                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button" data-action="like" data-size="large" data-share="false"></div>
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                        <div class="g-ytsubscribe" data-channel="GoogleDevelopers" data-layout="default" data-count="hidden"></div>
+                        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                         </div>
                         @if ($product->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now())
                         <div class="wrap-price">
@@ -154,7 +156,7 @@
                         <div class="quantity" style="margin-top: 10px;">
                             <span>Số Lượng:</span>
                             <div class="quantity-input">
-                                <input type="number" name="product-quatity" value="1" min="1" max="{{ $product->quantity}}" data-max="{{ $product->quantity}}" pattern="[0-9]*" wire:model="qty">
+                                <input type="text" disabled name="product-quatity" value="1" min="1" max="{{ $product->quantity}}" data-max="{{ $product->quantity}}" pattern="[0-9]*" wire:model="qty">
                                 <a class="btn btn-reduce" href="#" wire:click.prevent="decreseQuantity"></a>
                                 <a class="btn btn-increase" href="#" wire:click.prevent="increaseQuantity"></a>
                             </div>
@@ -189,7 +191,7 @@
                             <div class="tab-content-item active" id="description" style="margin-bottom: 30px;">
                                 {!! $product->desc !!}
                                 <div class="desc_btn">
-                                    <p class="button_show" id="show">Hiển thị thêm...<i class="fa fa-angle-down" aria-hidden="true"></i></p>
+                                    <p class="btn btn-secondary button_show" id="show">Hiển thị thêm...<i class="fa fa-angle-down" aria-hidden="true"></i></p>
                                     <p class="button_hidden none" id="hidden">Ẩn bớt...<i class="fa fa-angle-up" aria-hidden="true"></i></p>
                                 </div>
                             </div>

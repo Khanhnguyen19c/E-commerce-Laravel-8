@@ -32,6 +32,16 @@ class AdminAddHomeSliderComponent extends Component
             'type' =>'required'
         ]);
     }
+    protected $messages = [
+        'title.required' => 'Thông tin này không được bỏ trống.',
+        'subtitle.required' => 'Thông tin này không được bỏ trống.',
+        'price.required' => 'Thông tin này không được bỏ trống.',
+        'price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'link.required'=> 'Thông tin này không được bỏ trống.',
+        'image.required'=> 'Hình ảnh không được để trống và phải có định dạng jpeg or png.',
+        'status.required'=> 'Thông tin này không được bỏ trống.',
+        'type.required'=> 'Thông tin này không được bỏ trống.',
+    ];
     public function addSlider(){
         $this->validate([
             'title' => 'required',

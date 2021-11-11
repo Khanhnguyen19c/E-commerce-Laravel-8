@@ -47,6 +47,20 @@ class AdminSettingComponent extends Component
             'youtube'=> 'required',
         ]);
     }
+    protected $messages = [
+        'email.required' => 'Thông tin này không được bỏ trống.',
+        'email.email' => 'Bạn phải nhập Định dạng Email vào ô này.',
+        'phone.required' => 'Thông tin này không được bỏ trống.',
+        'phone2.required' => 'Thông tin này không được bỏ trống.',
+        'address.required' => 'Thông tin này không được bỏ trống.',
+        'map.required' => 'Thông tin này không được bỏ trống.',
+        'twiter.required' => 'Thông tin này không được bỏ trống.',
+        'facebook.required' => 'Thông tin này không được bỏ trống.',
+        'instagram.required' => 'Thông tin này không được bỏ trống.',
+        'pinterest.required' => 'Thông tin này không được bỏ trống.',
+        'youtube.required' => 'Thông tin này không được bỏ trống.',
+
+    ];
     public function saveSettings(){
         $this->validate([
             'email'=> 'required|email',

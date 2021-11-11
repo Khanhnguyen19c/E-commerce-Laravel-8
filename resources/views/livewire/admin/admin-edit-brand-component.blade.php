@@ -21,7 +21,7 @@
                     <div class="panel-heading" style=" text-align: center;font-size: 18px;color: white;background-color: #7373ff;">
                         <div class="row">
                             <div class="col-md-8">
-                                Thêm Danh Mục
+                                Cập nhật thương hiệu
                             </div>
                             <div class="col-md-4">
                                 <a href="{{ route('admin.brands')}}" class="btn btn-success">Danh Sách Thương Hiệu</a>

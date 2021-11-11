@@ -14,10 +14,10 @@
         <div class="wrap-breadcrumb">
             <ul>
             <li class="item-link"><a href="{{ route('home')}}" class="link">Trang Chủ</a></li>
-                <li class="item-link"><a href="{{ route('login') }}" class="link"><span>Đăng nhập</span></a></li>
+                <li class="item-link"><a href="{{ route('login') }}" class="link"><span>Giỏ hàng</span></a></li>
             </ul>
         </div>
-        <div class=" main-content-area">
+        <div class="main-content-area">
             @if (Cart::instance('cart')->count() > 0)
 
             <div class="wrap-iten-in-cart">

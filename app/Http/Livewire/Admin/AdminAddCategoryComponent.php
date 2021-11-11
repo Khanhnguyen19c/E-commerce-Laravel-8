@@ -9,6 +9,7 @@ use Livewire\Component;
 use Illuminate\Support\Str;
 class AdminAddCategoryComponent extends Component
 {
+    protected $listeners = ['refreshComponent'=>'$refresh'];
     public $name;
     public $slug;
     public $category_id;
@@ -23,6 +24,14 @@ class AdminAddCategoryComponent extends Component
         ]);
 
     }
+    protected $messages = [
+
+        'name.required' => 'Thông tin này không được bỏ trống.',
+
+        'slug.required' => 'Thông tin này không được bỏ trống.',
+
+
+    ];
 
     public function storeCategory(){
         $this->validate([
@@ -41,12 +50,11 @@ class AdminAddCategoryComponent extends Component
             $category->slug = $this->slug;
             $category->save();
         }
-
         session()->flash('message','Thêm danh mục thành công!');
     }
     public function render()
     {
         $categories = Category::all();
-        return view('livewire.admin.admin-add-category-component',['categories'=>$categories])->layout('layouts.base');
+        return view('livewire.admin.admin-add-category-component',['categories'=>$categories]);
     }
 }

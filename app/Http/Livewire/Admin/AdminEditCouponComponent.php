@@ -31,7 +31,13 @@ class AdminEditCouponComponent extends Component
             'expiry_date' => 'required'
         ]);
     }
-
+    protected $messages = [
+        'code.required' => 'Thông tin này không được bỏ trống.',
+        'type.required' => 'Thông tin này không được bỏ trống.',
+        'value.required' => 'Thông tin này không được bỏ trống.',
+        'value.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'expiry_date.required'=> 'Thông tin này không được bỏ trống.'
+    ];
     public function editCoupon(){
         $this->validate([
             'code' => 'required',

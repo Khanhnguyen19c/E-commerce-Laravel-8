@@ -163,6 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -238,6 +240,7 @@ return [
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

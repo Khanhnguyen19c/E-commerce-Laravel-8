@@ -21,11 +21,16 @@ class AdminaddComponent extends Component
         $this->validateOnly($fields,[
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'password' => 'required|min:8',
             'role_id' =>'required'
         ]);
     }
-
+    protected $messages = [
+        'name.required' => 'Thông tin này không được bỏ trống.',
+        'slug.required' => 'Thông tin này không được bỏ trống.',
+        'email.email' => 'Bạn phải nhập Định dạng Email vào ô này.',
+        'password.required'=> 'Mật khẩu không được để trống.'
+    ];
     public function storeAdmin(){
         $this->validate([
             'name' => 'required',

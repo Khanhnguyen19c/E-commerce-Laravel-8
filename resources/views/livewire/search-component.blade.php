@@ -43,7 +43,7 @@
 
 							<div class="change-display-mode">
 								<a href="#" class="grid-mode display-mode active"><i class="fa fa-th"></i>Grid</a>
-								<a href="list.html" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
+								<a href="#" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
 							</div>
 
 						</div>
@@ -132,11 +132,16 @@
                              @foreach ($brands as $key=>$brand)
                                 @if($key >= 3)
                                 <li class="list-item default-hiden"><a class="filter-link " href="{{ route('product.brand',['brand_slug'=>$brand->slug]) }}">{{$brand->name}}</a></li>
-                                <li class="list-item"><a data-label='Ẩn bớt<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Hiển thị thêm<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
+                               @php
+                                $i = 'show'
+                               @endphp
                                 @else
                                 <li class="list-item"><a class="filter-link " href="{{ route('product.brand',['brand_slug'=>$brand->slug]) }}">{{$brand->name}}</a></li>
                                 @endif
                                 @endforeach
+                            @if ($i == 'show')
+                            <li class="list-item"><a data-label='Ẩn bớt<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Hiển thị thêm<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
+                            @endif
 
                             </ul>
 						</div>

@@ -74,6 +74,23 @@ class AdminAddProductComponent extends Component
             'brand_id' =>'required'
         ]);
     }
+    protected $messages = [
+        'name.required' => 'Thông tin này không được bỏ trống.',
+        'slug.required' => 'Thông tin này không được bỏ trống.',
+        'short_desc.required' => 'Thông tin này không được bỏ trống.',
+        'regular_price.required' => 'Thông tin này không được bỏ trống.',
+        'regular_price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'sale_price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'SKU.required'=> 'Thông tin này không được bỏ trống.',
+        'stock_status.required'=> 'Thông tin này không được bỏ trống.',
+        'featured.required'=> 'Thông tin này không được bỏ trống.',
+        'quantity.required'=> 'Thông tin này không được bỏ trống.',
+        'quantity.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'image.required'=> 'Hình ảnh không được bỏ trống tối đa 1MB.',
+        'image.mimes'=> 'Bạn phải chọn một định dạnh jpeg or png.',
+        'category_id.required'=> 'Thông tin này không được bỏ trống.',
+        'brand_id.required'=> 'Thông tin này không được bỏ trống.',
+    ];
     public function addProduct(){
         $this->validate([
             'name'=>'required',
@@ -133,8 +150,8 @@ class AdminAddProductComponent extends Component
             }
         }
 
-        session()->flash('message','Thêm sản phẩm thành công!');
       return redirect()->route('admin.addproduct');
+      session()->flash('message','Thêm sản phẩm thành công!');
 
     }
     public function changeSubcategory(){

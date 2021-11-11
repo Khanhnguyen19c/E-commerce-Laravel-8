@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Giá Bán</label>
                                 <div class="col-md-4">
-                                    <input type="number" value="1" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price">
+                                    <input  type="number" value="1" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price">
                                     @error('regular_price') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
@@ -103,6 +103,7 @@
                                 <label class="col-md-4 control-label">Hình Ảnh</label>
                                 <div class="col-md-4">
                                     <input type="file" class="input-file" wire:model="image">
+                                    <div wire:loading wire:target="image"> <i class="fa fa-spinner fa-pulse fa-fw"></i></div>
                                     @error('image') <p class="text-danger">{{ $message }}</p> @enderror
                                     @if ($image)
                                     <img src="{{$image->temporaryUrl() }}" width="120">
@@ -113,6 +114,7 @@
                                 <label class="col-md-4 control-label">Hình Ảnh Phụ</label>
                                 <div class="col-md-4">
                                     <input type="file" class="input-file" wire:model="images" multiple>
+                                    <div wire:loading wire:target="images"> <i class="fa fa-spinner fa-pulse fa-fw"></i></div>
                                     @if($images)
                                     @foreach ($images as $image)
                                     <img src="{{$image->temporaryUrl() }}" width="120">
@@ -191,17 +193,18 @@
                                     @error('short_desc') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
+
                             <div class="form-group" wire:ignore>
                                 <label class="col-md-4 control-label">Mô Tả Sản Phẩm</label>
                                 <div class="col-md-8">
-                                    <textarea id="editor" class="form-control input-md" wire:model="desc"> </textarea>
+                                    <textarea id="editor" class="form-control input-md" wire:model="desc" name="editor">{{ $desc }}</textarea>
                                     @error('desc') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary">Thêm Mới</button>
+                                    <button type="submit" id="submit" class="btn btn-primary">Thêm Mới</button>
                                 </div>
                             </div>
                         </form>
@@ -213,16 +216,22 @@
 </div>
 
 @push('scripts')
+<script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
 <script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .then(function(editor) {
-            editor.model.document.on('change:data', () => {
-                @this.set('desc', editor.getData());
-            })
-        })
-        .catch(error => {
-            console.error(error);
-        });
+    // ClassicEditor
+    // .create( document.querySelector( '#editor' ))
+    //     .then(function(editor) {
+    //         editor.model.document.on('change:data', () => {
+    //             @this.set('desc', editor.getData());
+    //         })
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+    const editor = CKEDITOR.replace('editor');
+    document.querySelector("#submit").addEventListener("click", () => {
+        // console.log(editor.getData())
+        @this.set('desc', editor.getData());
+    });
 </script>
 @endpush

@@ -65,6 +65,7 @@
                                 <label class="col-md-4 control-label">Hình Ảnh</label>
                                 <div class="col-md-4">
                                     <input type="file"class="input-file" wire:model="newImage">
+                                    <div wire:loading wire:target="newImage"> <i class="fa fa-spinner fa-pulse fa-fw"></i></div>
                                     <!-- @error('newImage') <p class="text-danger">{{ $message }}</p> @enderror -->
                                     @if ($newImage)
                                     <img src="{{$newImage->temporaryUrl() }}" width="120">

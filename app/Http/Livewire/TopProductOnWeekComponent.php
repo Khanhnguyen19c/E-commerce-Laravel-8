@@ -53,20 +53,23 @@ class TopProductOnWeekComponent extends Component
     public function render()
     {
         //get date
-        $from = Carbon::now();
-        $to = $from->subDays(7);
+        $from_tmp = Carbon::now();
+        $to = $from_tmp->subDays(7)->format('Y-m-d H:i:s');
+        $from = Carbon::now()->format('Y-m-d H:i:s');
         if($this->sorting =='date'){
-            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate($this->pagesize);
+            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$to,$from])->orderBy('created_at','DESC')->paginate($this->pagesize);
         }
         else if($this->sorting =='price'){
-            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$from,$to])->orderBy('regular_price','ASC')->paginate($this->pagesize);
+            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$to,$from])->orderBy('regular_price','ASC')->paginate($this->pagesize);
         }
         else if($this->sorting =='price-desc'){
-            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$from,$to])->orderBy('regular_price','DESC')->paginate($this->pagesize);
+            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$to,$from])->orderBy('regular_price','DESC')->paginate($this->pagesize);
         }
         else{
-            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$from,$to])->orderBy('created_at','DESC')->paginate($this->pagesize);
+            $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->whereBetween('created_at',[$to,$from])->orderBy('created_at','DESC')->paginate($this->pagesize);
         }
+        var_dump($from);
+        var_dump($to);
         $categories = Category::all();
         $sale = Sale::find(1);
         $popular_products = Products::inRandomOrder()->limit(4)->get();

@@ -157,7 +157,7 @@
 
                 <div class="summary summary-checkout">
                     <div class="summary-item payment-method">
-                        <h4 class="title-box">Payment Method</h4>
+                        <h4 class="title-box">Phương thức thanh toán</h4>
                         @if ($paymentmode =='card')
                         @if(Session::has('stripe_error'))
                         <div class="alert alert-danger" role="alert">{{Session::get('stripe_error')}}</div>
@@ -229,10 +229,11 @@
                         <button type="submit" class="btn btn-medium">Đặt hàng ngay bây giờ</button>
                     </div>
                     <div class="summary-item shipping-method">
-                        <h4 class="title-box f-title">Phương pháp vận chuyển</h4>
-                        <p class="summary-info"><span class="title">Flat Rate</span></p>
-                        <p class="summary-info"><span class="title">Fixed $0</span></p>
+                        <h4 class="title-box f-title">Khuyến mãi (nếu có)</h4>
+                        @if(session::has('coupon'))
                         <h4 class="title-box">Mã giảm giá: <span class="price_unit">{{ Session::get('coupon')['code'] }}</span></h4>
+                        @endif
+
                     </div>
                 </div>
             </form>

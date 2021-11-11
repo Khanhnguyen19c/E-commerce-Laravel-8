@@ -43,7 +43,7 @@
 
 							<div class="change-display-mode">
 								<a href="#" class="grid-mode display-mode active"><i class="fa fa-th"></i>Grid</a>
-								<a href="list.html" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
+								<a href="#" class="list-mode display-mode"><i class="fa fa-th-list"></i>List</a>
 							</div>
 
 						</div>
@@ -132,12 +132,16 @@
                              @foreach ($brands as $key=>$brand)
                                 @if($key >= 3)
                                 <li class="list-item default-hiden"><a class="filter-link " href="{{ route('product.brand',['brand_slug'=>$brand->slug]) }}">{{$brand->name}}</a></li>
-                                <li class="list-item"><a data-label='Ẩn bớt<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Hiển thị thêm<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
+                               @php
+                                $i = 'show'
+                               @endphp
                                 @else
                                 <li class="list-item"><a class="filter-link " href="{{ route('product.brand',['brand_slug'=>$brand->slug]) }}">{{$brand->name}}</a></li>
                                 @endif
                                 @endforeach
-
+                            @if ($i == 'show')
+                            <li class="list-item"><a data-label='Ẩn bớt<i class="fa fa-angle-up" aria-hidden="true"></i>' class="btn-control control-show-more" href="#">Hiển thị thêm<i class="fa fa-angle-down" aria-hidden="true"></i></a></li>
+                            @endif
                             </ul>
 						</div>
 					</div><!-- brand widget-->
@@ -154,12 +158,10 @@
 						<h2 class="widget-title">Color</h2>
 						<div class="widget-content">
 							<ul class="list-style vertical-list has-count-index">
-								<li class="list-item"><a class="filter-link " href="#">Red <span>(217)</span></a></li>
-								<li class="list-item"><a class="filter-link " href="#">Yellow <span>(179)</span></a></li>
-								<li class="list-item"><a class="filter-link " href="#">Black <span>(79)</span></a></li>
-								<li class="list-item"><a class="filter-link " href="#">Blue <span>(283)</span></a></li>
-								<li class="list-item"><a class="filter-link " href="#">Grey <span>(116)</span></a></li>
-								<li class="list-item"><a class="filter-link " href="#">Pink <span>(29)</span></a></li>
+								@foreach ($Cproduct_attribute as $Cattribute)
+                                <li class="list-item"><a class="filter-link " href="#">{{ $Cattribute->value }} </a></li>
+                                @endforeach
+
 							</ul>
 						</div>
 					</div><!-- Color -->
@@ -168,10 +170,10 @@
 						<h2 class="widget-title">Size</h2>
 						<div class="widget-content">
 							<ul class="list-style inline-round ">
-								<li class="list-item"><a class="filter-link active" href="#">s</a></li>
-								<li class="list-item"><a class="filter-link " href="#">M</a></li>
-								<li class="list-item"><a class="filter-link " href="#">l</a></li>
-								<li class="list-item"><a class="filter-link " href="#">xl</a></li>
+								@foreach ($Sproduct_attribute as $Sattribute)
+                                <li class="list-item"><a class="filter-link " href="#">{{$Sattribute->value}}</a></li>
+                                @endforeach
+
 							</ul>
 							<div class="widget-banner">
 								<figure><img src=" {{ asset('assets/images/size-banner-widget.jpg') }}" width="270" height="331" alt=""></figure>

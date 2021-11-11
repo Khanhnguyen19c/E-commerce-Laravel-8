@@ -79,14 +79,3 @@
         </div>
     </div>
 </div>
-@push('scripts')
-<script>
-    $(document).ready(function() {
-        $('.sel_categories').select2();
-        $('.sel_categories').on('change',function(event){
-            var data = $('.sel_categories').select2("val");
-            @this.set('selected_categories',data);
-        });
-    });
-</script>
-@endpush

@@ -40,6 +40,15 @@ class AdminEditHomeSliderComponent extends Component
             'type' =>'required'
         ]);
     }
+    protected $messages = [
+        'title.required' => 'Thông tin này không được bỏ trống.',
+        'subtitle.required' => 'Thông tin này không được bỏ trống.',
+        'price.required' => 'Thông tin này không được bỏ trống.',
+        'price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'link.required'=> 'Thông tin này không được bỏ trống.',
+        'status.required'=> 'Thông tin này không được bỏ trống.',
+        'type.required'=> 'Thông tin này không được bỏ trống.',
+    ];
     public function updateSlider(){
         $this->validate([
             'title' => 'required',

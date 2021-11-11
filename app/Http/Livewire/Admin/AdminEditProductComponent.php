@@ -111,7 +111,21 @@ class AdminEditProductComponent extends Component
             ]);
         }
     }
-
+    protected $messages = [
+        'name.required' => 'Thông tin này không được bỏ trống.',
+        'slug.required' => 'Thông tin này không được bỏ trống.',
+        'short_desc.required' => 'Thông tin này không được bỏ trống.',
+        'regular_price.required' => 'Thông tin này không được bỏ trống.',
+        'regular_price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'sale_price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'SKU.required'=> 'Thông tin này không được bỏ trống.',
+        'stock_status.required'=> 'Thông tin này không được bỏ trống.',
+        'featured.required'=> 'Thông tin này không được bỏ trống.',
+        'quantity.required'=> 'Thông tin này không được bỏ trống.',
+        'quantity.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'category_id.required'=> 'Thông tin này không được bỏ trống.',
+        'brand_id.required'=> 'Thông tin này không được bỏ trống.',
+    ];
     public function updateProduct()
     {
         $this->validate([

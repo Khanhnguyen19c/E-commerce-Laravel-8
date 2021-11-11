@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Cart;
 class HomeComponent extends Component
 {
+    public $quick_product;
+
     public function render()
     {
         $sliders = HomeSlider::where('status',1)->where('type',1)->get();

@@ -27,6 +27,12 @@ class AdmineditComponent extends Component
             'role_id' =>'required'
         ]);
     }
+    protected $messages = [
+        'name.required' => 'Thông tin này không được bỏ trống.',
+        'old_password.required' => 'Mật khẩu không được bỏ trống và ít nhất phải có 8 ký tự.',
+        'password.required' => 'Mật khẩu không được bỏ trống và ít nhất phải có 8 ký tự.',
+        'role_id.required'=> 'Mật khẩu không được để trống.'
+    ];
     public function mount($id){
     $user = User::find($id);
     $this->name= $user->name;

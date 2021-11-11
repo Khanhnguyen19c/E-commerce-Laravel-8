@@ -227,7 +227,10 @@ class CheckoutComponent extends Component
         $this->city = City::all();
         $this->province = collect();
         $this->ward = collect();
-        $this->vnd_to_usd= Session()->get('checkout')['total']/23083;
+        if(Session()->get('checkout')){
+            $this->vnd_to_usd= Session()->get('checkout')['total']/23083;
+        }
+
     }
 
     public function verifyforCheckout(){

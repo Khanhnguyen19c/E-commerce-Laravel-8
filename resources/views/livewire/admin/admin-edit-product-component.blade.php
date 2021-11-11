@@ -99,7 +99,7 @@
                                 <label class="col-md-4 control-label">Hình Ảnh</label>
                                 <div class="col-md-4">
                                     <input type="file"class="input-file" wire:model="newImage">
-
+                                    <div wire:loading wire:target="newImage"> <i class="fa fa-spinner fa-pulse fa-fw"></i></div>
                                     @if ($newImage)
                                             <img src="{{$newImage->temporaryUrl() }}" width="120">
                                     @else
@@ -111,6 +111,7 @@
                                 <label class="col-md-4 control-label">Hình Ảnh Phụ</label>
                                 <div class="col-md-4">
                                     <input type="file"class="input-file" wire:model="newImages" multiple>
+                                    <div wire:loading wire:target="newImages"> <i class="fa fa-spinner fa-pulse fa-fw"></i></div>
                                     @if ($newImages)
                                         @foreach ($newImages as $newImage)
                                             @if ($newImage)
@@ -209,7 +210,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary">Cật Nhật</button>
+                                    <button type="submit" id="submit" class="btn btn-primary">Cật Nhật</button>
                                 </div>
                             </div>
                         </form>
@@ -220,16 +221,29 @@
     </div>
 </div>
 @push('scripts')
+<script>
+    var options = {
+    filebrowserImageBrowseUrl: 'laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: 'laravel-filemanager/upload?type=Images&_token=',
+    filebrowserBrowseUrl: 'laravel-filemanager?type=Files',
+    filebrowserUploadUrl: 'laravel-filemanager/upload?type=Files&_token='
+  };
+</script>
     <script>
-  ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .then(function(editor){
-            editor.model.document.on('change:data',() =>{
-                @this.set('desc',editor.getData());
-            })
-        })
-        .catch( error => {
-            console.error( error );
-        } );
+//   ClassicEditor
+//         .create( document.querySelector( '#editor' ) )
+//         .then(function(editor){
+//             editor.model.document.on('change:data',() =>{
+//                 @this.set('desc',editor.getData());
+//             })
+//         })
+//         .catch( error => {
+//             console.error( error );
+//         } );
+const editor = CKEDITOR.replace('editor',options);
+    document.querySelector("#submit").addEventListener("click", () => {
+        // console.log(editor.getData())
+        @this.set('desc', editor.getData());
+    });
     </script>
 @endpush

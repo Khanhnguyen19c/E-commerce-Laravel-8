@@ -45,6 +45,12 @@ class AdminEditCategoryComponent extends Component
         ]);
 
     }
+
+    protected $messages = [
+        'name.required' => 'Thông tin này không được bỏ trống.',
+
+        'slug.required' => 'Thông tin này không được bỏ trống.',
+    ];
     public function updateCategory(){
         $this->validate([
             'name' => 'required',

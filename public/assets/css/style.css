@@ -52,7 +52,7 @@ Primary use:    Ecommerce
 /* @import url('https://fonts.cdnfonts.com/css/segoe-ui-4'); */
 body{
 font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-	font-size: 13px;
+	font-size: 16px;
 	color: #444444;
 	overflow-x: hidden;
 }
@@ -102,7 +102,6 @@ input,textarea{
     font-style: normal;
     margin-left: 20px;
 }
-
 .flaticon-favorite:before { content: "\f100"; }
 .flaticon-technology:before { content: "\f101"; }
 .flaticon-interface:before { content: "\f102"; }
@@ -2433,6 +2432,9 @@ li.menu-item .nav-label.sale-label::before{
 .wrap-pagination-info{
     margin-top: 46px;
     border-top: 1px solid #e6e6e6;
+}
+.wrap-pagination-info .justify-between{
+    float: right;
 }
 .wrap-pagination-info .page-numbers{
     padding: 0;
@@ -7321,9 +7323,9 @@ svg {
   .loginBtn--google:focus {
     background: #E74B37;
   }
-.panel-body{
+/* .panel-body{
     overflow: scroll;
-}
+} */
 .switch {
   position: relative;
   display: inline-block;

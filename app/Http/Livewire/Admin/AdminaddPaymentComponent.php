@@ -18,11 +18,16 @@ class AdminaddPaymentComponent extends Component
             'images'=>'required|max:10000',
         ]);
     }
+    protected $messages = [
+        'name.required' => 'Thông tin này không được bỏ trống.',
+        'images.required' => 'Hình ảnh không được bỏ trống và tối đa là 10MB.',
+    ];
     public function storePyament(){
         $this->validate([
             'name'=>'required',
             'images'=>'required|max:10000',
         ]);
+
         $payment = new Payment();
         $payment->name = $this->name;
         $imagesname= '';
@@ -38,6 +43,6 @@ class AdminaddPaymentComponent extends Component
     public function render()
     {
 
-        return view('livewire.admin.adminadd-payment-component')->layout('layouts.base');
+        return view('livewire.admin.adminadd-payment-component');
     }
 }

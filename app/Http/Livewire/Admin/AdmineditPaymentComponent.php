@@ -24,6 +24,10 @@ class AdmineditPaymentComponent extends Component
             ]);
         }
     }
+    protected $messages = [
+        'name.required' => 'Thông tin này không được bỏ trống.',
+        'images.required' => 'Hình ảnh không được bỏ trống và tối đa là 10MB.',
+    ];
     public function mount($id){
         $payment = Payment::find($id);
         $this->name = $payment->name;
