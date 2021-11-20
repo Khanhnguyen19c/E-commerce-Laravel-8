@@ -4,9 +4,10 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Coupon;
 use Livewire\Component;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminCouponsComponent extends Component
 {
+    use AuthorizesRequests;
     public $showEditModal = False;
     public $code;
     public $type;
@@ -61,6 +62,7 @@ class AdminCouponsComponent extends Component
             'cart_value' => 'required|numeric',
             'expiry_date' => 'required'
         ]);
+        $this->authorize('coupon-edit');
         $coupon = Coupon::find($this->coupon_id);
         $coupon->code = $this->code;
         $coupon->type = $this->type;
@@ -72,13 +74,14 @@ class AdminCouponsComponent extends Component
     }
     //delete coupon
     public function DeleteCoupon($coupon_id){
+        $this->authorize('coupon-delete');
         $coupon = Coupon::find($coupon_id);
         $coupon->delete();
         session()->flash('message_del','Xoá mã giảm giá thành công');
     }
     //refesh page
     public function refesh(){
-        $this->emitTo('admin.admin.admin-coupons-component','refreshComponent');
+        $this->emitTo('admin.admin-coupons-component','refreshComponent');
         $this->dispatchBrowserEvent('hide-form');
     }
     public function render()

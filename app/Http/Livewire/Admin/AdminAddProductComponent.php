@@ -40,10 +40,10 @@ class AdminAddProductComponent extends Component
     public function mount(){
         $this->stock_status = 'Trong Kho';
         $this->featured = 0;
+        $this->sale_price = 0;
     }
     public function generateslug(){
         $this->slug= Str::slug($this->name,'-');
-        $this->sale_price = 0 ;
     }
     //add attribute
     public function add(){
@@ -149,9 +149,9 @@ class AdminAddProductComponent extends Component
                 }
             }
         }
+        session()->flash('message','Thêm sản phẩm thành công!');
+      return redirect()->route('admin.products');
 
-      return redirect()->route('admin.addproduct');
-      session()->flash('message','Thêm sản phẩm thành công!');
 
     }
     public function changeSubcategory(){

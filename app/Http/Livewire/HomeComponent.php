@@ -13,7 +13,12 @@ use Cart;
 class HomeComponent extends Component
 {
     public $quick_product;
+    public $currentUrl;
 
+    public function mount()
+    {
+        $this->currentUrl = url()->current();
+    }
     public function render()
     {
         $sliders = HomeSlider::where('status',1)->where('type',1)->get();
@@ -23,9 +28,7 @@ class HomeComponent extends Component
         $categories = Category::whereIn('id',$cats)->with('subCategory')->get();
         $no_of_products = $category->no_of_products;
         $sale_products = Products::where('sale_price','>',0)->inRandomOrder()->get()->take(8);
-        foreach ($categories as $key=>$category){
-            $c_products = Products::where('category_id',$category->id)->get()->take($no_of_products);
-        }
+
         $sale = Sale::find(1);
         if(Auth::check()){
             Cart::instance('cart')->restore(Auth::user()->email);

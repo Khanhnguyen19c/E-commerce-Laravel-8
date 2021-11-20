@@ -27,7 +27,7 @@ class SearchComponent extends Component
         $this->pagesize = 12;
         $this->fill(request()->only('search','product_cat','product_cat_id'));
         $this->min_price = 100000;
-        $this->max_price = 20000000;
+        $this->max_price = 100000000;
     }
     // add cart
     public function store($product_id,$product_name,$product_price){
@@ -50,15 +50,10 @@ class SearchComponent extends Component
         else{
             $products =  Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('name','like','%'.$this->search .'%')->where('category_id','like','%'.$this->product_cat_id.'%')->paginate($this->pagesize);
         }
-        $categories = Category::all();
         if(Auth::check()){
             Cart::instance('cart')->store(Auth::user()->email);
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
-        $brands = Brand::all();
-        $sale = Sale::find(1);
-        $popular_products = Products::inRandomOrder()->limit(4)->get();
-        $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.search-component',['brands'=>$brands,'new_product_banner'=>$new_product_banner,'sale'=>$sale,'popular_products'=>$popular_products,'products' => $products,'categories'=> $categories])->layout("layouts.base");
+        return view('livewire.search-component',['products' => $products,'search'=>$this->search,'product_cat'=>$this->product_cat])->layout("layouts.base");
     }
 }

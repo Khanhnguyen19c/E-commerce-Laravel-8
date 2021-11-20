@@ -42,8 +42,6 @@
     			$('.product-gallery').flexslider({
 					animation: "slide",
 					controlNav: "thumbnails",
-                    prevText: "Previous",
-                    nextText: "Next",
 
 				});
 

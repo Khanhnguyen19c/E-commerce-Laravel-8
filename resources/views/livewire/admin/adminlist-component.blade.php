@@ -50,7 +50,14 @@
                                     <td>{{ $user->id}}</td>
                                     <td>{{ $user->name}}</td>
                                     <td>{{ $user->email}}</td>
-                                      <td></td>
+                                    <td>
+                                    @foreach ($user->roles as $role)
+                                         {{ $role->name }}
+                                         @if (!$loop->last),
+                                        @endif
+                                    @endforeach
+                                    </td>
+                                      <td>{{ $user->created_at}}</td>
                                     <td>{{ $user->created_at}}</td>
                                     <td>
                                     <a href="{{ route('admin.edit',['id'=>$user->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a>

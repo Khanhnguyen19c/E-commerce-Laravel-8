@@ -5,11 +5,13 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Brand;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminAddBrandComponent extends Component
 {
     public $name;
     public $slug;
-
+    use AuthorizesRequests;
+    protected $listeners = ['refreshComponent'=>'$refresh'];
     public function generateslug(){
         $this->slug= Str::slug($this->name);
     }
@@ -24,10 +26,11 @@ class AdminAddBrandComponent extends Component
             'name' => 'required',
             'slug' => 'required|unique:brands'
         ]);
-            $category = new Brand();
-            $category->name = $this->name;
-            $category->slug = $this->slug;
-            $category->save();
+         $this->authorize('brand-add');
+            $brand = new Brand();
+            $brand->name = $this->name;
+            $brand->slug = $this->slug;
+            $brand->save();
         session()->flash('message','Thêm thương hiệu thành công!');
     }
     public function render()

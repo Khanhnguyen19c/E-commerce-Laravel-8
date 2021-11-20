@@ -9,12 +9,15 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Excel;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminProductComponent extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     public $searchProduct;
 
     public function deleteProduct($id){
+        $this->authorize('products-delete');
         $product = Products::find($id);
         if($product->image){
               unlink('assets/images/products'.'/'.$product->image);
@@ -32,9 +35,11 @@ class AdminProductComponent extends Component
     }
 
     public function export_csv(){
+        $this->authorize('products-add');
         return Excel::download(new EmployeeExport, 'Product.xlsx');
     }
     public function import_csv(Request $request){
+        $this->authorize('products-add');
         $path = $request->file('file')->getRealPath();
         Excel::import(new EmployeeImport, $path);
         return back();

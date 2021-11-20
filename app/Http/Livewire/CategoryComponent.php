@@ -22,9 +22,9 @@ class CategoryComponent extends Component
 
     public function mount($category_slug,$scategory_slug=null){
         $this->sorting = "default";
-        $this->pagesize = 12;
+        $this->pagesize = 5;
         $this->min_price = 100000;
-        $this->max_price = 20000000;
+        $this->max_price = 100000000;
 
         $this->category_slug = $category_slug;
         $this->scategory_slug =$scategory_slug;
@@ -85,11 +85,7 @@ class CategoryComponent extends Component
         else{
             $products = Products::where($filter.'category_id',$category_id)->whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pagesize);
         }
-        $sale = Sale::find(1);
-        $categories = Category::all();
-        $popular_products = Products::inRandomOrder()->limit(4)->get();
-        $brands = Brand::all();
-        $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.category-component',['brands'=>$brands,'new_product_banner'=>$new_product_banner,'products' => $products,'categories'=> $categories,'category_name'=>$category_name,'sale'=>$sale,'popular_products'=>$popular_products])->layout("layouts.base");
+
+        return view('livewire.category-component',['products' => $products,'category_name'=>$category_name])->layout("layouts.base");
     }
 }

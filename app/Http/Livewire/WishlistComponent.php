@@ -28,7 +28,7 @@ class WishlistComponent extends Component
     }
     public function render()
     {
-        $sale = Sale::find(1);
-        return view('livewire.wishlist-component',['sale'=>$sale])->layout('layouts.base');
+
+        return view('livewire.wishlist-component')->layout('layouts.base');
     }
 }

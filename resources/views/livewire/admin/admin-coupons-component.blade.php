@@ -24,7 +24,10 @@
                         </div>
                         <div class="col-md-4">
                             <!-- <a href="{{ route('admin.addcoupon')}}" class="btn btn-success pull-right">Thêm mã mới</a> -->
-                            <button type="button" class="btn btn-success pull-right" wire:click.prevent="addCoupon()">Thêm mã mới</button>
+                           @can('coupon-add')
+                           <button type="button" class="btn btn-success pull-right" wire:click.prevent="addCoupon()">Thêm mã mới</button>
+                           @endcan
+
                         </div>
                     </div>
 
@@ -61,8 +64,13 @@
                                     <td>{{ $coupon->expiry_date }}</td>
                                     <td>
                                         <!-- <a href="{{ route('admin.editcoupon',['coupon_id'=>$coupon->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a> -->
-                                        <a wire:click.prevent="editCoupon({{$coupon->id}})"><i class="fa fa-edit fa-2x"></i></a>
-                                        <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá mã này không?') || event.stopImmediatePropagation()" wire:click.prevent="DeleteCoupon({{ $coupon->id}})" style="margin-left: 10px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                       @can('coupon-edit')
+                                       <a wire:click.prevent="editCoupon({{$coupon->id}})"><i class="fa fa-edit fa-2x"></i></a>
+                                       @endcan
+                                      @can('coupon-delete')
+                                      <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá mã này không?') || event.stopImmediatePropagation()" wire:click.prevent="DeleteCoupon({{ $coupon->id}})" style="margin-left: 10px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                      @endcan
+
                                     </td>
                                 </tr>
 

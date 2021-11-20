@@ -4,16 +4,18 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Toastr;
 use Livewire\Component;
 use Illuminate\Support\Str;
 class AdminAddCategoryComponent extends Component
 {
-    protected $listeners = ['refreshComponent'=>'$refresh'];
+    use AuthorizesRequests;
+
     public $name;
     public $slug;
     public $category_id;
-
+    protected $listeners = ['refreshComponent'=>'$refresh'];
     public function generateslug(){
         $this->slug= Str::slug($this->name);
     }
@@ -38,6 +40,7 @@ class AdminAddCategoryComponent extends Component
             'name' => 'required',
             'slug' => 'required|unique:categories'
         ]);
+        $this->authorize('category-add');
         if($this->category_id){
             $category = new Subcategory();
             $category->name = $this->name;

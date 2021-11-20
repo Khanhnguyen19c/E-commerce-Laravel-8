@@ -50,7 +50,10 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
+                                @can('homeCategory-edit')
                                 <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                                @endcan
+
                                 </div>
                             </div>
                         </form>

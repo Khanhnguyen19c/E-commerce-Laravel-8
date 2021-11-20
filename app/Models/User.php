@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -68,5 +69,20 @@ class User extends Authenticatable
     }
     public function role_user(){
         return $this->hasMany(role_user::class,'user_id');
+    }
+
+    //phân quyền
+    public function checkPermissionAccess($permissionCheck){
+        //b1 check quyền user đang login
+        //b2 check giá trị đưa vào của router xem có phù hợp với quyền của user hay ko
+        $roles = auth()->user()->roles;
+        foreach($roles as $role){
+            $permissions = $role->permissions;
+            //key code trung` voi dieu kien check thi hien thi
+           if($permissions->contains('key_code',$permissionCheck)){
+               return true;
+           }
+        }
+        return  false;
     }
 }

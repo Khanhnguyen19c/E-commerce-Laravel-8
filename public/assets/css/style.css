@@ -52,7 +52,7 @@ Primary use:    Ecommerce
 /* @import url('https://fonts.cdnfonts.com/css/segoe-ui-4'); */
 body{
 font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 	color: #444444;
 	overflow-x: hidden;
 }
@@ -7385,3 +7385,19 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+.promotion{
+    position: absolute;
+    z-index: 1;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    vertical-align: middle;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    padding-top: 14px;
+    left: 5px;
+    top: 1%;
+    background: url(../Images/icon/sprite.png)-239px -62px no-repeat;
+  }
+

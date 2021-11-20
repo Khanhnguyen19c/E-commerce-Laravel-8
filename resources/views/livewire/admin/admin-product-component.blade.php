@@ -30,7 +30,10 @@
                             <input type="text" class="form-control" placeholder="Tìm Kiếm..." wire:model="searchProduct" />
                         </div>
                         <div class="col-md-4">
+                            @can('products-add')
                             <a href="{{ route('admin.addproduct')}}" class="btn btn-success pull-right">Thêm sản phẩm</a>
+                            @endcan
+
                         </div>
 
                     </div>
@@ -66,17 +69,22 @@
                                 <td>{{ $product->category->name}}</td>
                                 <td>{{ $product->created_at}}</td>
                                 <td>
+                                    @can('products-edit')
                                     <a href="{{ route('admin.editproduct',['product_slug'=>$product->slug]) }}"><i class="fa fa-edit fa-2x"></i> </a>
+                                    @endcan
+                                    @can('products-delete')
                                     <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá sản phẩm này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteProduct({{ $product->id}})" style="margin-left: 10px"><i class="fa fa-times fa-2x text-danger"></i> </a>
+                                    @endcan
                                 </td>
                             </tr>
 
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $products->links() }}
-                    <div style="width:250px;float:right;">
-               <form action="{{route('admin.import-product')}}" method="POST" enctype="multipart/form-data">
+                   {{ $products->links('livewire-pagination-link') }}
+                    <div style="width:250px;float:left;">
+                    @can('products-add')
+                    <form action="{{route('admin.import-product')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-wrapper">
                         <div class="upload-btn-wrapper">
@@ -89,6 +97,8 @@
                     @csrf
                     <input type="submit" value="Export Excel" name="Export Excel" class="btn btn-success">
                 </form>
+                    @endcan
+
                </div>
                 </div>
 

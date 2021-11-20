@@ -51,7 +51,10 @@
                             Danh Sách Thuộc Tính
                         </div>
                         <div class="col-md-4">
+                            @can('productAtrribute-add')
                             <button type="button" class="btn btn-success pull-right" wire:click.prevent="addAtribute()">Thêm thuộc tính mới</button>
+                            @endcan
+
                             <!-- <a href="{{ route('admin.add_attribute')}}" class="btn btn-success pull-right">Thêm thuộc tính mới</a> -->
                         </div>
                     </div>
@@ -78,8 +81,13 @@
                                 <td>{{ $attribute->created_at}}</td>
                                 <td>
                                     <!-- <a href="{{ route('admin.edit_attribute',['attribute_id'=>$attribute->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a> -->
-                                    <a wire:click.prevent="editAttribute({{$attribute->id}})"><i class="fa fa-edit fa-2x"></i></a>
+                                   @can('productAtrribute-edit')
+                                   <a wire:click.prevent="editAttribute({{$attribute->id}})"><i class="fa fa-edit fa-2x"></i></a>
+                                   @endcan
+                                    @can('productAtrribute-delete')
                                     <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá thuộc tính này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteAttribute({{ $attribute->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                    @endcan
+
                                 </td>
                             </tr>
                             @endforeach

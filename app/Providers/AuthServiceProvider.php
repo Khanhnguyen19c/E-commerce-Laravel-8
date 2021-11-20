@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Services\PermissionsCheckAccess;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +27,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //floder services class PermissionsCheckAccess
+        $gateandPolicy = new PermissionsCheckAccess();
+        $gateandPolicy->setGatePolicyAccess();
+
     }
+
+
 }

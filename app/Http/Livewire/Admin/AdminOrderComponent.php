@@ -7,10 +7,13 @@ use App\Models\OrderItem;
 use App\Models\Products;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminOrderComponent extends Component
 {
+    use AuthorizesRequests;
     //update status orders
     public function updateOrderStatus($order_id,$status){
+        $this->authorize('order-confirm');
         $order = Order::find($order_id);
         $orderItems = OrderItem::where('order_id',$order_id)->get();
         if($status == "delivered"){

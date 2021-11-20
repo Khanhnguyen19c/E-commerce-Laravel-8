@@ -177,13 +177,13 @@
                 <div class="wrap-show-advance-info-box style-1 box-in-site">
                     <h3 class="title-box">Sản phẩm nổi bật</h3>
                     <div class="wrap-products">
-                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
+                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}' wire:ignore>
                         @foreach ($popular_products as $popular)
-                            <div class="product product-style-2 equal-elem ">
-                                <div class="product-thumnail">
+                            <div class="product product-style-2 equal-elem" >
+                                <div class="product-thumnail" >
                                 <a href="{{ route('product.details',['slug'=>$popular->slug])}}" title="{{ $popular->name }}">
                                             <figure><img src="{{ asset( 'assets/images/products/') }}//{{ $popular->image }}" alt="{{ $popular->name }}"></figure>
-                                        </a>
+                                    </a>
                                     <div class="group-flash">
                                         <span class="flash-item new-label">new</span>
                                     </div>

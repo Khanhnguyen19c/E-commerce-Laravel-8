@@ -2,20 +2,27 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Products;
 use App\Models\Sale;
+use App\Models\Subcategory;
 use Livewire\Component;
 use Cart;
+use Illuminate\Http\Request;
+
 class DetailsComponent extends Component
 {
     public $slug;
     public $qty;
 
     public $satt = [];
+    public $currentUrl;
+
 
     public function mount($slug){
         $this->slug = $slug;
         $this->qty = 1;
+        $this->currentUrl = url()->current();
     }
     public function store($product_id,$product_name,$product_price){
         Cart::instance('cart')->add($product_id,$product_name,$this->qty,$product_price,$this->satt)->associate('App\Models\Products');
@@ -52,9 +59,12 @@ class DetailsComponent extends Component
     public function render()
     {
         $product = Products::where('slug',$this->slug)->first();
-        $popular_products = Products::inRandomOrder()->limit(4)->get();
-        $related_products = Products::where('category_id',$product->category_id)->inRandomOrder()->limit(5)->get();
-        $sale = Sale::find(1);
-        return view('livewire.details-component',['product'=>$product,'popular_products'=>$popular_products,'related_products'=>$related_products,'sale'=>$sale])->layout('layouts.base');
+        $popular_products = Products::whereNotIn('slug',[$this->slug])->inRandomOrder()->limit(4)->get();
+        $related_products = Products::whereNotIn('slug',[$this->slug])->where('brand_id',$product->brand_id)->inRandomOrder()->limit(12)->get();
+        $category = Category::find($product->category_id);
+        $scategory = Subcategory::find($product->subcategory_id);
+        $url_canonical = $this->currentUrl;
+        $image_og = url('public/assets/images/products/'.$product->image);
+        return view('livewire.details-component',['scategory'=>$scategory,'category'=>$category,'url_canonical'=>$url_canonical,'image_og'=>$image_og,'product'=>$product,'popular_products'=>$popular_products,'related_products'=>$related_products])->layout('layouts.base');
     }
 }

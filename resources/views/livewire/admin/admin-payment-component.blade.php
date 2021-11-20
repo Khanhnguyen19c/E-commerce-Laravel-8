@@ -9,7 +9,10 @@
                         </div>
                         <div class="col-md-4">
                             <!-- <a href="{{ route('admin.addpayment')}}" class="btn btn-success pull-right">Thêm đối tác</a> -->
-                            <button type="button" class="btn btn-success pull-right" wire:click.prevent="addPayment()">Thêm đối tác</button>
+                           @can('payment-list')
+                           <button type="button" class="btn btn-success pull-right" wire:click.prevent="addPayment()">Thêm đối tác</button>
+                           @endcan
+
                         </div>
                </div>
            </div>
@@ -43,8 +46,13 @@
                                     </td>
                                     <td>
                                     <!-- <a href="{{ route('admin.editpayment',['id'=>$payment->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a> -->
-                                        <a wire:click.prevent="editPayment({{$payment->id}})"><i class="fa fa-edit fa-2x"></i></a>
-                                        <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá đối tác này không?') || event.stopImmediatePropagation()" wire:click.prevent="deletePayment({{ $payment->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                    @can('payment-edit')
+                                    <a wire:click.prevent="editPayment({{$payment->id}})"><i class="fa fa-edit fa-2x"></i></a>
+                                    @endcan
+                                   @can('payment-delete')
+                                   <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá đối tác này không?') || event.stopImmediatePropagation()" wire:click.prevent="deletePayment({{ $payment->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                   @endcan
+
                                     </td>
                                 </tr>
                                 @endforeach

@@ -47,19 +47,19 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Slug Sản Phẩm</label>
                                 <div class="col-md-4">
-                                    <input type="text" placeholder="Slug sản phẩm" class="form-control input-md" wire:model="slug">
+                                    <input type="text" placeholder="Slug sản phẩm" class="form-control input-md" wire:model="slug" >
                                     @error('slug') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" wire:ignore>
                                 <label class="col-md-4 control-label">Giá Bán</label>
                                 <div class="col-md-4">
-                                    <input  type="number" value="1" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price">
+                                    <input  type="text" min="1" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price" >
                                     @error('regular_price') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" wire:ignore>
                                 <label class="col-md-4 control-label">Giá Khuyến Mãi</label>
                                 <div class="col-md-4">
                                     <input type="text" value="0" placeholder="giá sale" class="form-control input-md" wire:model="sale_price">
@@ -233,5 +233,7 @@
         // console.log(editor.getData())
         @this.set('desc', editor.getData());
     });
+   
 </script>
+
 @endpush

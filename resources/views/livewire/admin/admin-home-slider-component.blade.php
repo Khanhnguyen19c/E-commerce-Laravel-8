@@ -24,7 +24,10 @@
                         Danh Sách Sliders
                         </div>
                         <div class="col-md-4">
+                            @can('slider-add')
                             <a href="{{ route('admin.addhomeslider')}}" class="btn btn-success pull-right">Thêm Slider</a>
+                            @endcan
+
                         </div>
                     </div>
 
@@ -66,8 +69,13 @@
                                         </td>
                                     <td>{{ $slider->created_at}}</td>
                                     <td>
-                                    <a href="{{ route('admin.edithomeslider',['slider_id'=> $slider->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a>
+                                        @can('slider-edit')
+                                        <a href="{{ route('admin.edithomeslider',['slider_id'=> $slider->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a>
+                                        @endcan
+                                        @can('slider-delete')
                                         <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteSlider({{ $slider->id}})" style="margin-left: 10px"><i class="fa fa-times fa-2x text-danger"></i> </a>
+                                        @endcan
+
                                     </td>
                                 </tr>
 

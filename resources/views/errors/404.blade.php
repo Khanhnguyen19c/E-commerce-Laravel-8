@@ -1,222 +1,121 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Error</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/favicon.ico')}}">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Roboto:wght@500&display=swap");
+ * {
+	 box-sizing: 0;
+	 margin: 0;
+	 padding: 0;
+	 cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/4424790/cursors-edge.png"), auto;
+}
+ body {
+	 background: linear-gradient(to right, white 50%, #383838 50%);
+	 font-family: "Roboto", sans-serif;
+	 font-size: 18px;
+	 font-weight: 500;
+	 line-height: 1.5;
+	 color: white;
+}
+ div {
+	 display: flex;
+	 align-items: center;
+	 height: 100vh;
+	 max-width: 1000px;
+	 width: calc(100% - 4rem);
+	 margin: 0 auto;
+}
+ div > * {
+	 display: flex;
+	 flex-flow: column;
+	 align-items: center;
+	 justify-content: center;
+	 height: 100vh;
+	 max-width: 500px;
+	 width: 100%;
+	 padding: 2.5rem;
+}
+ aside {
+	 background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/4424790/right-edges.png");
+	 background-position: top right;
+	 background-repeat: no-repeat;
+	 background-size: 25px 100%;
+}
+ aside img {
+	 display: block;
+	 height: auto;
+	 width: 100%;
+}
+ main {
+	 text-align: center;
+}
+ main h1 {
+	 font-family: "Fontdiner Swanky", cursive;
+	 font-size: 4rem;
+	 color: #c5dc50;
+	 margin-bottom: 1rem;
+}
+ main p {
+	 margin-bottom: 2.5rem;
+}
+ main p em {
+	 font-style: italic;
+	 color: #c5dc50;
+}
+ main button {
+	 font-family: "Fontdiner Swanky", cursive;
+	 font-size: 1rem;
+	 color: #383838;
+	 border: none;
+	 background-color: #f36a6f;
+	 padding: 1rem 2.5rem;
+	 transform: skew(-5deg);
+	 transition: all 0.1s ease;
+	 cursor: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/4424790/cursors-eye.png"), auto;
+}
+ main button:hover {
+	 background-color: #c5dc50;
+	 transform: scale(1.15);
+}
+ @media (max-width: 700px) {
+	 body {
+		 background: #383838;
+		 font-size: 16px;
+	}
+	 div {
+		 flex-flow: column;
+	}
+	 div > * {
+		 max-width: 700px;
+		 height: 100%;
+	}
+	 aside {
+		 background-image: none;
+		 background-color: white;
+	}
+	 aside img {
+		 max-width: 300px;
+	}
+}
+
+    </style>
 </head>
-<style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
-
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700");
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  overflow:hidden;
-  background-color: #f4f6ff;
-}
-
-.container{
-  width:100vw;
-  height:100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Poppins", sans-serif;
-  position: relative;
-  left:6vmin;
-  text-align: center;
-}
-
-.cog-wheel1, .cog-wheel2{
-  transform:scale(0.7);
-}
-
-.cog1, .cog2{
-  width:40vmin;
-  height:40vmin;
-  border-radius:50%;
-  border:6vmin solid #f3c623;
-  position: relative;
-}
-
-
-.cog2{
-  border:6vmin solid #4f8a8b;
-}
-
-.top, .down, .left, .right, .left-top, .left-down, .right-top, .right-down{
-  width:10vmin;
-  height:10vmin;
-  background-color: #f3c623;
-  position: absolute;
-}
-
-.cog2 .top,.cog2  .down,.cog2  .left,.cog2  .right,.cog2  .left-top,.cog2  .left-down,.cog2  .right-top,.cog2  .right-down{
-  background-color: #4f8a8b;
-}
-
-.top{
-  top:-14vmin;
-  left:9vmin;
-}
-
-.down{
-  bottom:-14vmin;
-  left:9vmin;
-}
-
-.left{
-  left:-14vmin;
-  top:9vmin;
-}
-
-.right{
-  right:-14vmin;
-  top:9vmin;
-}
-
-.left-top{
-  transform:rotateZ(-45deg);
-  left:-8vmin;
-  top:-8vmin;
-}
-
-.left-down{
-  transform:rotateZ(45deg);
-  left:-8vmin;
-  top:25vmin;
-}
-
-.right-top{
-  transform:rotateZ(45deg);
-  right:-8vmin;
-  top:-8vmin;
-}
-
-.right-down{
-  transform:rotateZ(-45deg);
-  right:-8vmin;
-  top:25vmin;
-}
-
-.cog2{
-  position: relative;
-  left:-10.2vmin;
-  bottom:10vmin;
-}
-
-h1{
-  color:#142833;
-}
-
-.first-four{
-  position: relative;
-  left:6vmin;
-  font-size:40vmin;
-}
-
-.second-four{
-  position: relative;
-  right:18vmin;
-  z-index: -1;
-  font-size:40vmin;
-}
-
-.wrong-para{
-  font-family: "Montserrat", sans-serif;
-  position: absolute;
-  bottom:15vmin;
-  padding:3vmin 12vmin 3vmin 3vmin;
-  font-weight:600;
-  color:red;
-  font-size: 18px;
-}
-.home{
-   text-decoration: none;
-   color: aqua;
-   font-size: 18px;
-}
-
-</style>
 <body>
-<div class="container">
-  <h1 class="first-four">4</h1>
-  <div class="cog-wheel1">
-      <div class="cog1">
-        <div class="top"></div>
-        <div class="down"></div>
-        <div class="left-top"></div>
-        <div class="left-down"></div>
-        <div class="right-top"></div>
-        <div class="right-down"></div>
-        <div class="left"></div>
-        <div class="right"></div>
-    </div>
-  </div>
-
-  <div class="cog-wheel2">
-    <div class="cog2">
-        <div class="top"></div>
-        <div class="down"></div>
-        <div class="left-top"></div>
-        <div class="left-down"></div>
-        <div class="right-top"></div>
-        <div class="right-down"></div>
-        <div class="left"></div>
-        <div class="right"></div>
-    </div>
-  </div>
- <h1 class="second-four">4</h1>
-  <p class="wrong-para"><a href="{{Url('/trang-chu')}}" class="home"> Quay Lại Trang Chủ</a> Thôi Bạn Ơi Lỗi Rồi !!!!</p>
-
+<div>
+  <aside><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4424790/Mirror.png" alt="404 Image" />
+  </aside>
+  <main>
+    <h1>Sorry!</h1>
+    <p>
+    Hoặc bạn không thể truy cập trang này hoặc nó không tồn tại <em>. . . Liên hệ nhân viên tư vấn để biết thêm.</em>
+    </p>
+    <a href="{{ route('home') }}">  <button>Trở lại trang chủ!</button></a>
+  </main>
 </div>
-
-
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/gsap.min.js"></script>
-<script>
-let t1 = gsap.timeline();
-let t2 = gsap.timeline();
-let t3 = gsap.timeline();
-
-t1.to(".cog1",
-{
-  transformOrigin:"50% 50%",
-  rotation:"+=360",
-  repeat:-1,
-  ease:Linear.easeNone,
-  duration:8
-});
-
-t2.to(".cog2",
-{
-  transformOrigin:"50% 50%",
-  rotation:"-=360",
-  repeat:-1,
-  ease:Linear.easeNone,
-  duration:8
-});
-
-t3.fromTo(".wrong-para",
-{
-  opacity:0
-},
-{
-  opacity:1,
-  duration:1,
-  stagger:{
-    repeat:-1,
-    yoyo:true
-  }
-});
-
-</script>
 </html>

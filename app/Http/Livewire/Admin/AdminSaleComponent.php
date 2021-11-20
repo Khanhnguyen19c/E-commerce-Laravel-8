@@ -4,9 +4,10 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Sale;
 use Livewire\Component;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminSaleComponent extends Component
 {
+    use AuthorizesRequests;
     public $sale_date;
     public $status;
 
@@ -17,6 +18,7 @@ class AdminSaleComponent extends Component
     }
 
     public function updateSale(){
+        $this->authorize('sale.edit');
         $sale= Sale::find(1);
         $sale -> sale_date = $this->sale_date;
         $sale -> status = $this->status;

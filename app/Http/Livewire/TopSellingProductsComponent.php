@@ -27,7 +27,7 @@ class TopSellingProductsComponent extends Component
         $this->pagesize = 12;
 
         $this->min_price = 100000;
-        $this->max_price = 20000000;
+        $this->max_price = 100000000;
     }
     // add cart
     public function store($product_id,$product_name,$product_price){
@@ -67,17 +67,14 @@ class TopSellingProductsComponent extends Component
             else{
                 $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->where('sold','>=',0)->orderBy('sold','DESC')->paginate($this->pagesize);
             }
-        $categories = Category::all();
-        $sale = Sale::find(1);
-        $popular_products = Products::inRandomOrder()->limit(4)->get();
+
         // var_dump($products);
         // save store when customer logout
         if(Auth::check()){
             Cart::instance('cart')->store(Auth::user()->email);
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
-        $brands = Brand::all();
-        $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.top-selling-products-component',['brands'=>$brands,'new_product_banner'=>$new_product_banner,'orderItems'=>$orderItems,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout('layouts.base');
+
+        return view('livewire.top-selling-products-component',['orderItems'=>$orderItems,'products' => $products])->layout('layouts.base');
     }
 }

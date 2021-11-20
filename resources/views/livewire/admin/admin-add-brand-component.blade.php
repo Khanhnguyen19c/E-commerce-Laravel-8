@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Slug Thương Hiệu</label>
                                 <div class="col-md-8">
-                                    <input type="text" placeholder="Slug danh mục" class="form-control input-md" wire:model="slug">
+                                    <input type="text" placeholder="Slug thương hiệu" class="form-control input-md" wire:model="slug">
                                     @error('slug') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>

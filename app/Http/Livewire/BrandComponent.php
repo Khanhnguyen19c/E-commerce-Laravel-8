@@ -27,7 +27,7 @@ class BrandComponent extends Component
         $this->pagesize = 12;
 
         $this->min_price = 100000;
-        $this->max_price = 20000000;
+        $this->max_price = 100000000;
         $this->brand_slug = $brand_slug;
     }
     // add cart
@@ -55,10 +55,12 @@ class BrandComponent extends Component
     }
     public function render()
     {
+         $filter= "";
+
         $brand = Brand::where('slug',$this->brand_slug)->first();
         $brand_id = $brand->id;
-        $brand_name = $brand->name;
-        $filter= "";
+
+
         if($this->sorting =='date'){
             $products = Products::where($filter.'brand_id',$brand_id)->whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
         }
@@ -71,16 +73,12 @@ class BrandComponent extends Component
         else{
             $products = Products::where($filter.'brand_id',$brand_id)->whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pagesize);
         }
-        $brands = Brand::all();
-        $categories = Category::all();
-        $sale = Sale::find(1);
-        $popular_products = Products::inRandomOrder()->limit(4)->get();
+
         // save store when customer logout
         if(Auth::check()){
             Cart::instance('cart')->store(Auth::user()->email);
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
-        $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.brand-component',['new_product_banner'=>$new_product_banner,'brands'=>$brands,'products' => $products,'categories'=> $categories,'category_name'=>$brand_name,'sale'=>$sale,'popular_products'=>$popular_products])->layout("layouts.base");
+        return view('livewire.brand-component',['products'=>$products,'brand'=>$brand])->layout("layouts.base");
     }
 }

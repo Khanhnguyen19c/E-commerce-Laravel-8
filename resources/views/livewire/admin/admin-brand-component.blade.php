@@ -51,7 +51,10 @@
                             Danh Sách Thương Hiệu
                         </div>
                         <div class="col-md-4">
+                            @can('brand-add')
                             <button type="button" class="btn btn-success pull-right" wire:click.prevent="addbrand()">Thêm thương hiệu</button>
+                            @endcan
+
                         </div>
                     </div>
 
@@ -76,15 +79,19 @@
                                 <td>{{ $brand->name}}</td>
                                 <td>{{ $brand->slug}}</td>
                                 <td>
+                                    @can('brand-edit')
                                     <a wire:click.prevent="editbrand({{$brand->id}})"><i class="fa fa-edit fa-2x"></i></a>
+                                    @endcan
+                                    @can('brand-delete')
                                     <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá danh mục này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteBrand({{ $brand->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                    @endcan
                                 </td>
                             </tr>
 
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $brands->links() }}
+
                 </div>
             </div>
         </div>
@@ -112,7 +119,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Tên Thương Hiệu</label>
                                 <div class="col-md-4">
-                                    <input type="text" placeholder="Tên thương hiệu" class="form-control input-md" wire:model="name" wire:keyup="generateslug">
+                                <input type="text" placeholder="Tên thương hiệu" class="form-control input-md" wire:model="name" wire:keyup="generateslug">
                                     @error('name') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>

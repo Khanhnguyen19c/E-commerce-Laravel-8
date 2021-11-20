@@ -48,13 +48,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Mật khẩu cũ</label>
-                                <div class="col-md-4">
-                                    <input type="password" placeholder="**********" class="form-control input-md" wire:model="old_password">
-                                    @error('old_password') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-md-4 control-label">Mật khẩu mới</label>
                                 <div class="col-md-4">
                                     <input type="password" placeholder="**********" name="password" class="form-control input-md" wire:model="password">
@@ -71,7 +64,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Vai Trò</label>
                                 <div class="col-md-4" wire:ignore>
-                                    <select class="form-control input-md role" wire:model="role_id" multiple>
+                                    <select class="form-control input-md role" wire:model="role_id" multiple="multiple" name="role[]" >
                                         <option value="">Chọn Vai trò</option>
                                         @foreach ($roles as $role)
                                         <option value="{{$role->id}}">{{$role->display_name}}</option>

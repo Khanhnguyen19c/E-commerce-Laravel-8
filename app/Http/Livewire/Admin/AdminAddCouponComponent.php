@@ -4,9 +4,10 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Coupon;
 use Livewire\Component;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminAddCouponComponent extends Component
 {
+    use AuthorizesRequests;
     public $code;
     public $type;
     public $value;
@@ -14,7 +15,7 @@ class AdminAddCouponComponent extends Component
     public $expiry_date;
 
     public function updated($fields){
-        $this-> validateOnly($fields,[
+        $this->validateOnly($fields,[
             'code' => 'required|unique:coupons',
             'type' => 'required',
             'value' => 'required|numeric',
@@ -37,6 +38,7 @@ class AdminAddCouponComponent extends Component
             'cart_value' => 'required|numeric',
             'expiry_date' => 'required'
         ]);
+        $this->authorize('coupon-add');
         $coupon = new Coupon();
         $coupon->code = $this->code;
         $coupon->type = $this->type;

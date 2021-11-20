@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPermissionsController;
 use App\Http\Livewire\Admin\AdminDashboardComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
@@ -10,6 +11,7 @@ use App\Http\Livewire\User\UserDashboardComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Livewire\AboutComponent;
+use App\Http\Livewire\Admin\AdmimeditRoleComponent;
 use App\Http\Livewire\Admin\AdminAddAttributeComponent;
 use App\Http\Livewire\Admin\AdminAddBrandComponent;
 use App\Http\Livewire\Admin\AdminAddCategoryComponent;
@@ -17,7 +19,9 @@ use App\Http\Livewire\Admin\AdminaddComponent;
 use App\Http\Livewire\Admin\AdminAddCouponComponent;
 use App\Http\Livewire\Admin\AdminAddHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminaddPaymentComponent;
+use App\Http\Livewire\Admin\AdminaddPostComponent;
 use App\Http\Livewire\Admin\AdminAddProductComponent;
+use App\Http\Livewire\Admin\AdminaddRolesComponent;
 use App\Http\Livewire\Admin\AdminAttributeComponent;
 use App\Http\Livewire\Admin\AdminBrandComponent;
 use App\Http\Livewire\Admin\AdminCategoryComponent;
@@ -30,6 +34,7 @@ use App\Http\Livewire\Admin\AdmineditComponent;
 use App\Http\Livewire\Admin\AdminEditCouponComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdmineditPaymentComponent;
+use App\Http\Livewire\Admin\AdmineditPostComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
 use App\Http\Livewire\Admin\AdminHomeSliderComponent;
@@ -37,7 +42,10 @@ use App\Http\Livewire\Admin\AdminlistComponent;
 use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailsComponent;
 use App\Http\Livewire\Admin\AdminPaymentComponent;
+use App\Http\Livewire\Admin\AdminPermissonsConponent;
+use App\Http\Livewire\Admin\AdminPostComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
+use App\Http\Livewire\Admin\AdminRolesComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\Admin\AdminSettingComponent;
 use App\Http\Livewire\BrandComponent;
@@ -114,7 +122,7 @@ route::get('top-products-selling',TopSellingProductsComponent::class)->name('pro
 route::get('top-products-review',TopProductsReviewComponent::class)->name('products.topReview');
 
 route::get('category-post',CategoriesPostComponent::class)->name('categorypost');
-route::get('post',PostComponent::class)->name('post');
+route::get('post/{post_slug}',PostComponent::class)->name('post');
 
 route::get('products/brand/{brand_slug}',BrandComponent::class)->name('product.brand');
 
@@ -151,14 +159,15 @@ Route::middleware(['auth:sanctum','verified'])->group(function(){
 Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     route::get('admin/dashboard',AdminDashboardComponent::class)->name('admin.dashboard');
 
-    //category
-    route::get('/admin/categories',AdminCategoryComponent::class)->name('admin.categories');
-    route::get('/admin/categories/add',AdminAddCategoryComponent::class)->name('admin.addcategories');
-    route::get('/admin/categories/edit/{category_slug}/{scategory_slug?}',AdminEditCategoryComponent::class)->name('admin.editcategories');
+     //category
+    route::get('/admin/categories',AdminCategoryComponent::class)->name('admin.categories')->middleware('can:category-list');
+
+    route::get('/admin/categories/add',AdminAddCategoryComponent::class)->name('admin.addcategories')->middleware('can:category-add');
+    route::get('/admin/categories/edit/{category_slug}/{scategory_slug?}',AdminEditCategoryComponent::class)->name('admin.editcategories')->middleware('can:category-edit');
 
     //product
-    route::get('/admin/products',AdminProductComponent::class)->name('admin.products');
-    route::get('/admin/products/add',AdminAddProductComponent::class)->name('admin.addproduct');
+    route::get('/admin/products',AdminProductComponent::class)->name('admin.products')->middleware('can:products-list');
+    route::get('/admin/products/add',AdminAddProductComponent::class)->name('admin.addproduct')->middleware('can:products-add');
     route::get('/admin/products/edit/{product_slug}',AdminEditProductComponent::class)->name('admin.editproduct');
 
     //excel
@@ -166,49 +175,66 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     route::post('/admin/products/EXport',[AdminProductComponent::class,'export_csv'])->name('admin.export-product');
 
     //HomeSliders
-    route::get('/admin/slider',AdminHomeSliderComponent::class)->name('admin.homeslider');
-    route::get('/admin/slider/add',AdminAddHomeSliderComponent::class)->name('admin.addhomeslider');
+    route::get('/admin/slider',AdminHomeSliderComponent::class)->name('admin.homeslider')->middleware('can:slider-list');
+    route::get('/admin/slider/add',AdminAddHomeSliderComponent::class)->name('admin.addhomeslider')->middleware('can:slider-add');
     route::get('/admin/slider/edit/{slider_id}',AdminEditHomeSliderComponent::class)->name('admin.edithomeslider');
 
     //HomeCategory
-    route::get('adin/home-categories',AdminHomeCategoryComponent::class)->name('admin.homecategories');
+    route::get('adin/home-categories',AdminHomeCategoryComponent::class)->name('admin.homecategories')->middleware('can:homeCategory-list');
 
     //Sale
-    route::get('/admin/sale',AdminSaleComponent::class)->name('admin.sale');
+    route::get('/admin/sale',AdminSaleComponent::class)->name('admin.sale')->middleware('can:sale-list');
 
     //Coupons
-    route::get('/admin/coupons',AdminCouponsComponent::class)->name('admin.coupons');
-    route::get('admin/coupon/add',AdminAddCouponComponent::class)->name('admin.addcoupon');
+    route::get('/admin/coupons',AdminCouponsComponent::class)->name('admin.coupons')->middleware('can:coupon-list');
+    route::get('admin/coupon/add',AdminAddCouponComponent::class)->name('admin.addcoupon')->middleware('can:coupon-add');
     route::get('admin/coupon/edit/{coupon_id}',AdminEditCouponComponent::class)->name('admin.editcoupon');
 
     //Oders
-    route::get('admin/orders',AdminOrderComponent::class)->name('admin.orders');
-    route::get('admin/orders/{order_id}',AdminOrderDetailsComponent::class)->name('admin.orderdetails');
+    route::get('admin/orders',AdminOrderComponent::class)->name('admin.orders')->middleware('can:order-list');
+    route::get('admin/orders/{order_id}',AdminOrderDetailsComponent::class)->name('admin.orderdetails')->middleware('can:order-details');
 
     //contact
-    route::get('admin/contact-us',AdminContactComponent::class)->name('admin.contact');
+    route::get('admin/contact-us',AdminContactComponent::class)->name('admin.contact')->middleware('can:feedback-list');
 
     //Setting
-    route::get('admin/settings',AdminSettingComponent::class)->name('admin.settings');
+    route::get('admin/settings',AdminSettingComponent::class)->name('admin.settings')->middleware('can:footer-list');
 
     //product attribute
-    route::get('admin/attributes',AdminAttributeComponent::class)->name('admin.attributes');
-    route::get('admin/attributes/add',AdminAddAttributeComponent::class)->name('admin.add_attribute');
-    route::get('admin/attributes/edit/{attribute_id}',AdminEditAttributeComponent::class)->name('admin.edit_attribute');
+    route::get('admin/attributes',AdminAttributeComponent::class)->name('admin.attributes')->middleware('can:productAtrribute-list');
+    route::get('admin/attributes/add',AdminAddAttributeComponent::class)->name('admin.add_attribute')->middleware('can:productAtrribute-add');
+    route::get('admin/attributes/edit/{attribute_id}',AdminEditAttributeComponent::class)->name('admin.edit_attribute')->middleware('can:productAtrribute-edit');
 
     //icon payments
-    route::get('admin/payments',AdminPaymentComponent::class)->name('admin.payments');
-    route::get('admin/payment/add',AdminaddPaymentComponent::class)->name('admin.addpayment');
-    route::get('admin/payment/edit/{id}',AdmineditPaymentComponent::class)->name('admin.editpayment');
+    route::get('admin/payments',AdminPaymentComponent::class)->name('admin.payments')->middleware('can:payment-list');
+    route::get('admin/payment/add',AdminaddPaymentComponent::class)->name('admin.addpayment')->middleware('can:payment-add');
+    route::get('admin/payment/edit/{id}',AdmineditPaymentComponent::class)->name('admin.editpayment')->middleware('can:payment-edit');
 
     //brand product
-    route::get('/admin/brands',AdminBrandComponent::class)->name('admin.brands');
-    route::get('/admin/brand/add',AdminAddBrandComponent::class)->name('admin.addbrand');
-    route::get('/admin/brand/edit/{brand_id}',AdminEditBrandComponent::class)->name('admin.editbrand');
+    route::get('/admin/brands',AdminBrandComponent::class)->name('admin.brands')->middleware('can:brand-list');
+    route::get('/admin/brand/add',AdminAddBrandComponent::class)->name('admin.addbrand')->middleware('can:brand-add');
+    route::get('/admin/brand/edit/{brand_id}',AdminEditBrandComponent::class)->name('admin.editbrand')->middleware('can:brand-edit');
+
+    //Post
+    route::get('/admin/posts',AdminPostComponent::class)->name('admin.posts')->middleware('can:posts-list');
+    route::get('/admin/post/add',AdminaddPostComponent::class)->name('admin.addpost')->middleware('can:posts-add');
+    route::get('/admin/post/edit/{post_id}',AdmineditPostComponent::class)->name('admin.editpost')->middleware('can:posts-edit');
+
     Route::middleware(['auth:sanctum','verified','AuthSAdmin'])->group(function(){
     //list admin
     route::get('admin/list',AdminlistComponent::class)->name('admin.list');
     route::get('admin/list/add',AdminaddComponent::class)->name('admin.add');
     route::get('admin/list/edit/{id}',AdmineditComponent::class)->name('admin.edit');
-    });
+
+    //roles
+    route::get('admin/roles',AdminRolesComponent::class)->name('admin.roles');
+    route::get('admin/role/add',AdminaddRolesComponent::class)->name('admin.addrole');
+    route::post('admin/role/store',[AdminaddRolesComponent::class,'addRole'])->name('admin.addroles');
+    route::get('admin/role/edit/{role_id}',AdmimeditRoleComponent::class)->name('admin.editrole');
+    route::post('admin/role/update',[AdmimeditRoleComponent::class,'updateRole'])->name('admin.updateRole');
+
+    //permissions
+    route::get('admin/permissions',AdminPermissonsConponent::class)->name('admin.permissions');
+    route::post('admin/permissions/add',[AdminPermissionsController::class,'store'])->name('admin.store');
 });
+    });

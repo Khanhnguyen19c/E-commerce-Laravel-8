@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @livewire('seo-component')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Trang Chủ</title>
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/favicon.ico')}}">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic,900,900italic&amp;subset=latin,latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css')}}">
-    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flexslider.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/color-01.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" integrity="sha512-KRrxEp/6rgIme11XXeYvYRYY/x6XPGwk0RsIC6PyMRc072vj2tcjBzFmn939xzjeDhj0aDO7TDMd7Rbz3OEuBQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/nouislider.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/select2.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/toastr.min.css')}}">
     @livewireStyles
 </head>
 
-<body class="home-page home-01 ">
+<body class="home-page home-01 " >
 
     <!-- mobile menu -->
     <div class="mercado-clone-wrap">
@@ -45,7 +44,7 @@
                         <div class="topbar-menu left-menu">
                             <ul>
                                 <li class="menu-item">
-                                    <a title="Hotline: (+123) 456 789" href="#"><span class="icon label-before fa fa-mobile"></span>Hotline: (+84) 772 2879</a>
+                                    <a title="Hotline: (+84) 77 2879 116" href="#"><span class="icon label-before fa fa-mobile"></span>Hotline: (+84) 772 2879</a>
                                 </li>
                             </ul>
                         </div>
@@ -81,7 +80,7 @@
                                 @if(Auth::user()->utype === 'ADM' or Auth::user()->utype === 'SADM')
                                 <li class="menu-item menu-item-has-children parent">
                                     <a title=">My Account" href="#">My Account ({{ Auth::user()->name }})<i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                                    <ul class="submenu curency">
+                                    <ul class="submenu curency" style="overflow: scroll;max-height: 500px;">
                                         <li class="menu-item">
                                             <a title="Dashboard" href="{{ route('admin.dashboard') }}">Trang chủ</a>
                                         </li>
@@ -121,9 +120,15 @@
                                         <li class="menu-item">
                                             <a title="Quản lý đối tác" href="{{ route('admin.payments') }}">Quản lý icon đối tác</a>
                                         </li>
+                                        <li class="menu-item">
+                                            <a title="Quản lý tin tucs" href="{{ route('admin.posts') }}">Quản lý tin tức</a>
+                                        </li>
                                         @if(Auth::user()->utype === 'SADM')
                                         <li class="menu-item">
                                             <a title="Quản lý Admin" href="{{ route('admin.list') }}">Quản lý list Admin</a>
+                                        </li>
+                                        <li class="menu-item">
+                                            <a title="Quản lý Admin" href="{{ route('admin.roles') }}">Quản lý vai trò Admin</a>
                                         </li>
                                         @endif
                                         <li class="menu-item">
@@ -261,25 +266,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js" integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script src="{{ asset('assets/ckeditor/vanilla-masker.min.js') }}"></script>
+
+    <!-- fb js -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=457322882198955&autoLogAppEvents=1" nonce="o9z6N1pr"></script>
     {!! Toastr::message() !!}
     @livewireScripts
+   <!-- Messenger Plugin chat Code -->
+   <div id="fb-root"></div>
+
+<!-- Your Plugin chat code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
+<script>
+  var chatbox = document.getElementById('fb-customer-chat');
+  chatbox.setAttribute("page_id", "152051286978850");
+  chatbox.setAttribute("attribution", "biz_inbox");
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      xfbml            : true,
+      version          : 'v12.0'
+    });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
     <div id="paypal-button"></div>
     <!-- paypal -->
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <!-- thanh toán online -->
-
-    <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0&appId=457322882198955&autoLogAppEvents=1" nonce="RLs1TlFK"></script>
 <script src="https://apis.google.com/js/platform.js"></script>
     @stack('scripts')
     <script>
     window.addEventListener('hide-form', event => {
         $('#form').modal('hide');
-        // toastr.success(event.detail.message, 'Success!');
+        $('.form-horizontal').reset();
+        //  toastr.success(event.detail.message, 'Success!');
     });
     window.addEventListener('show-form', event => {
         $('#form').modal('show');
     });
     </script>
+
+
+
 </body>
 </html>

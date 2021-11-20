@@ -51,12 +51,17 @@
 
                                         @endif
                                         <td>{{$order->created_at}}</td>
-                                        <td><a href="{{ route('admin.orderdetails',['order_id'=>$order]) }}" class="btn btn-info btn-sm">Xem chi Tiết</a></td>
+
+                                        <td>
+                                            @can('order-details')
+                                            <a href="{{ route('admin.orderdetails',['order_id'=>$order]) }}" class="btn btn-info btn-sm">Xem chi Tiết</a></td>
+                                            @endcan
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Trang thái
                                                     <span class="caret"></span>
                                                 </button>
+                                                @can('order-confirm')
                                                 <ul class="dropdown-menu">
                                                     @if ($order->status =="ordered" or $order->status =="canceled")
                                                     <li><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'delivered')">Đã giao hàng</a></li>
@@ -65,6 +70,8 @@
                                                     <li><a href="#" wire:click.prevent="updateOrderStatus({{$order->id}},'canceled')">Huỷ đơn</a></li>
                                                     @endif
                                                 </ul>
+                                                @endcan
+
                                             </div>
                                         </td>
                                     </tr>

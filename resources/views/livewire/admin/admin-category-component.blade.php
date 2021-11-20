@@ -51,7 +51,10 @@
                             Danh Sách Danh Mục
                         </div>
                         <div class="col-md-4">
+                            @can('category-add')
                             <button type="button" class="btn btn-success pull-right" wire:click.prevent="Addform">Thêm danh mục</button>
+                            @endcan
+
                         </div>
                     </div>
 
@@ -81,16 +84,25 @@
                                         @foreach ($category->subCategory as $scategory)
                                         <li>{{$scategory->name}}
                                             <!-- <a class="slink" href="{{ route('admin.editcategories',['category_slug'=>$category->slug,'scategory_slug'=>$scategory->slug]) }}"> <i class="fa fa-edit fa-1x"></i></a> -->
+                                            @can('category-edit')
                                             <a wire:click.prevent="editcategory({{$category->id}},{{ $scategory->id }})"><i class="fa fa-edit fa-1x"></i></a>
+                                            @endcan
+                                            @can('category-delete')
                                             <a class="slink" href="#" onclick="confirm('Bạn có chắc chắn muốn xoá danh mục này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteSubcategory({{ $scategory->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-1x"></i> </a>
+                                            @endcan
                                         </li>
                                         @endforeach
                                     </ol>
                                 </td>
                                 <td>
                                     <!-- <a href="{{ route('admin.editcategories',['category_slug'=>$category->slug]) }}" ><i class="fa fa-edit fa-2x"></i> </a> -->
+                                    @can('category-edit')
                                     <a wire:click.prevent="editcategory({{$category->id}})"><i class="fa fa-edit fa-2x"></i></a>
+                                    @endcan
+                                    @can('category-delete')
                                     <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá danh mục này không?') || event.stopImmediatePropagation()" wire:click.prevent="deleteCategory({{ $category->id}})" style="margin-left: 5px; color:red"><i class="fa fa-times fa-2x"></i> </a>
+                                    @endcan
+
                                 </td>
                             </tr>
 
@@ -146,7 +158,6 @@
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
                             </div>
                             <div class="form-group">
@@ -157,6 +168,7 @@
                             </div>
                         </form>
                     </div>
+
                     @else
                     @livewire('admin.admin-add-category-component')
                     @endif
@@ -169,5 +181,3 @@
     </div>
 
 </div>
-
-

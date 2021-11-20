@@ -6,8 +6,10 @@ use App\Models\Payment;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminPaymentComponent extends Component
 {
+    use AuthorizesRequests;
     public $showEditModal = False;
     use WithFileUploads;
     public $name;
@@ -53,6 +55,7 @@ class AdminPaymentComponent extends Component
             'name'=>'required',
             'images'=>'required|max:10000',
         ]);
+        $this->authorize('payment-edit');
         if ($this->newImages) {
             $this->validate([
                 'newImages' => 'required|max:10000'
@@ -84,6 +87,7 @@ class AdminPaymentComponent extends Component
 
     //delete payment
     public function deletePayment($id){
+        $this->authorize('payment-delete');
         $payment = Payment::find($id);
             $images = explode(",",$payment->images);
             foreach($images as $pay){
@@ -97,7 +101,7 @@ class AdminPaymentComponent extends Component
 
     //refesh page
     public function refesh(){
-        $this->emitTo('admin.admin.admin-payment-component','refreshComponent');
+        $this->emitTo('admin.admin-payment-component','refreshComponent');
         $this->dispatchBrowserEvent('hide-form');
     }
     public function render()

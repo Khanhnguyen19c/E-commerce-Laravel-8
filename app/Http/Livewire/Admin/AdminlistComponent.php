@@ -20,7 +20,7 @@ class AdminlistComponent extends Component
     }
     public function render()
     {
-        $users = User::where('utype','ADM')->paginate(12);
+        $users = User::where('utype','ADM')->orwhere('utype','SADM')->paginate(12);
         return view('livewire.admin.adminlist-component',['users'=>$users])->layout('layouts.base');
     }
 }

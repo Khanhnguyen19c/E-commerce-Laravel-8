@@ -5,9 +5,10 @@ namespace App\Http\Livewire\Admin;
 use App\Models\ProductAttribute;
 use App\Models\Products;
 use Livewire\Component;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminAttributeComponent extends Component
 {
+    use AuthorizesRequests;
     public $name;
     public $attribute_id;
     public $showEditModal=false;
@@ -37,6 +38,7 @@ class AdminAttributeComponent extends Component
         $this->validate([
             'name'=>'required'
         ]);
+        $this->authorize('productAtrribute-edit');
         $attribute = ProductAttribute::find($this->attribute_id);
         $attribute->name =$this->name;
         $attribute->save();
@@ -44,16 +46,16 @@ class AdminAttributeComponent extends Component
     }
     //delete attribute
     public function deleteAttribute($attribute_id){
+        $this->authorize('productAtrribute-delete');
         $attribute = ProductAttribute::find($attribute_id);
         $attribute->delete();
         session()->flash('message_del','Xoá thuộc tính thành công!');
     }
-
-    //refesh page
-    public function refesh(){
-        $this->emitTo('admin.admin.admin-attribute-component','refreshComponent');
-        $this->dispatchBrowserEvent('hide-form');
-    }
+//refesh page
+public function refesh(){
+    $this->emitTo('admin.admin-attribute-component','refreshComponent');
+    $this->dispatchBrowserEvent('hide-form');
+}
     public function render()
     {
         $attributes = ProductAttribute::paginate(10);

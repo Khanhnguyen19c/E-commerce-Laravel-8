@@ -6,8 +6,10 @@ use App\Models\HomeSlider;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminEditHomeSliderComponent extends Component
 {
+    use AuthorizesRequests;
     use WithFileUploads;
     public $title;
     public $subtitle;
@@ -58,6 +60,7 @@ class AdminEditHomeSliderComponent extends Component
             'status' => 'required',
             'type' =>'required'
         ]);
+        $this->authorize('homeCategory-edit');
         $slider = HomeSlider::find($this->slider_id);
         $slider->title = $this->title;
         $slider->subtitle = $this->subtitle;

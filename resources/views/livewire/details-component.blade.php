@@ -31,15 +31,37 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-        }
 
+        }
+        .desc_btn #show::after{
+            content: '';
+            width: 0;
+            right: 0;
+            border-top: 6px solid #288ad6;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            display: inline-block;
+            vertical-align: middle;
+            margin: -2px 0 0 5px;
+        }
         .desc_btn #hidden {
             color: #2087f1;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
         }
-
+        .desc_btn #hidden::after{
+            content: '';
+            width: 0;
+            right: 0;
+            border-top: 6px solid #288ad6;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            display: inline-block;
+            vertical-align: middle;
+            margin: -2px 0 0 5px;
+            transform: rotate(180deg);
+        }
         .color-gray {
             color: #e6e6e6 !important;
         }
@@ -67,12 +89,23 @@
         .width-100-peccent {
             width: 100%;
         }
+        .owl-prev, .owl-next{
+            display: none;
+        }
+
+        .product-gallery{
+            cursor: pointer;
+        }
     </style>
     <div class="container">
 
         <div class="wrap-breadcrumb">
             <ul>
                 <li class="item-link"><a href="{{ route('home') }}" class="link">Trang chủ</a></li>
+                <li class="item-link"><a href="{{ route('product.category',['category_slug'=>$category->slug]) }}" class="link">{{$category->name}}</a></li>
+                @if (count($category->subCategory)>0)
+                <li class="item-link"><a href="{{ route('product.category',['category_slug'=>$category->slug,'scategory_slug'=>$scategory->slug]) }}" class="link">{{$scategory->name}}</a></li>
+                @endif
                 <li class="item-link"><span>{{$product->name}}</span></li>
             </ul>
         </div>
@@ -83,7 +116,7 @@
                     <div class="detail-media">
                         <div class="product-gallery" wire:ignore>
                             <ul class="slides">
-                                <li data-thumb="{{ asset( 'assets/images/products/') }}/{{ $product->image }}">
+                                <li data-thumb="{{ asset( 'assets/images/products/') }}/{{ $product->image }}" >
                                     <img src="{{ asset( 'assets/images/products/') }}/{{ $product->image }}" alt="{{ $product->name }}" />
                                 </li>
                                 @php
@@ -121,10 +154,10 @@
                             {!! $product->short_desc !!}
                         </div>
                         <div class="wrap-social" wire:ignore>
-                        <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="" data-layout="button" data-action="like" data-size="large" data-share="false"></div>
-                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                        <div class="fb-like" data-href="{{$url_canonical}}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="false"></div>
+                        <div class="fb-share-button" data-href="{{$url_canonical}}" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?{{$url_canonical}}" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                         <div class="g-ytsubscribe" data-channel="GoogleDevelopers" data-layout="default" data-count="hidden"></div>
-                        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <a href="https://twitter.com/share?ref_src={{$url_canonical}}" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                         </div>
                         @if ($product->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now())
                         <div class="wrap-price">
@@ -191,8 +224,8 @@
                             <div class="tab-content-item active" id="description" style="margin-bottom: 30px;">
                                 {!! $product->desc !!}
                                 <div class="desc_btn">
-                                    <p class="btn btn-secondary button_show" id="show">Hiển thị thêm...<i class="fa fa-angle-down" aria-hidden="true"></i></p>
-                                    <p class="button_hidden none" id="hidden">Ẩn bớt...<i class="fa fa-angle-up" aria-hidden="true"></i></p>
+                                    <p class="btn btn-secondary button_show" id="show">Hiển thị thêm...</p>
+                                    <p class="button_hidden none" id="hidden">Ẩn bớt...</p>
                                 </div>
                             </div>
 
@@ -272,7 +305,7 @@
                                     <div class="right-content">
                                         <b class="title">Free Shipping</b>
                                         <span class="subtitle">Cho đơn hàng trên 3 triệu đồng</span>
-                                        <p class="desc">Giao hàng nhanh đảm bảo chất lượng trong lúc vận chuyển...</p>
+                                        <p class="desc">{{Substr($setting->criteria1,0,150)}}...</p>
                                     </div>
                                 </a>
                             </li>
@@ -283,7 +316,7 @@
                                     <div class="right-content">
                                         <b class="title">Special Offer</b>
                                         <span class="subtitle">Nhận ngay Nhiều Voucher hấp dẫn!</span>
-                                        <p class="desc">Tặng nhiều Voucher giảm giá cho khách hàng thân thiết và phần quà đính kèm khi mua sản phẩm...</p>
+                                        <p class="desc">{{Substr($setting->criteria2,0,150)}}...</p>
                                     </div>
                                 </a>
                             </li>
@@ -294,7 +327,7 @@
                                     <div class="right-content">
                                         <b class="title">Order Return</b>
                                         <span class="subtitle">Đổi trả, bảo hành cam kết chất lượng</span>
-                                        <p class="desc">Khách hàng được hoàn trả sản phẩm nếu lỗi từ nhà sản xuất và trong lúc vận chuyển xảy ra lỗi trong vòng 7 ngày...</p>
+                                        <p class="desc">{{Substr($setting->criteria3,0,150)}}...</p>
                                     </div>
                                 </a>
                             </li>
@@ -317,8 +350,10 @@
                                     <div class="product-info">
                                         <a href="#" class="product-name"><span>{{ $popular->name }}</span></a>
                                         @if ($popular->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now())
+                                        <div class="wrap-price"><span class="product-price">{{ number_format($popular->sale_price,0,',',',') }}<span class="price_unit">đ</span></span>
+                                        <span class="product-price product_regular_price"> {{ number_format($popular->regular_price,0,',',',') }}đ</span>
+                                    </div>
 
-                                        <div class="wrap-price"><span class="product-price">{{ number_format($popular->sale_price,0,',',',') }}<span class="price_unit">đ</span></span></div>
                                         @else
                                         <div class="wrap-price"><span class="product-price">{{ number_format($popular->regular_price,0,',',',') }}<span class="price_unit">đ</span></span></div>
                                         @endif
@@ -336,10 +371,10 @@
             <div class="single-advance-box col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="wrap-show-advance-info-box style-1 box-in-site">
                     <h3 class="title-box">Sản phẩm liên quan</h3>
-                    <div class="wrap-products">
-                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="4" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}'>
+                    <div class="wrap-products" >
+                        <div class="products slide-carousel owl-carousel style-nav-1 equal-container" data-items="4" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"3"},"1200":{"items":"5"}}' wire:ignore>
                             @foreach ($related_products as $r_product)
-                            <div class="product product-style-2 equal-elem ">
+                            <div class="product product-style-2 equal-elem" >
                                 <div class="product-thumnail">
                                     <a href="{{ route('product.details',['slug'=>$r_product->slug])}}" title="{{ $r_product->name }}">
                                         <figure><img src="{{ asset('assets/images/products') }}/{{ $r_product->image }}" width="214" height="214" alt="{{ $r_product->name }}"></figure>
@@ -353,8 +388,13 @@
                                 </div>
                                 <div class="product-info">
                                     <a class="product-name" href="{{ route('product.details',['slug'=>$r_product->slug])}}" title="{{ $r_product->name }}"><span>{{ $r_product->name }}</span></a>
-                                        @if ($r_product->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now())
-                                        <div class="wrap-price"><span class="product-price">{{ number_format($r_product->sale_price,0,',',',') }}<span class="price_unit">đ</span></span></div>
+
+                                        @if ($r_product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                        <div class="wrap-price"><span class="product-price">{{ number_format($r_product->sale_price,0,',',',') }}<span class="price_unit">đ</span></span>
+                                        <span class="product-price product_regular_price"> {{ number_format($r_product->regular_price,0,',',',') }}đ</span>
+                                        </div>
+
+
                                         @else
                                         <div class="wrap-price"><span class="product-price">{{ number_format($r_product->regular_price,0,',',',') }}<span class="price_unit" style="color: #e91261;">đ</span></span></div>
                                         @endif
@@ -376,15 +416,13 @@
 @push('scripts')
 <script>
     $(document).on('click', '#show', function() {
-        $(".button_show").addClass('none');
-        $(".button_hidden").removeClass('none');
-        $(".button_hidden").addClass('block');
+        $(".button_show").toggleClass('none');
+        $(".button_hidden").toggleClass('none');
         $('#description').css('height', 'auto');
     });
     $(document).on('click', '#hidden', function() {
-        $(".button_show").removeClass('none');
-        $(".button_hidden").addClass('none');
-        $(".button_hidden").removeClass('block');
+        $(".button_show").toggleClass('none');
+        $(".button_hidden").toggleClass('none');
         $('#description').css('height', '265px');
     });
 </script>

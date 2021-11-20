@@ -2,24 +2,23 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\AttributeValue;
-use App\Models\Brand;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Products;
 use Cart;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Category;
-use App\Models\HomeSlider;
-use App\Models\ProductAttribute;
-use App\Models\Sale;
-
+use Illuminate\Pagination\Paginator;
+use Artesaos\SEOTools\Facades\SEOMeta;
 class ShopComponent extends Component
 {
     public $sorting;
     public $pagesize;
     public $min_price;
     public $max_price;
+    public $size;
+    public $meta_desc;
     use WithPagination;
 
     public function mount(){
@@ -27,7 +26,8 @@ class ShopComponent extends Component
         $this->pagesize = 12;
 
         $this->min_price = 100000;
-        $this->max_price = 20000000;
+        $this->max_price = 100000000;
+        $this->meta_desc = "hello";
     }
     // add cart
     public function store($product_id,$product_name,$product_price){
@@ -52,8 +52,9 @@ class ShopComponent extends Component
             }
         }
     }
-    public function render()
+    public function render(Request $request)
     {
+
         if($this->sorting =='date'){
             $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->orderBy('created_at','DESC')->paginate($this->pagesize);
         }
@@ -66,19 +67,13 @@ class ShopComponent extends Component
         else{
             $products = Products::whereBetween('regular_price',[$this->min_price,$this->max_price])->paginate($this->pagesize);
         }
-        $categories = Category::all();
-        $sale = Sale::find(1);
-        $popular_products = Products::inRandomOrder()->limit(4)->get();
+       
         // save store when customer logout
         if(Auth::check()){
             Cart::instance('cart')->store(Auth::user()->email);
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
-        $Cproduct_attribute = ProductAttribute::where('name','Color')->join('attribute_values','attribute_values.product_attribute_id','=','product_attributes.id')->get();
-        $Sproduct_attribute = ProductAttribute::where('name','=','Size')->join('attribute_values','attribute_values.product_attribute_id','=','product_attributes.id')->get();
-        $brands = Brand::all();
-
-        $new_product_banner = HomeSlider::where('status',1)->where('type',0)->orderBy('created_at','DESC')->first();
-        return view('livewire.shop-component',['Sproduct_attribute'=>$Sproduct_attribute,'Cproduct_attribute'=>$Cproduct_attribute,'brands'=>$brands,'new_product_banner'=>$new_product_banner,'products' => $products,'categories'=> $categories,'sale' => $sale,'popular_products'=>$popular_products])->layout("layouts.base");
+        SEOMeta::setTitle('Home');
+        return view('livewire.shop-component',['products' => $products])->layout("layouts.base");
     }
 }

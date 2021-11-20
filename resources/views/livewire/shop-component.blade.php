@@ -51,15 +51,31 @@
 					</div><!--end wrap shop control-->
 
 					<div class="row">
-						<ul class="product-list grid-products equal-container">
+						<ul class="product-list grid-products equal-container" >
                         @php
                         $witems = Cart::instance('wishlist')->content()->pluck('id');
                         @endphp
                         @foreach ($products as $product)
-							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6 ">
-								<div class="product product-style-3 equal-elem ">
+                        @php
+                        if ($product->sale_price >0){
+                        $price_promotion =($product->regular_price-$product->sale_price);
+                        $total_price = $price_promotion / $product->regular_price*100;
+                        }
+                          @endphp
+							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6" wire:ignore>
+								<div class="product product-style-3 equal-elem" >
 									<div class="product-thumnail">
+                                    @if ($product->sale_price >0)
+                                    <div>
+												<span class="promotion_title" ></span>
+												<span class="promotion">-{{round($total_price)}}%</span>
 
+											</div>
+                                            @else
+                                            <div class="group-flash">
+                                            <span class="flash-item new-label">New</span>
+                                        </div>
+                                            @endif
 										<a href="{{ route('product.details',['slug'=>$product->slug])}}" title="{{ $product->name }}">
 											<figure><img src=" {{ asset('assets/images/products') }}/{{ $product->image }}" alt="{{ $product->name }}"></figure>
 										</a>
@@ -97,7 +113,9 @@
 					</div>
 
 					<div class="wrap-pagination-info">
-                        {{ $products->links() }}
+
+                     {{ $products->links('livewire-pagination-link') }}
+
 
 					</div>
 				</div><!--end main products area-->
@@ -154,7 +172,7 @@
                         </div>
 					</div><!-- Price-->
 
-					<div class="widget mercado-widget filter-widget">
+					<!-- <div class="widget mercado-widget filter-widget">
 						<h2 class="widget-title">Color</h2>
 						<div class="widget-content">
 							<ul class="list-style vertical-list has-count-index">
@@ -164,22 +182,20 @@
 
 							</ul>
 						</div>
-					</div><!-- Color -->
+					</div>Color -->
 
-					<div class="widget mercado-widget filter-widget">
+					<!-- <div class="widget mercado-widget filter-widget">
 						<h2 class="widget-title">Size</h2>
 						<div class="widget-content">
 							<ul class="list-style inline-round ">
 								@foreach ($Sproduct_attribute as $Sattribute)
-                                <li class="list-item"><a class="filter-link " href="#">{{$Sattribute->value}}</a></li>
+                                <li class="list-item"><a class="filter-link " href="#" wire:model="size">{{$Sattribute->value}}</a></li>
                                 @endforeach
 
 							</ul>
-							<div class="widget-banner">
-								<figure><img src=" {{ asset('assets/images/size-banner-widget.jpg') }}" width="270" height="331" alt=""></figure>
-							</div>
+
 						</div>
-					</div><!-- Size -->
+					</div>Size -->
 
 					<div class="widget mercado-widget widget-product">
 						<h2 class="widget-title">SẢN PHẨM PHỔ BIẾN</h2>
@@ -222,7 +238,7 @@
             connect:true,
             range :{
                 'min' : 100000,
-                'max' : 20000000
+                'max' : 100000000
             },
             pips:{
                 mode:'steps',

@@ -175,7 +175,7 @@
 
                         <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
                             <div class="wrap-footer-item">
-                                <h3 class="item-header">Dowload App</h3>
+                                <!-- <h3 class="item-header">Dowload App</h3>
                                 <div class="item-content">
                                     <div class="wrap-list-item apps-list">
                                         <ul>
@@ -187,7 +187,8 @@
                                                 </a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> -->
+                                <div class="fb-page" data-href="https://www.facebook.com/K-Shopper-152051286978850" data-tabs="timeline" data-width="" data-height="400" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/K-Shopper-152051286978850" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/K-Shopper-152051286978850">K-Shopper</a></blockquote></div>
                             </div>
                         </div>
 
@@ -246,24 +247,7 @@
 
             </div>
 
-            <!-- <div class="coppy-right-box">
-                <div class="container">
-                    <div class="coppy-right-item item-left">
-                        <p class="coppy-right-text">Copyright © 2020 Surfside Media. All rights reserved</p>
-                    </div>
-                    <div class="coppy-right-item item-right">
-                        <div class="wrap-nav horizontal-nav">
-                            <ul>
-                                <li class="menu-item"><a href="about-us.html" class="link-term">About us</a></li>
-                                <li class="menu-item"><a href="privacy-policy.html" class="link-term">Privacy Policy</a></li>
-                                <li class="menu-item"><a href="terms-conditions.html" class="link-term">Terms & Conditions</a></li>
-                                <li class="menu-item"><a href="return-policy.html" class="link-term">Return Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div> -->
+
         </div>
-    </footer>
+</footer>
 </div>

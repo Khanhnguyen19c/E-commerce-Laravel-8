@@ -7,8 +7,10 @@ use App\Models\Subcategory;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminCategoryComponent extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     public $category_id;
     public $name;
@@ -16,7 +18,6 @@ class AdminCategoryComponent extends Component
 
     public $scategory_id;
     public $showEditModal = false;
-
     //open add form
     public function Addform(){
         $this->dispatchBrowserEvent('show-form');
@@ -25,6 +26,7 @@ class AdminCategoryComponent extends Component
 
     //delete cate
     public function deleteCategory($id){
+        $this->authorize('category-delete');
         $category = Category::find($id);
         $category->delete();
         session()->flash('message_del','Xoá danh mục thành công');
@@ -32,6 +34,7 @@ class AdminCategoryComponent extends Component
 
     //delete sub cate
     public function deleteSubcategory($id){
+        $this->authorize('category-delete');
         $category = Subcategory::find($id);
         $category->delete();
         session()->flash('message','Xoá danh mục thành công!');
@@ -39,8 +42,9 @@ class AdminCategoryComponent extends Component
 
     //refesh category
     public function refesh(){
+        $this->emitTo('admin.admin-category-component','refreshComponent');
+        $this->emitTo('admin.admin-add-category-component','refreshComponent');
         $this->dispatchBrowserEvent('hide-form');
-        $this->emitTo('admin.admin.admin-category-component','refreshComponent');
     }
 
 //open modal edit
@@ -86,6 +90,7 @@ public function updateCategory(){
         'name' => 'required',
         'slug' => 'required|unique:categories'
     ]);
+    $this->authorize('category-edit');
     if($this->scategory_id){
         $scategory = Subcategory::find($this->scategory_id);
         $scategory->name= $this->name;

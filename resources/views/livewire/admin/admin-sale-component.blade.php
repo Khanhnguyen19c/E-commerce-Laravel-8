@@ -30,7 +30,10 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
                                 <div class="col-md-4">
-                                   <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                                    @can('sale-edit')
+                                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                                    @endcan
+
                                 </div>
                             </div>
                         </form>

@@ -5,9 +5,10 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Category;
 use App\Models\HomeCategory;
 use Livewire\Component;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AdminHomeCategoryComponent extends Component
 {
+    use AuthorizesRequests;
     public $selected_categories = [];
     public $numberofproducts;
 
@@ -18,6 +19,7 @@ class AdminHomeCategoryComponent extends Component
     }
 
     public function updateHomeCategory(){
+        $this->authorize('homeCategory-edit');
         $category = HomeCategory::find(1);
         $category->sel_categories = implode(',',$this->selected_categories);
         $category->no_of_products = $this -> numberofproducts;

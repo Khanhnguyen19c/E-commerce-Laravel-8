@@ -31,7 +31,7 @@
                                     @enderror
                                 </p>
                                 <p class="row-in-form">
-                                    <label for="email">Emaild:<span>*</span></label>
+                                    <label for="email">Email:<span>*</span></label>
                                     <input type="email" name="email" value="" placeholder="Email của bạn" wire:model="email">
 
                                     @error('email')
