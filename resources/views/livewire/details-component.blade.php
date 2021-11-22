@@ -172,7 +172,7 @@
                         </div>
                         <div>
                             @foreach ($product->attributevalues->unique('product_attribute_id') as $av)
-                                <div class="row" style="margin-top: 20px;">
+                            <div class="row" style="margin-top: 20px;">
                                 <div class="col-xs-2">
                                     <p>{{$av->productAttribute->name}}</p>
                                     <div class="col-xs-10">
@@ -183,7 +183,7 @@
                                     </select>
                                     </div>
                                 </div>
-                                </div>
+                            </div>
                             @endforeach
                         </div>
                         <div class="quantity" style="margin-top: 10px;">

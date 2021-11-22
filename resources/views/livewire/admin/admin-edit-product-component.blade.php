@@ -50,14 +50,14 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Giá Bán</label>
                                 <div class="col-md-4">
-                                    <input type="number" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price">
+                                    <input type="text" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price"  wire:change="format_regularprice" wire:up="format_regularprice">
                                     @error('regular_price') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Giá Khuyến Mãi</label>
                                 <div class="col-md-4">
-                                    <input type="number" placeholder="giá sale" class="form-control input-md" wire:model="sale_price">
+                                    <input type="text" placeholder="giá sale" class="form-control input-md" wire:model="sale_price" wire:change="format_saleprice"  wire:up="format_saleprice">
                                     @error('sale_price') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Đặc Tính</label>
                                 <div class="col-md-4">
-                                   <select class="form-control" wire:model="feartured">
+                                   <select class="form-control" wire:model="featured">
                                        <option value="0">Không Có</option>
                                        <option value="1">Có</option>
                                    </select>
@@ -223,10 +223,10 @@
 @push('scripts')
 <script>
     var options = {
-    filebrowserImageBrowseUrl: 'laravel-filemanager?type=Images',
-    filebrowserImageUploadUrl: 'laravel-filemanager/upload?type=Images&_token=',
-    filebrowserBrowseUrl: 'laravel-filemanager?type=Files',
-    filebrowserUploadUrl: 'laravel-filemanager/upload?type=Files&_token='
+    filebrowserImageBrowseUrl: '../../../laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '../../../laravel-filemanager/upload?type=Images&_token=',
+    filebrowserBrowseUrl: '../../../laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '../../../laravel-filemanager/upload?type=Files&_token='
   };
 </script>
     <script>

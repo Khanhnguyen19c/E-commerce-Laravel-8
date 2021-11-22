@@ -17,10 +17,10 @@ class EmployeeImport implements ToModel,WithHeadingRow
     public function model(array $row)
     {
         return new products([
-            'name' =>$row['name'],
-            'slug' =>$row['slug'],
-            'shor_desc' =>$row['shor_desc'],
-            'desc' =>$row['desc'],
+            'name' => $row['name'],
+            'slug' => $row['slug'],
+            'shor_desc' => $row['shor_desc'],
+            'desc' => $row['desc'],
             'regular_price' =>$row['regular_price'],
             'sale_price' =>$row['sale_price'],
             'SKU' =>$row['SKU'],

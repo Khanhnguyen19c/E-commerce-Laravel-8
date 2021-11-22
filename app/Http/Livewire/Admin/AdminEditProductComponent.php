@@ -36,6 +36,7 @@ class AdminEditProductComponent extends Component
     public $newImages;
     public $scategory_id;
 
+    //attribute
     public $attr;
     public $inputs =[];
     public $attribute_arr =[];
@@ -96,8 +97,8 @@ class AdminEditProductComponent extends Component
             'slug' => 'required',
             'short_desc' => 'required',
             'desc' => 'required',
-            'regular_price' => 'required|numeric',
-            'sale_price' => 'numeric',
+            'regular_price'=>'required|regex:/^[0-9\.\-\/]+$/',
+            'sale_price'=>'required|regex:/^[0-9\.\-\/]+$/',
             'SKU' => 'required',
             'stock_status' => 'required',
             'featured' => 'required',
@@ -116,8 +117,7 @@ class AdminEditProductComponent extends Component
         'slug.required' => 'Thông tin này không được bỏ trống.',
         'short_desc.required' => 'Thông tin này không được bỏ trống.',
         'regular_price.required' => 'Thông tin này không được bỏ trống.',
-        'regular_price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
-        'sale_price.numeric' => 'Bạn phải nhập định dạng là chữ số.',
+        'sale_price.required' => 'Thông tin này không được bỏ trống.',
         'SKU.required'=> 'Thông tin này không được bỏ trống.',
         'stock_status.required'=> 'Thông tin này không được bỏ trống.',
         'featured.required'=> 'Thông tin này không được bỏ trống.',
@@ -133,9 +133,8 @@ class AdminEditProductComponent extends Component
             'slug' => 'required',
             'short_desc' => 'required',
             'desc' => 'required',
-            'regular_price' => 'required|numeric',
-            'sale_price' => 'numeric',
-            'SKU' => 'required',
+            'regular_price'=>'required|regex:/^[0-9\.\-\/]+$/',
+            'sale_price'=>'required|regex:/^[0-9\.\-\/]+$/',
             'stock_status' => 'required',
             'featured' => 'required',
             'quantity' => 'required|numeric',
@@ -152,8 +151,8 @@ class AdminEditProductComponent extends Component
         $product->slug = $this->slug;
         $product->short_desc = $this->short_desc;
         $product->desc = $this->desc;
-        $product->regular_price = $this->regular_price;
-        $product->sale_price = $this->sale_price;
+        $product->regular_price = str_replace('.','',$this->regular_price );
+        $product->sale_price = str_replace('.','',$this->sale_price );
         $product->stock_status = $this->stock_status;
         $product->featured = $this->featured;
         $product->category_id = $this->category_id;
@@ -206,6 +205,52 @@ class AdminEditProductComponent extends Component
     }
     public function changeSubcategory(){
         $this->scategory_id = 0;
+    }
+     //validate price
+     public function format_regularprice(){
+        $regular_price = $this->regular_price;
+        $regular_price = preg_replace('/[^0-9]+/', '', $regular_price);
+        $regular_price = substr($regular_price, 0, 11);
+        $length = strlen($regular_price);
+        $formatted = "";
+        for ($i = 0; $i < $length; $i++) {
+            if($length == 7){
+                $formatted .= $regular_price[$i];
+                if($i == 0 || $i == 3){
+                    $formatted .= ".";
+                }
+            }else{
+                $formatted .= $regular_price[$i];
+                if($i == 1 || $i == 4){
+                    $formatted .= ".";
+                }
+            }
+        }
+        $this->regular_price = $formatted;
+    }
+    //validate sale_price
+    public function format_saleprice(){
+        $sale_price = $this->sale_price;
+        $sale_price = preg_replace('/[^0-9]+/', '', $sale_price);
+        $sale_price = substr($sale_price, 0, 11);
+        $length = strlen($sale_price);
+        $formatted = "";
+        for ($i = 0; $i < $length; $i++) {
+            if($length == 7){
+                $formatted .= $sale_price[$i];
+                if($i == 0 || $i == 3){
+                    $formatted .= ".";
+                }
+            }else{
+                $formatted .= $sale_price[$i];
+                if($i == 1 || $i == 4){
+                    $formatted .= ".";
+                }
+            }
+
+        }
+        $this->sale_price = $formatted;
+
     }
     public function render()
     {

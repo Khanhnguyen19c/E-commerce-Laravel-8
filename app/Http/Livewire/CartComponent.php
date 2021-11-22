@@ -49,7 +49,7 @@ class CartComponent extends Component
         $this->emitTo('cart-count-component', 'refreshComponent');
     }
 
-    // saveforlater
+    // lưu lại sản phẩm
     public function switchToSaveForLater($rowId)
     {
         $item = Cart::instance('cart')->get($rowId);
@@ -59,7 +59,7 @@ class CartComponent extends Component
         session()->flash('success_message', 'Đã lưu sản phảm');
     }
 
-    // moveToCart
+    // chuyển sản phẩm đã lưu vào giỏ hàng
     public function moveToCart($rowId)
     {
         $item = Cart::instance('saveForLater')->get($rowId);
@@ -68,7 +68,7 @@ class CartComponent extends Component
         $this->emitTo('cart-count-component', 'refreshComponent');
         session()->flash('s_success_message', 'Đã đã di chuyển sản phẩm');
     }
-    // delete for later
+    // delete item đã lưu
     public function deleteFromSaveForLater($rowId)
     {
         Cart::instance('saveForLater')->remove($rowId);

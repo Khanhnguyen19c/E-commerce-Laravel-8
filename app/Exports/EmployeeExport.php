@@ -21,6 +21,7 @@ class EmployeeExport implements ShouldAutoSize, FromCollection, WithHeadings, Wi
     public function headings(): array
     {
         return [
+            'ID sản phảm',
             'Tên Sản Phẩm',
             'Slug',
             'Mô Tả Ngăn',
@@ -51,7 +52,7 @@ class EmployeeExport implements ShouldAutoSize, FromCollection, WithHeadings, Wi
     {
         return [
             AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:P1'; // All headers
+                $cellRange = 'A1:S1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(12);
             },
         ];

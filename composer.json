@@ -20,7 +20,7 @@
         "laravel/ui": "^3.3",
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
-        "unisharp/laravel-filemanager": "^2.3"
+        "unisharp/laravel-filemanager": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

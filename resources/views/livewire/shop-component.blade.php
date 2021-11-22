@@ -62,7 +62,7 @@
                         $total_price = $price_promotion / $product->regular_price*100;
                         }
                           @endphp
-							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6" wire:ignore>
+							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6" >
 								<div class="product product-style-3 equal-elem" >
 									<div class="product-thumnail">
                                     @if ($product->sale_price >0)

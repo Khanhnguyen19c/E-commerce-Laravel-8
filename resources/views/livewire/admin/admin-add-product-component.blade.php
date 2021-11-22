@@ -55,14 +55,14 @@
                             <div class="form-group" wire:ignore>
                                 <label class="col-md-4 control-label">Giá Bán</label>
                                 <div class="col-md-4">
-                                    <input  type="text" min="1" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price" >
+                                    <input  type="text" min="1" placeholder="giá sản phẩm" class="form-control input-md" wire:model="regular_price" wire:change="format_regularprice"  wire:up="format_regularprice">
                                     @error('regular_price') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
                             <div class="form-group" wire:ignore>
                                 <label class="col-md-4 control-label">Giá Khuyến Mãi</label>
                                 <div class="col-md-4">
-                                    <input type="text" value="0" placeholder="giá sale" class="form-control input-md" wire:model="sale_price">
+                                    <input type="text" value="0" placeholder="giá sale" class="form-control input-md" wire:model="sale_price" wire:change="format_saleprice"  wire:up="format_saleprice">
                                     @error('sale_price') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Đặc Tính</label>
                                 <div class="col-md-4">
-                                    <select class="form-control" wire:model="feartured">
+                                    <select class="form-control" wire:model="featured">
                                         <option value="0">Không Có</option>
                                         <option value="1">Có</option>
                                     </select>
@@ -208,7 +208,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -216,7 +216,14 @@
 </div>
 
 @push('scripts')
-<script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+<script>
+  var options = {
+    filebrowserImageBrowseUrl: '../../laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '../../laravel-filemanager/upload?type=Images&_token=',
+    filebrowserBrowseUrl: '../../laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '../../laravel-filemanager/upload?type=Files&_token='
+  };
+</script>
 <script>
     // ClassicEditor
     // .create( document.querySelector( '#editor' ))
@@ -228,12 +235,12 @@
     //     .catch(error => {
     //         console.error(error);
     //     });
-    const editor = CKEDITOR.replace('editor');
+    const editor = CKEDITOR.replace('editor',options);
     document.querySelector("#submit").addEventListener("click", () => {
         // console.log(editor.getData())
         @this.set('desc', editor.getData());
     });
-   
+
 </script>
 
 @endpush

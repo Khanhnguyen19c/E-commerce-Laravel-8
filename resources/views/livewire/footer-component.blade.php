@@ -195,7 +195,7 @@
                     </div>
                 </div>
 
-                <div class="wrap-back-link">
+                <!-- <div class="wrap-back-link">
                     <div class="container">
                         <div class="back-link-box">
                             <h3 class="backlink-title">Quick Links</h3>
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 

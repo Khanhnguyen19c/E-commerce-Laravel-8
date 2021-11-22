@@ -12,7 +12,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open%20Sans:300,400,400italic,600,600italic,700,700italic&amp;subset=latin,latin-ext" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css')}}"> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flexslider.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chosen.min.css') }}">
@@ -84,45 +85,71 @@
                                         <li class="menu-item">
                                             <a title="Dashboard" href="{{ route('admin.dashboard') }}">Trang chủ</a>
                                         </li>
+                                        @can('order-list')
                                         <li class="menu-item">
                                             <a title="Quản lý đơn hàng" href="{{ route('admin.orders') }}">Quản lý đơn hàng</a>
                                         </li>
+                                        @endcan
+                                        @can('category-list')
                                         <li class="menu-item">
                                             <a title="Danh mục sản phẩm" href="{{ route('admin.categories') }}">Quản lý danh mục</a>
                                         </li>
+                                        @endcan
+                                        @can('brand-list')
                                         <li class="menu-item">
                                             <a title="Thương hiệu sản phẩm" href="{{ route('admin.brands') }}">Quản lý thương hiệu</a>
                                         </li>
+                                        @endcan
+                                        @can('products-list')
                                         <li class="menu-item">
                                             <a title="Quản lý Sản phẩm" href="{{ route('admin.products') }}">Quản lý sản phẩm</a>
                                         </li>
+                                        @endcan
+                                        @can('productAtrribute-list')
                                         <li class="menu-item">
                                             <a title="Quản lý thuộc tính sản phẩm" href="{{ route('admin.attributes') }}">Quản lý thuộc tính sản phẩm</a>
                                         </li>
+                                        @endcan
+                                        @can('slider-list')
                                         <li class="menu-item">
                                             <a title="Slider trang chủ" href="{{ route('admin.homeslider') }}">Quản lý slider</a>
                                         </li>
+                                        @endcan
+                                        @can('homeCategory-list')
                                         <li class="menu-item">
                                             <a title="Danh mục trang chủ" href="{{ route('admin.homecategories') }}">Quản lý danh mục trang chủ</a>
                                         </li>
+                                        @endcan
+                                        @can('sale-list')
                                         <li class="menu-item">
                                             <a title="Quản lý thời gian sale" href="{{ route('admin.sale') }}">Quản lý thời gian khuyến mãi</a>
                                         </li>
+                                        @endcan
+                                        @can('coupon-list')
                                         <li class="menu-item">
                                             <a title="Quản lý mã giảm giá" href="{{ route('admin.coupons') }}">Quản lý mã khuyến mãi</a>
                                         </li>
+                                        @endcan
+                                        @can('feedback-list')
                                         <li class="menu-item">
                                             <a title="Quản lý phản hồi" href="{{ route('admin.contact') }}">Quản lý phản hồi</a>
                                         </li>
+                                        @endcan
+                                        @can('footer-list')
                                         <li class="menu-item">
                                             <a title="Quản lý thông tin website" href="{{ route('admin.settings') }}">Quản lý thông tin Website</a>
                                         </li>
+                                        @endcan
+                                        @can('payment-list')
                                         <li class="menu-item">
                                             <a title="Quản lý đối tác" href="{{ route('admin.payments') }}">Quản lý icon đối tác</a>
                                         </li>
+                                        @endcan
+                                        @can('posts-list')
                                         <li class="menu-item">
                                             <a title="Quản lý tin tucs" href="{{ route('admin.posts') }}">Quản lý tin tức</a>
                                         </li>
+                                        @endcan
                                         @if(Auth::user()->utype === 'SADM')
                                         <li class="menu-item">
                                             <a title="Quản lý Admin" href="{{ route('admin.list') }}">Quản lý list Admin</a>
@@ -257,7 +284,8 @@
     <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.sticky.js') }}"></script>
     <script src="{{ asset('assets/js/functions.js') }}"></script>
-    <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+    <script src="//cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <!-- <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script> -->
     <script src="https://cdn.tiny.cloud/1/eovfy0x0me91588prj1gvc4ss88ubsabp35or63sgedhbabe/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -274,7 +302,6 @@
     @livewireScripts
    <!-- Messenger Plugin chat Code -->
    <div id="fb-root"></div>
-
 <!-- Your Plugin chat code -->
 <div id="fb-customer-chat" class="fb-customerchat">
 </div>

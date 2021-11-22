@@ -24,16 +24,17 @@ class DetailsComponent extends Component
         $this->qty = 1;
         $this->currentUrl = url()->current();
     }
+    //add card
     public function store($product_id,$product_name,$product_price){
         Cart::instance('cart')->add($product_id,$product_name,$this->qty,$product_price,$this->satt)->associate('App\Models\Products');
         Session()->flash('success_message','Sản Phẩm Đã Được Thêm Vào Giỏ Hàng');
         return redirect()->route('product.cart');
     }
-
+    //tăng số lượng
     public function increaseQuantity(){
         $this->qty++;
     }
-
+    //giảm số lượng
     public function decreseQuantity(){
         if($this->qty >1){
             $this->qty--;

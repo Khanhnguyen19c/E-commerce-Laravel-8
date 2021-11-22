@@ -6,7 +6,7 @@ use App\Models\Role;
 use App\Models\role_user;
 use App\Models\User;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\DB;
 class AdminlistComponent extends Component
 {
     public function deleteAdmin($id){
@@ -20,7 +20,15 @@ class AdminlistComponent extends Component
     }
     public function render()
     {
-        $users = User::where('utype','ADM')->orwhere('utype','SADM')->paginate(12);
+        // $users = User::where('utype','ADM')->role_user()->toSql();
+
+        $users = User::whereHas('role_user', function($q)
+        {
+            $q->where('utype','ADM')->Orwhere('utype','SADM');
+
+        })->paginate(12);
+        // dd($users);
         return view('livewire.admin.adminlist-component',['users'=>$users])->layout('layouts.base');
+
     }
 }

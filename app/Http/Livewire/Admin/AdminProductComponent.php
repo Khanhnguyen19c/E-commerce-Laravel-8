@@ -10,6 +10,8 @@ use Livewire\WithPagination;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Symfony\Component\Console\Input\Input;
+
 class AdminProductComponent extends Component
 {
     use AuthorizesRequests;
@@ -40,9 +42,10 @@ class AdminProductComponent extends Component
     }
     public function import_csv(Request $request){
         $this->authorize('products-add');
-        $path = $request->file('file')->getRealPath();
-        Excel::import(new EmployeeImport, $path);
-        return back();
+            $path = $request->file('file_h')->getRealPath();
+            Excel::import(new EmployeeImport, $path);
+            return back();
+
     }
     public function render()
     {

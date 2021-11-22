@@ -131,7 +131,7 @@ route::get('products/brand/{brand_slug}',BrandComponent::class)->name('product.b
     Route::get('auth/facebook', [SocialController::class, 'redirectToFacebook']);
     Route::get('auth/facebook/callback', [SocialController::class, 'handleFacebookCallback']);
 
-    Route::group(['prefix' => 'laravel-filemanager', 'middleware'], function () {
+    Route::group(['prefix' => 'laravel-filemanager'], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
 // for user or customer
@@ -171,7 +171,7 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     route::get('/admin/products/edit/{product_slug}',AdminEditProductComponent::class)->name('admin.editproduct');
 
     //excel
-    route::get('/admin/products/Import',[AdminProductComponent::class,'import_csv'])->name('admin.import-product');
+    route::post('/admin/products/Import',[AdminProductComponent::class,'import_csv'])->name('admin.import-product');
     route::post('/admin/products/EXport',[AdminProductComponent::class,'export_csv'])->name('admin.export-product');
 
     //HomeSliders
