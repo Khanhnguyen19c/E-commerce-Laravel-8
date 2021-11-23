@@ -3,8 +3,12 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Coupon;
+use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Mail;
+
 class AdminCouponsComponent extends Component
 {
     use AuthorizesRequests;
@@ -79,10 +83,38 @@ class AdminCouponsComponent extends Component
         $coupon->delete();
         session()->flash('message_del','Xoá mã giảm giá thành công');
     }
+    //send coupon to users
+    public function sendcoupon($coupon_id){
+        $this->authorize('coupon-send');
+        $users = User::where('utype','USR')->get();
+        $coupon = Coupon::find($coupon_id);
+        $coupon_date = $coupon->expiry_date;
+        $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
+        $title_mail = "Mã khuyến mãi chỉ dành riêng cho bạn ngày".' ' .$now;
+        $data_mail= [];
+        foreach($users as $user){
+            $data_mail['email'][] = $user->email;
+        }
+
+        $coupon = array(
+            'coupon_code' => $coupon->code,
+            'coupon_value' => $coupon->value,
+            'coupon_type' => $coupon->tyle,
+            'coupon_cartvalue' => $coupon->cart_value,
+            'coupon_date' => $coupon_date,
+        );
+        Mail::send('livewire.admin.admin-MailsendCoupon-component',['coupon'=>$coupon], function($messages) use ($title_mail,$data_mail){
+            $messages->to($data_mail['email'])->subject($title_mail);//send this mail with subject
+            $messages->from($data_mail['email'],$title_mail);//send from this mail
+        });
+        session()->flash('message_del','Gửi mail thành công!');
+    }
     //refesh page
     public function refesh(){
-        $this->emitTo('admin.admin-coupons-component','refreshComponent');
+        session()->forget('message');
+        $this->emitTo('livewire.admin.admin-coupons-component','refreshComponent');
         $this->dispatchBrowserEvent('hide-form');
+
     }
     public function render()
     {

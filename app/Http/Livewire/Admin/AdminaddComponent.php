@@ -45,7 +45,8 @@ class AdminaddComponent extends Component
         $users->utype = $this->utype;
         $users->save();
         $users->roles()->attach($this->role_id);
-        session()->flash('message','Them admin thanh cong!');
+        session()->flash('message','Them admin thành công!');
+        $this->reset();
     }
     public function render()
     {

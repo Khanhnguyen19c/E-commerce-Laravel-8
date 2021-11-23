@@ -32,6 +32,7 @@ class AdminAddBrandComponent extends Component
             $brand->slug = $this->slug;
             $brand->save();
         session()->flash('message','Thêm thương hiệu thành công!');
+        $this->reset();
     }
     public function render()
     {

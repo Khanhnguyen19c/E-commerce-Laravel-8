@@ -152,7 +152,8 @@ class AdminAddProductComponent extends Component
             }
         }
         session()->flash('message','Thêm sản phẩm thành công!');
-      return redirect()->route('admin.products');
+        $this->reset();
+      return redirect()->back();
     }
 
     //validate price

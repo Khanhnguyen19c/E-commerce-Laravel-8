@@ -102,6 +102,7 @@ class PermissionsCheckAccess{
         Gate::define('coupon-add', 'App\\Policies\CouponPolicy@create');
         Gate::define('coupon-edit', 'App\\Policies\CouponPolicy@update');
         Gate::define('coupon-delete', 'App\\Policies\CouponPolicy@delete');
+        Gate::define('coupon-send', 'App\\Policies\CouponPolicy@send');
        }
 
         //feedback permission

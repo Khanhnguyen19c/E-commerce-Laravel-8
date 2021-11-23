@@ -45,6 +45,7 @@
                                     <th>Giá khuyến mãi</th>
                                     <th>Điều kiện giỏ hàng từ</th>
                                     <th>Ngày hết hạn</th>
+                                    <th>Gửi KH</th>
                                     <th>Quản lý</th>
                                 </tr>
                             </thead>
@@ -63,6 +64,11 @@
                                     <td>{{ number_format($coupon->cart_value,0,',','.')}}đ</td>
                                     <td>{{ $coupon->expiry_date }}</td>
                                     <td>
+                                    @can('coupon-send')
+                                    <div wire:loading wire:target="message_del"> <i class="fa fa-spinner fa-pulse fa-fw"></i></div>
+                                        <a wire:click.prevent="sendcoupon({{$coupon->id}})"><i class="fa fa-envelope fa-2x"></i></a></td>
+                                    @endcan
+                                    <td>
                                         <!-- <a href="{{ route('admin.editcoupon',['coupon_id'=>$coupon->id]) }}" ><i class="fa fa-edit fa-2x"></i> </a> -->
                                        @can('coupon-edit')
                                        <a wire:click.prevent="editCoupon({{$coupon->id}})"><i class="fa fa-edit fa-2x"></i></a>
@@ -70,7 +76,6 @@
                                       @can('coupon-delete')
                                       <a href="#" onclick="confirm('Bạn có chắc chắn muốn xoá mã này không?') || event.stopImmediatePropagation()" wire:click.prevent="DeleteCoupon({{ $coupon->id}})" style="margin-left: 10px; color:red"><i class="fa fa-times fa-2x"></i> </a>
                                       @endcan
-
                                     </td>
                                 </tr>
 
@@ -89,9 +94,9 @@
                 <div class="modal-header" style=" text-align: center;font-size: 18px;color: white;background-color: #7373ff;">
                     <h5 class="modal-title" style="font-size:17px;font-weight:bold;">
                         @if ($showEditModal)
-                        <span>Cập nhật thương hiệu</span>
+                        <span>Cập nhật mã giảm giá</span>
                         @else
-                        <span>Thêm thương hiệu mới</span>
+                        <span>Thêm mã giảm mới</span>
                         @endif
                     </h5>
                 </div>
@@ -133,13 +138,13 @@
                                     @error('cart_value') <p class="text-danger">{{ $message }}</p> @enderror
                                 </div>
                             </div>
-                            <div class="form-group" >
-                                <label class="col-md-4 control-label">Ngày hết hạn</label>
-                                <div class="col-md-8" wire:ignore>
-                                    <input type="text" placeholder="ngày hết hạn sử dụng" id="expiry_date" class="form-control input-md" wire:model="expiry_date">
-                                    @error('expiry_date') <p class="text-danger">{{ $message }}</p> @enderror
-                                </div>
+                            <div class="form-group">
+                            <label class="col-md-4 control-label">Ngày hết hạn</label>
+                            <div class="col-md-8" wire:ignore>
+                                <input id="expiry_date" type="text" placeholder="ngày hết hạn sử dụng" class="form-control input-md" wire:model="expiry_date">
+                                @error('expiry_date') <p class="text-danger">{{ $message }}</p> @enderror
                             </div>
+                        </div>
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
                                 <div class="col-md-8">
@@ -160,15 +165,14 @@
     </div>
 </div>
 @push('scripts')
-    <script>
+<script>
         $(function(){
             $('#expiry_date').datetimepicker({
                 format: 'Y-MM-DD'
-            })
-            .on('dp.change',function(ev){
+            }).on('dp.change',function(ev){
                 var data = $('#expiry_date').val();
                 @this.set('expiry_date',data);
             })
-        })
+        });
     </script>
 @endpush

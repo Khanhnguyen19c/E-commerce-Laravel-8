@@ -53,7 +53,9 @@ class AdminAttributeComponent extends Component
     }
 //refesh page
 public function refesh(){
-    $this->emitTo('admin.admin-attribute-component','refreshComponent');
+    session()->forget('message');
+    session()->forget('message');
+    $this->emitTo('livewre.admin.admin-attribute-component','refreshComponent');
     $this->dispatchBrowserEvent('hide-form');
 }
     public function render()

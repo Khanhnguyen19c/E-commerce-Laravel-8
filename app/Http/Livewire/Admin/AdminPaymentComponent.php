@@ -101,7 +101,8 @@ class AdminPaymentComponent extends Component
 
     //refesh page
     public function refesh(){
-        $this->emitTo('admin.admin-payment-component','refreshComponent');
+        session()->forget('message');
+        $this->emitTo('livewire.admin.admin-payment-component','refreshComponent');
         $this->dispatchBrowserEvent('hide-form');
     }
     public function render()

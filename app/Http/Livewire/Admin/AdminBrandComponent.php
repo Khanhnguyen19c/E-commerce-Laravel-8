@@ -27,9 +27,9 @@ class AdminBrandComponent extends Component
 
     //refesh page
     public function refesh(){
-        $this->emitTo('admin.admin-brand-component','refreshComponent');
-        $this->emitTo('admin.admin-add-brand-component','refreshComponent');
-        $this->emitTo('footer-component','refreshComponent');
+        $this->emitTo('livewre.admin.admin-brand-component','refreshComponent');
+        $this->emitTo('livewre.admin.admin-add-brand-component','refreshComponent');
+        $this->emitTo('livewre.footer-component','refreshComponent');
         $this->dispatchBrowserEvent('hide-form');
     }
 

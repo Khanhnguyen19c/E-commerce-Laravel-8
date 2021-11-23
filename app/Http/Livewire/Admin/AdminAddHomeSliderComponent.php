@@ -64,6 +64,7 @@ class AdminAddHomeSliderComponent extends Component
         $slider->type = $this->type;
         $slider->save();
         session()->flash('message','Thêm Hình ảnh thành công!');
+        $this->reset();
     }
     public function render()
     {

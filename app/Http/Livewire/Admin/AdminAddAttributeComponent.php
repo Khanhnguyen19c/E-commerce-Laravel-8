@@ -22,6 +22,7 @@ class AdminAddAttributeComponent extends Component
         $attribute->name = $this->name;
         $attribute->save();
         session()->flash('message','Thêm thuộc tính thành công!');
+        $this->reset();
     }
     public function render()
     {

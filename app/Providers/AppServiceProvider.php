@@ -33,7 +33,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
             view()->composer('*',function($view) {
-                $listeners = ['refresh'=>'$refreshComponent'];
                 $Cproduct_attribute = ProductAttribute::where('name','Color')->join('attribute_values','attribute_values.product_attribute_id','=','product_attributes.id')->get();
                 $Sproduct_attribute = ProductAttribute::where('name','=','Size')->join('attribute_values','attribute_values.product_attribute_id','=','product_attributes.id')->get();
                 $popular_products = Products::inRandomOrder()->limit(4)->get();
@@ -43,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
                 $categories = Category::all();
                 $payments = Payment::all();
                 $setting = Setting::find(1);
-                $view->with('brands',$brands)->with('payments',$payments)->with('setting',$setting)->with('listeners',$listeners)->with('categories',$categories)->with('sale',$sale)->with('Cproduct_attribute',$Cproduct_attribute)->with('Sproduct_attribute',$Sproduct_attribute)->with('new_product_banner',$new_product_banner)->with('popular_products',$popular_products);
+                $view->with('brands',$brands)->with('payments',$payments)->with('setting',$setting)->with('categories',$categories)->with('sale',$sale)->with('Cproduct_attribute',$Cproduct_attribute)->with('Sproduct_attribute',$Sproduct_attribute)->with('new_product_banner',$new_product_banner)->with('popular_products',$popular_products);
             });
     }
 }

@@ -91,4 +91,15 @@ class CouponPolicy
     {
         //
     }
+     /**
+     * Determine whether the user can permanently send the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Coupon  $coupon
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function send(User $user)
+    {
+        return $user->checkPermissionAccess(config('permissions.access.coupon-send'));
+    }
 }

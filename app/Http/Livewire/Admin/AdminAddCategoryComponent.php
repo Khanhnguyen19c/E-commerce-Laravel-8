@@ -54,6 +54,7 @@ class AdminAddCategoryComponent extends Component
             $category->save();
         }
         session()->flash('message','Thêm danh mục thành công!');
+        $this->reset();
     }
     public function render()
     {

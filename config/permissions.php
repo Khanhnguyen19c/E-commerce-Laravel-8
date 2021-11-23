@@ -44,6 +44,7 @@ return
          'coupon-add' => 'coupon_add',
          'coupon-edit' => 'coupon_edit',
          'coupon-delete' => 'coupon_delete',
+         'coupon-send' => 'coupon_send',
          'sale-list' => 'sale_list',
          'sale-edit' => 'sale_edit',
 

@@ -42,8 +42,9 @@ class AdminCategoryComponent extends Component
 
     //refesh category
     public function refesh(){
-        $this->emitTo('admin.admin-category-component','refreshComponent');
-        $this->emitTo('admin.admin-add-category-component','refreshComponent');
+        session()->forget('message');
+        $this->emitTo('livewre.admin.admin-category-component','refreshComponent');
+        $this->emitTo('livewre.admin.admin-add-category-component','refreshComponent');
         $this->dispatchBrowserEvent('hide-form');
     }
 

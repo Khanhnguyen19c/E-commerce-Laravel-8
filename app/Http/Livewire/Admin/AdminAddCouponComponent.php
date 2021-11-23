@@ -47,6 +47,7 @@ class AdminAddCouponComponent extends Component
         $coupon->cart_value = $this->cart_value;
         $coupon->save();
         session()->flash('message','Bạn đã thêm mã giảm giá thành công!');
+        $this->reset();
     }
     public function render()
     {

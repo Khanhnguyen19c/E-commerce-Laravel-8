@@ -39,6 +39,7 @@ class AdminaddPaymentComponent extends Component
             $payment->images= $imagesname;
             $payment->save();
             session()->flash('message','Thêm đối tác thành công!');
+            $this->reset();
     }
     public function render()
     {
