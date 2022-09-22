@@ -92,7 +92,6 @@ Route::get('lang/{loacale}', function ($locale) {
     session()->put('locale',$locale);
     return Redirect()->back();
 });
-
 Route::get('/home', HomeComponent::class)->name('home');
 Route::get('/', HomeComponent::class);
 
@@ -238,3 +237,4 @@ Route::middleware(['auth:sanctum','verified','authAdmin'])->group(function(){
     route::post('admin/permissions/add',[AdminPermissionsController::class,'store'])->name('admin.store');
 });
     });
+

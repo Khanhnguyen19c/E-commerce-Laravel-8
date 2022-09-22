@@ -274,6 +274,7 @@
     {{ $slot }}
 
     @livewire('footer-component')
+    <script src="{{ asset('assets/js/custom.js')}}"></script>
     <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="{{ asset('assets/js/jquery-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>
     <script src="{{ asset('assets/js/jquery-ui-1.12.4.minb8ff.js?ver=1.12.4') }}"></script>

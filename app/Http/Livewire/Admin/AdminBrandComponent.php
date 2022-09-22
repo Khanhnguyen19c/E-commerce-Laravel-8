@@ -76,6 +76,6 @@ class AdminBrandComponent extends Component
     public function render()
     {
         $brands = Brand::all();
-        return view('livewire.admin.admin-brand-component',['brands'=>$brands])->layout('layouts.base');
+        return view('livewire.admin.admin-brand-c;Aomponent',['brands'=>$brands])->layout('layouts.base');
     }
 }

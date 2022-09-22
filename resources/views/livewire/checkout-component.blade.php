@@ -211,7 +211,7 @@
                                 <span>Paypal</span>
                                 <span class="payment-desc">Bạn có thể thanh toán bằng tín dụng của mình</span>
                                 <div class="payment-desc" id="paypal-button" style="display: block;"></div>
-                                <input type="hidden" id="vnd_to_usd" value="{{round($vnd_to_usd,2)}}">
+                                <input type="hidden" id="vnd_to_usd" value="{{$vnd_to_usd}}">
                             </label>
                             @error('paymentmode')
                             <span class="text-danger">{{$message}}</span>

@@ -17,6 +17,7 @@
                 <div class="wrap-login-item ">
                     <div class="login-form form-item form-stl">
                     <x-jet-validation-errors class="mb-4" />
+                    
                         <form name="frm-login" method="POST" action="{{ route('login') }}">
                             @csrf
                         <fieldset class="wrap-title">
@@ -37,8 +38,6 @@
                                 <a class="link-function left-position" href="{{route('password.request')}}" title="Forgotten password?">Quên mật khẩu?</a>
                             </fieldset>
                             <fieldset class="wrap-input">
-
-
 
                             <button class="loginBtn loginBtn--facebook">
                             <a href="{{ url('auth/facebook') }}">

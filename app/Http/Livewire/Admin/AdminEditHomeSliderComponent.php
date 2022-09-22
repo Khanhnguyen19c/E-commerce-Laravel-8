@@ -72,6 +72,7 @@ class AdminEditHomeSliderComponent extends Component
             $this->newImage->storeAs('sliders',$imageName);
             $slider->image = $imageName;
         }
+        $this->link = $slider->link;
         $slider->status = $this->status;
         $slider->title = $this->title;
         $slider->type = $this->type;

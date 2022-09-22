@@ -78,7 +78,8 @@ class CartComponent extends Component
     // get coupon
     public function applyCoupon()
     {
-        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date','>=',Carbon::today())->where('cart_value', '<=', Cart::instance('cart')->subtotal())->first();
+        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date','>=',Carbon::today())->where('cart_value', '<=', str_replace(',', '',Cart::instance('cart')->subtotal()))->first();
+        // dd($coupon);
         if (!$coupon) {
             session()->flash('coupon_message', 'Mã code của bạn không hợp lệ');
             return;
@@ -98,9 +99,9 @@ class CartComponent extends Component
             if (session()->get('coupon')['type'] == 'fixed') {
                 $this->discount = session()->get('coupon')['value'];
             } else {
-                $this->discount = (Cart::instance('cart')->subtotal * session()->get('coupon')['value'] / 100);
+                $this->discount = (str_replace(',', '', Cart::instance('cart')->subtotal) * session()->get('coupon')['value'] / 100);
             }
-            $this->subtotalAfterDiscount = Cart::instance('cart')->subtotal() - $this->discount;
+            $this->subtotalAfterDiscount = str_replace(',', '', Cart::instance('cart')->subtotal() )- $this->discount;
             $this->taxAfterDiscount = ($this->subtotalAfterDiscount * config('cart.tax')) / 100;
             $this->totalAfterDiscount = $this->subtotalAfterDiscount + $this->taxAfterDiscount;
         }
@@ -137,13 +138,15 @@ class CartComponent extends Component
             ]);
         }
         else{
+
             session()->put('checkout',[
                 'discount'=> 0,
-                'subtotal'=> Cart::instance('cart')->subtotal(),
-                'tax'=> Cart::instance('cart')->tax(),
-                'total'=> Cart::instance('cart')->total()
+                'subtotal'=>  str_replace(',', '', Cart::instance('cart')->subtotal()),
+                'tax'=> str_replace(',', '',Cart::instance('cart')->tax()),
+                'total'=>  str_replace(',', '', Cart::instance('cart')->total()),
             ]);
         }
+
     }
     public function render()
     {

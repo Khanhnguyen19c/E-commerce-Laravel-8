@@ -78,7 +78,7 @@
             <div class="summary">
                 <div class="order-summary">
                     <h4 class="title-box">Giỏ hàng</h4>
-                    <p class="summary-info"><span class="title">Tổng cộng: </span><b class="index">{{ Cart::instance('cart')->subtotal(0, ',',',')}}đ </b></p>
+                    <p class="summary-info"><span class="title">Tổng cộng: </span><b class="index">{{ Cart::instance('cart')->subtotal(0, ',','.')}}đ </b></p>
                     @if (Session::has('coupon'))
                     <p class="summary-info"><span class="title">Mã Giảm : {{ Session::get('coupon')['code'] }} <a href="#" wire:click.prevent="removeCoupon"><i class="fa fa-times text-danger"></i></a></span><b class="index">-{{ number_format($discount,0,',',',') }}đ</b></p>
                     <p class="summary-info"><span class="title">Tiền đã giảm còn: </span><b class="index">{{ number_format($subtotalAfterDiscount,0,',',',') }}đ</b></p>

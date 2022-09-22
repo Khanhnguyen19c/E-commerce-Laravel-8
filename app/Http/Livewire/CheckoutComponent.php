@@ -228,7 +228,7 @@ class CheckoutComponent extends Component
         $this->province = collect();
         $this->ward = collect();
         if(Session()->get('checkout')){
-            $this->vnd_to_usd= Session()->get('checkout')['total']/23083;
+            $this->vnd_to_usd= Session()->get('checkout')['total'] /23708;
         }
 
     }

@@ -217,12 +217,9 @@
                             </div>
                         </div>
                         <div class="wrap-butons">
-
                             @if ($product->sale_price > 0 && $sale->status ==1 && $sale->sale_date > Carbon\Carbon::now())
                             <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->sale_price }})">Thêm giỏ hàng</a>
-                           
                             @else
-
                             <a href="#" class="btn add-to-cart" wire:click.prevent="store({{$product->id}},'{{ $product->name }}',{{ $product->regular_price }})">Thêm giỏ hàng</a>
                             @endif
                             @php
@@ -285,7 +282,7 @@
                                             @foreach ($product->orderItems->where('rstatus',1) as $orderItem)
                                             <li class="comment byuser comment-author-admin bypostauthor even thread-even depth-1" id="li-comment-20">
                                                 <div id="comment-20" class="comment_container">
-                                                    @if (isset($orderItem->order->user->profile->image) && $orderItem->order->user->profile->image != null)
+                                                    @if ($orderItem->order->user->profile->image != null)
                                                     <img alt="{{ $orderItem->order->user->name }}" src="{{ asset('assets/images/profile') }}/{{$orderItem->order->user->profile->image}}" height="80" width="80">
                                                     @else
                                                     <img alt="{{ $orderItem->order->user->name }}" src="{{ asset('assets/images/profile/profile_dummyDefault.png') }}" height="80" width="80">
