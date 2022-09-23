@@ -65,8 +65,8 @@
 							<li class="col-lg-4 col-md-6 col-sm-6 col-xs-6" >
 								<div class="product product-style-3 equal-elem" >
 									<div class="product-thumnail">
-                                    @if ($product->sale_price >0)
-                                    <div>
+                                    @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                         <div>
 												<span class="promotion_title" ></span>
 												<span class="promotion">-{{round($total_price)}}%</span>
 

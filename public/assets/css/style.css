@@ -7398,6 +7398,6 @@ input:checked + .slider:before {
     padding-top: 14px;
     left: 5px;
     top: 1%;
-    background: url(../Images/icon/sprite.png)-239px -62px no-repeat;
+    background: url(../images/icon/sprite.png)-239px -62px no-repeat;
   }
 
